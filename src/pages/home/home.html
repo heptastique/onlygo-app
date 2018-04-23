@@ -5,13 +5,52 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <div *ngIf="!logged; then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+    <div class="login-box">
+      <form (ngSubmit)="login()" #registerForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+
+              <ion-item>
+                <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="loginInfos.username"
+                           required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="loginInfos.password"
+                           required></ion-input>
+              </ion-item>
+
+            </ion-list>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login
+            </button>
+          </ion-col>
+        </ion-row>
+
+      </form>
+      <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div>
+      <h3> Logged as {{user.username}} </h3>
+      <p>
+        firstname: {{user.username}}
+        <br>
+        lastname: {{user.lastname}}
+        <br>
+        email: {{user.email}}
+      </p>
+    </div>
+    <div>
+      <!--button ion-button color="light" (click)="logout()">Logout</--button-->
+    </div>
+  </ng-template>
 </ion-content>
