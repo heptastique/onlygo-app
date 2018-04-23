@@ -18,5 +18,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    localStorage.clear();
   }
 }
