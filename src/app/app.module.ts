@@ -15,6 +15,7 @@ import {AuthService} from '../services/auth.service';
 import {AuthInterceptor} from '../services/auth.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UserService} from '../services/user.service';
+import {RegistrationPage} from '../pages/registration/registration';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {UserService} from '../services/user.service';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    RegistrationPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import {UserService} from '../services/user.service';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    RegistrationPage
   ],
   providers: [
     StatusBar,

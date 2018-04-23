@@ -5,6 +5,7 @@ import {LoginService} from "../../services/login.service";
 import {User} from "../../entities/user";
 import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/auth.service";
+import {RegistrationPage} from '../registration/registration';
 
 @Component({
   selector: 'page-home',
@@ -72,8 +73,8 @@ export class HomePage {
         });
   }
 
-  /* createAccount(){
+  createAccount(){
     this.navCtlr.push(RegistrationPage)
-  }*/
+  }
 }
 
