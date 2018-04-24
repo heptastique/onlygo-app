@@ -46,8 +46,8 @@ export class HomePage {
         (err) => {
           console.error(err);
           let alert = this.alertCtrl.create({
-            title: 'Authentification failed!',
-            subTitle: 'Wrong username or password!',
+            title: 'La connection a échoué',
+            subTitle: 'Mauvais mot de passe',
             buttons: ['OK']
           });
           alert.present();
@@ -65,8 +65,8 @@ export class HomePage {
         (err) => {
           console.error(err);
           let alert = this.alertCtrl.create({
-            title: 'Request failed!',
-            subTitle: 'You must be authenticated',
+            title: 'La requête a échoué.',
+            subTitle: 'Vous devez être authentifié.',
             buttons: ['OK']
           });
           alert.present();

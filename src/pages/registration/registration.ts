@@ -27,7 +27,7 @@ export class RegistrationPage {
   register(){
     if(this.user.password != this.passwordVerification){
       let alert = this.alertCtrl.create({
-        title: 'Passwords not identicals',
+        title: 'Les mots de passes ne sont pas identiques.',
         subTitle: '',
         buttons: ['OK']
       });
@@ -41,7 +41,7 @@ export class RegistrationPage {
       (err) =>{
         console.error(err);
         let alert = this.alertCtrl.create({
-          title: 'Registration failed!',
+          title: 'Erreur lors de l\'inscription.',
           subTitle: err.error.message,
           buttons: ['OK']
         });
