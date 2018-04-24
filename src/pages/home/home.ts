@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import {AlertController } from 'ionic-angular';
-import {User} from "../../entities/user";
-import {UserService} from "../../services/user.service";
+import { AlertController } from 'ionic-angular';
+import { User } from "../../entities/user";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-
 
 export class HomePage {
 

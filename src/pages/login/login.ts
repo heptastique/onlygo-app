@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
-import {LoginService} from '../../services/login.service';
-import {LoginInfos} from '../../entities/loginInfos';
-import {TabsPage} from '../tabs/tabs';
-import {RegistrationPage} from '../registration/registration';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { LoginService } from '../../services/login.service';
+import { LoginInfos } from '../../entities/loginInfos';
+import { TabsPage } from '../tabs/tabs';
+import { RegistrationPage } from '../registration/registration';
 
 @Component({
   selector: 'page-login',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {AlertController, App, NavController} from 'ionic-angular';
-import {LoginPage} from '../login/login';
-import {LoginService} from '../../services/login.service';
-import {UserService} from '../../services/user.service';
-import {AuthService} from '../../services/auth.service';
-import {User} from '../../entities/user';
+import { AlertController, App, NavController  } from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../entities/user';
 
 @Component({
   selector: 'page-preferences',
