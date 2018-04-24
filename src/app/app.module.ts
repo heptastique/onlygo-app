@@ -16,6 +16,7 @@ import {AuthInterceptor} from '../services/auth.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UserService} from '../services/user.service';
 import {RegistrationPage} from '../pages/registration/registration';
+import {LoginPage} from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {RegistrationPage} from '../pages/registration/registration';
     PreferencesPage,
     HomePage,
     TabsPage,
-    RegistrationPage
+    RegistrationPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import {RegistrationPage} from '../pages/registration/registration';
     PreferencesPage,
     HomePage,
     TabsPage,
-    RegistrationPage
+    RegistrationPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

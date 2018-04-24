@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Connection</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="login-box">
+    <form (ngSubmit)="login()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Pseudo" name="username" [(ngModel)]="loginInfos.username"
+                         required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="loginInfos.password"
+                         required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Se connecter
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+    <button ion-button class="register-btn" block clear (click)="createAccount()">Créer un compte</button>
+  </div>
+</ion-content>

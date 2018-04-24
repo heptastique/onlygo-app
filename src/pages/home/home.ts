@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
-import {LoginInfos} from "../../entities/loginInfos";
+import {AlertController, App } from 'ionic-angular';
 import {LoginService} from "../../services/login.service";
 import {User} from "../../entities/user";
 import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/auth.service";
-import {RegistrationPage} from '../registration/registration';
+import {LoginPage} from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -13,11 +12,6 @@ import {RegistrationPage} from '../registration/registration';
 })
 
 export class HomePage {
-
-  loginInfos : LoginInfos = {
-    username: "",
-    password: ""
-  };
 
   user: User = {
     username: "",
@@ -30,33 +24,17 @@ export class HomePage {
   logged = false;
 
   constructor(public alertCtrl: AlertController, private loginService: LoginService, private userService: UserService,
-              private authService: AuthService, public navCtlr: NavController)
-  { }
+              private authService: AuthService, public appCtrl: App ) { }
 
   ionViewDidLoad () {
     this.logged = this.authService.isLogged();
-  }
-
-  login() {
-    this.loginService.login(this.loginInfos)
-      .subscribe(() => {
-          this.getUser();
-          this.logged = this.authService.isLogged();
-        },
-        (err) => {
-          console.error(err);
-          let alert = this.alertCtrl.create({
-            title: 'La connection a échoué',
-            subTitle: 'Mauvais mot de passe',
-            buttons: ['OK']
-          });
-          alert.present();
-        });
+    this.getUser();
   }
 
   logout() {
     this.loginService.logout();
     this.logged = this.authService.isLogged();
+    this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 
   getUser(): void {
@@ -71,10 +49,6 @@ export class HomePage {
           });
           alert.present();
         });
-  }
-
-  createAccount(){
-    this.navCtlr.push(RegistrationPage)
   }
 }
 

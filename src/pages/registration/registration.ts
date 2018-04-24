@@ -3,6 +3,7 @@ import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../entities/user";
 import {UserService} from "../../services/user.service";
 
+
 @Component({
   selector: 'page-registration',
   templateUrl: 'registration.html',
