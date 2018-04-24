@@ -41,9 +41,15 @@ export class RegistrationPage {
     },
       (err) =>{
         console.error(err);
+        let message;
+        if(err.status == 0) {
+          message = 'Serveur injoignable';
+        }else{
+          message = err.error;
+        }
         let alert = this.alertCtrl.create({
           title: 'Erreur lors de l\'inscription.',
-          subTitle: err.error.message,
+          subTitle: message,
           buttons: ['OK']
         });
         alert.present();

@@ -31,9 +31,15 @@ export class LoginPage {
         },
         (err) => {
           console.error(err);
+          let message;
+          if(err.status == 0) {
+            message = 'Serveur injoignable';
+          }else{
+            message = err.error;
+          }
           let alert = this.alertCtrl.create({
             title: 'La connexion a échoué',
-            subTitle: 'Mauvais mot de passe',
+            subTitle: message,
             buttons: ['OK']
           });
           alert.present();
