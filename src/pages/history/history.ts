@@ -11,4 +11,5 @@ export class HistoryPage {
 
   }
 
+  Date = "Aujourd'hui";
 }
