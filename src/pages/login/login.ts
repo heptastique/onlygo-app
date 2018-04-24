@@ -32,7 +32,7 @@ export class LoginPage {
         (err) => {
           console.error(err);
           let alert = this.alertCtrl.create({
-            title: 'La connection a échoué',
+            title: 'La connexion a échoué',
             subTitle: 'Mauvais mot de passe',
             buttons: ['OK']
           });
