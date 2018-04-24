@@ -36,6 +36,11 @@ export class RegistrationPage {
     }
     this.userService.addUser(this.user).subscribe((user) => {
       this.user = user;
+        let alert = this.alertCtrl.create({
+          title: 'Registration success!',
+          buttons: ['OK']
+        });
+        alert.present();
       this.navCtrl.pop();
     },
       (err) =>{
