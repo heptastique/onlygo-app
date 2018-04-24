@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+
 import { HistoryPage } from '../pages/history/history';
 import { PreferencesPage } from '../pages/preferences/preferences';
 import { HomePage } from '../pages/home/home';
@@ -17,6 +18,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UserService} from '../services/user.service';
 import {RegistrationPage} from '../pages/registration/registration';
 import {LoginPage} from '../pages/login/login';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {LoginPage} from '../pages/login/login';
     HomePage,
     TabsPage,
     RegistrationPage,
-    LoginPage
+    LoginPage,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,

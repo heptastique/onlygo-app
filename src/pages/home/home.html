@@ -19,7 +19,16 @@
       Objectif hebdo
     </ion-card-header>
     <ion-card-content text-center="">
-      60%
+      <progress-bar [progress]="loadProgress"></progress-bar>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header text-center="">
+      Prochain entraînement
+    </ion-card-header>
+    <ion-card-content text-center="">
+      Demain 16H, à la tête d'or
     </ion-card-content>
   </ion-card>
 

@@ -8,7 +8,10 @@ import {UserService} from "../../services/user.service";
   templateUrl: 'home.html'
 })
 
+
 export class HomePage {
+
+  loadProgress = 50;
 
   user: User = {
     username: "",
