@@ -1,56 +1,40 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Accueil</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="!logged; then thenBlock else elseBlock"></div>
-  <ng-template #thenBlock>
-    <div class="login-box">
-      <form (ngSubmit)="login()" #registerForm="ngForm">
-        <ion-row>
-          <ion-col>
-            <ion-list inset>
+  <ion-card>
+    <ion-card-header text-center="">
+      Maintenant
+    </ion-card-header>
+    <ion-card-content text-center="">
+      <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"></ion-icon>
+    </ion-card-content>
+  </ion-card>
 
-              <ion-item>
-                <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="loginInfos.username"
-                           required></ion-input>
-              </ion-item>
+  <ion-card>
+    <ion-card-header text-center="">
+      Objectif hebdo
+    </ion-card-header>
+    <ion-card-content text-center="">
+      <progress-bar [progress]="loadProgress"></progress-bar>
+    </ion-card-content>
+  </ion-card>
 
-              <ion-item>
-                <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="loginInfos.password"
-                           required></ion-input>
-              </ion-item>
+  <ion-card>
+    <ion-card-header text-center="">
+      Prochain entraînement
+    </ion-card-header>
+    <ion-card-content text-center="">
+      Demain 16H, à la tête d'or
+    </ion-card-content>
+  </ion-card>
 
-            </ion-list>
-          </ion-col>
-        </ion-row>
+  <ion-fab right bottom>
+    <button ion-fab ><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 
-        <ion-row>
-          <ion-col class="signup-col">
-            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login
-            </button>
-          </ion-col>
-        </ion-row>
-
-      </form>
-      <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button>
-    </div>
-  </ng-template>
-  <ng-template #elseBlock>
-    <div>
-      <h3> Logged as {{user.username}} </h3>
-      <p>
-        firstname: {{user.username}}
-        <br>
-        lastname: {{user.lastname}}
-        <br>
-        email: {{user.email}}
-      </p>
-    </div>
-    <div>
-      <button ion-button color="light" (click)="logout()">Logout</button>
-    </div>
-  </ng-template>
 </ion-content>
+

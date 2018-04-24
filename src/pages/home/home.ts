@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
-import {LoginInfos} from "../../entities/loginInfos";
-import {LoginService} from "../../services/login.service";
-import {User} from "../../entities/user";
-import {UserService} from "../../services/user.service";
-import {AuthService} from "../../services/auth.service";
-import {RegistrationPage} from '../registration/registration';
+import { AlertController } from 'ionic-angular';
+import { User } from "../../entities/user";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'page-home',
@@ -14,10 +10,7 @@ import {RegistrationPage} from '../registration/registration';
 
 export class HomePage {
 
-  loginInfos : LoginInfos = {
-    username: "",
-    password: ""
-  };
+  loadProgress = 50;
 
   user: User = {
     username: "",
@@ -27,36 +20,10 @@ export class HomePage {
     email: ""
   };
 
-  logged = false;
-
-  constructor(public alertCtrl: AlertController, private loginService: LoginService, private userService: UserService,
-              private authService: AuthService, public navCtlr: NavController)
-  { }
+  constructor(public alertCtrl: AlertController, private userService: UserService) { }
 
   ionViewDidLoad () {
-    this.logged = this.authService.isLogged();
-  }
-
-  login() {
-    this.loginService.login(this.loginInfos)
-      .subscribe(() => {
-          this.getUser();
-          this.logged = this.authService.isLogged();
-        },
-        (err) => {
-          console.error(err);
-          let alert = this.alertCtrl.create({
-            title: 'Authentification failed!',
-            subTitle: 'Wrong username or password!',
-            buttons: ['OK']
-          });
-          alert.present();
-        });
-  }
-
-  logout() {
-    this.loginService.logout();
-    this.logged = this.authService.isLogged();
+    this.getUser();
   }
 
   getUser(): void {
@@ -65,16 +32,12 @@ export class HomePage {
         (err) => {
           console.error(err);
           let alert = this.alertCtrl.create({
-            title: 'Request failed!',
-            subTitle: 'You must be authenticated',
+            title: 'La requête a échoué.',
+            subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
             buttons: ['OK']
           });
           alert.present();
         });
-  }
-
-  createAccount(){
-    this.navCtlr.push(RegistrationPage)
   }
 }
 
