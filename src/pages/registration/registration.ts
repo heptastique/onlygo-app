@@ -42,7 +42,7 @@ export class RegistrationPage {
         console.error(err);
         let message;
         if(err.status == 0) {
-          message = 'Serveur injoignable';
+          message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
         }else{
           message = err.error;
         }

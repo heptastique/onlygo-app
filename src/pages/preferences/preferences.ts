@@ -36,7 +36,7 @@ export class PreferencesPage {
           console.error(err);
           let alert = this.alertCtrl.create({
             title: 'La requête a échoué.',
-            subTitle: 'Vous devez être authentifié.',
+            subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
             buttons: ['OK']
           });
           alert.present();
