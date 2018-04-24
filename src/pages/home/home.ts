@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import {AlertController, App } from 'ionic-angular';
-import {LoginService} from "../../services/login.service";
+import {AlertController } from 'ionic-angular';
 import {User} from "../../entities/user";
 import {UserService} from "../../services/user.service";
-import {AuthService} from "../../services/auth.service";
-import {LoginPage} from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -21,20 +18,10 @@ export class HomePage {
     email: ""
   };
 
-  logged = false;
-
-  constructor(public alertCtrl: AlertController, private loginService: LoginService, private userService: UserService,
-              private authService: AuthService, public appCtrl: App ) { }
+  constructor(public alertCtrl: AlertController, private userService: UserService) { }
 
   ionViewDidLoad () {
-    this.logged = this.authService.isLogged();
     this.getUser();
-  }
-
-  logout() {
-    this.loginService.logout();
-    this.logged = this.authService.isLogged();
-    this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 
   getUser(): void {
