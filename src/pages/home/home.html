@@ -14,12 +14,12 @@
             <ion-list inset>
 
               <ion-item>
-                <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="loginInfos.username"
+                <ion-input type="text" placeholder="Pseudo" name="username" [(ngModel)]="loginInfos.username"
                            required></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="loginInfos.password"
+                <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="loginInfos.password"
                            required></ion-input>
               </ion-item>
 
@@ -29,24 +29,24 @@
 
         <ion-row>
           <ion-col class="signup-col">
-            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Se connecter
             </button>
           </ion-col>
         </ion-row>
 
       </form>
-      <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button>
+      <button ion-button class="register-btn" block clear (click)="createAccount()">Créer un compte</button>
     </div>
   </ng-template>
   <ng-template #elseBlock>
     <div>
-      <h3> Logged as {{user.username}} </h3>
+      <h3> Connecté en tant que {{user.username}} </h3>
       <p>
-        firstname: {{user.username}}
+        Prénom : {{user.username}}
         <br>
-        lastname: {{user.lastname}}
+        Nom : {{user.lastname}}
         <br>
-        email: {{user.email}}
+        E-mail: {{user.email}}
       </p>
     </div>
     <div>
