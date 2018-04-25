@@ -16,7 +16,7 @@ export class HomePage {
   color =  'black';
   thumbup =  true;
   evaluation: Evaluation ={
-    note: 1
+    note: null
   };
 
   loadProgress = 50;
