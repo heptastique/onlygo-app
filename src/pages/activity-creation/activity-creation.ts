@@ -9,6 +9,9 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ActivityCreationPage {
 
+  date;
+  sports;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
