@@ -15,7 +15,9 @@ export class HomePage {
 
   color =  'black';
   thumbup =  true;
-  evaluation: Evaluation;
+  evaluation: Evaluation ={
+    note: 1
+  };
 
   loadProgress = 50;
 
@@ -38,8 +40,16 @@ export class HomePage {
   getEvaluation(){
     this.evaluationService.getEvaluationNow().subscribe(
       evaluation => {
+        if(evaluation == null){
+          let alert = this.alertCtrl.create({
+            title: 'La requête a échoué.',
+            subTitle: 'Pas de note',
+            buttons: ['OK']
+          });
+          alert.present();
+          return;
+        }
         this.evaluation = evaluation;
-        console.log(this.evaluation.note);
         if(this.evaluation.note<0.5){
           this.thumbup = false;
           this.color='red';
