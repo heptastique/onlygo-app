@@ -19,6 +19,9 @@ import { UserService } from '../services/user.service';
 import { RegistrationPage } from '../pages/registration/registration';
 import { LoginPage } from '../pages/login/login';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
+import {ActivityService} from '../services/activity.service';
+import {SportService} from '../services/sport.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
     TabsPage,
     RegistrationPage,
     LoginPage,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ActivityCreationPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,8 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
     HomePage,
     TabsPage,
     RegistrationPage,
-    LoginPage
+    LoginPage,
+    ActivityCreationPage
   ],
   providers: [
     StatusBar,
@@ -57,7 +62,9 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
       useClass: AuthInterceptor,
       multi: true
     },
-    UserService
+    UserService,
+    ActivityService,
+    SportService
   ]
 })
 export class AppModule {}

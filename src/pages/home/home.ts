@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
+import {ActivityCreationPage} from '../activity-creation/activity-creation';
 
 @Component({
   selector: 'page-home',
@@ -20,7 +21,7 @@ export class HomePage {
     email: ""
   };
 
-  constructor(public alertCtrl: AlertController, private userService: UserService) { }
+  constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController) { }
 
   ionViewDidLoad () {
     this.getUser();
@@ -38,6 +39,10 @@ export class HomePage {
           });
           alert.present();
         });
+  }
+
+  createActivity(): void{
+    this.navCtrl.push(ActivityCreationPage);
   }
 }
 
