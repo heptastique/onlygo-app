@@ -21,6 +21,7 @@ import { LoginPage } from '../pages/login/login';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
 import {ActivityService} from '../services/activity.service';
+import {SportService} from '../services/sport.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {ActivityService} from '../services/activity.service';
       multi: true
     },
     UserService,
-    ActivityService
+    ActivityService,
+    SportService
   ]
 })
 export class AppModule {}

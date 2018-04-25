@@ -17,9 +17,7 @@
             <ion-item>
               <ion-label>Sports</ion-label>
               <ion-select [(ngModel)]="activity.sport" required name ="sports">
-                <ion-option>Course</ion-option>
-                <ion-option>Vélo</ion-option>
-                <ion-option>Marche</ion-option>
+                <ion-option *ngFor="let sport of sports" [value]="activity.sport"></ion-option>
               </ion-select>
             </ion-item>
 
