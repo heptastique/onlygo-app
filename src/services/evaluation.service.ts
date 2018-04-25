@@ -5,7 +5,7 @@ import {API_SERVER} from '../app/app.constants';
 import {Evaluation} from '../entities/evaluation';
 
 @Injectable()
-export class SportService {
+export class EvaluationService {
 
   constructor(private http: HttpClient) {
   }
@@ -14,5 +14,5 @@ export class SportService {
     const url = `${API_SERVER.evaluation}/now`;
     return this.http.get<Evaluation>(url);
   }
-  
+
 }
