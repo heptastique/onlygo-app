@@ -10,7 +10,12 @@
       Maintenant
     </ion-card-header>
     <ion-card-content text-center="">
-      <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"></ion-icon>
+      <div *ngIf="thumbup; else elseBlock">
+        <ion-icon ios="ios-thumbs-up" md="md-thumbs-up" [ngStyle]="{'color': color}"></ion-icon>
+      </div>
+      <ng-template #elseBlock>
+        <ion-icon ios="ios-thumbs-down" md="md-thumbs-down" [ngStyle]="{'color': color}"></ion-icon>
+      </ng-template>
     </ion-card-content>
   </ion-card>
 

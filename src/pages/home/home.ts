@@ -11,6 +11,10 @@ import {ActivityCreationPage} from '../activity-creation/activity-creation';
 
 export class HomePage {
 
+  color =  'yellow';
+
+  thumbup =  true;
+
   loadProgress = 50;
 
   user: User = {
