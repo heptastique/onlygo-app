@@ -20,6 +20,7 @@ import { RegistrationPage } from '../pages/registration/registration';
 import { LoginPage } from '../pages/login/login';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
+import {ActivityService} from '../services/activity.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {ActivityCreationPage} from '../pages/activity-creation/activity-creation
       useClass: AuthInterceptor,
       multi: true
     },
-    UserService
+    UserService,
+    ActivityService
   ]
 })
 export class AppModule {}

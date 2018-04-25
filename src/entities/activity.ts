@@ -4,6 +4,6 @@ import {Programme} from './programme';
 export class Activity{
   sport: Sport;
   distance: number;
-  date: string;
+  date: any;
   programme: Programme;
 }

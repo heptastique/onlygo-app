@@ -16,7 +16,7 @@
 
             <ion-item>
               <ion-label>Sports</ion-label>
-              <ion-select [(ngModel)]="sports" required name ="sports">
+              <ion-select [(ngModel)]="activity.sport" required name ="sports">
                 <ion-option>Course</ion-option>
                 <ion-option>Vélo</ion-option>
                 <ion-option>Marche</ion-option>
@@ -24,12 +24,12 @@
             </ion-item>
 
             <ion-item>
-              <ion-input type="number" min="0" placeholder="Distance" required name="distance"></ion-input>
+              <ion-input type="number" min="0" placeholder="Distance" required name="distance" [(ngModel)]="activity.distance"></ion-input>
             </ion-item>
 
             <ion-item>
               <ion-label>Date</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date" required name="date"></ion-datetime>
+              <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="activity.date" required name="date"></ion-datetime>
             </ion-item>
 
           </ion-list>
