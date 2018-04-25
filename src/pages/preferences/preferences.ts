@@ -12,8 +12,6 @@ import { User } from '../../entities/user';
 })
 export class PreferencesPage {
 
-  passwordVerification;
-
   user: User = {
     username: "",
     password: "",
@@ -52,18 +50,9 @@ export class PreferencesPage {
         });
   }
 
-  update(){
-    if(this.user.password != this.passwordVerification){
-      let alert = this.alertCtrl.create({
-        title: 'Les mots de passes ne sont pas identiques.',
-        subTitle: '',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
-    }
-    this.userService.updateUser(this.user).subscribe(
-      user => { this.user = user; },
+  updateObjectif(){
+    this.userService.updateObjectif(this.user.objectif).subscribe(
+      () => {  },
       (err) => {
         let message;
         if(err.status == 0) {

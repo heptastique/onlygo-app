@@ -42,12 +42,12 @@ export class UserService {
   }
 
   /**
-   * Update an user
-   * @param {User} user
-   * @returns {Observable<User>}
+   * Update objectif
+   * @param {number} objectif
+   * @returns {Observable<any>}
    */
-  updateUser(user: User): Observable<User>{
-    const url = `${API_SERVER.user}/add`;
-    return this.http.put<User>(url, user, httpOptions);
+  updateObjectif(objectif: number): Observable<any>{
+    const url = `${API_SERVER.user}/updateObjectif`;
+    return this.http.put<any>(url, objectif, httpOptions);
   }
 }
