@@ -34,13 +34,47 @@ export class PreferencesPage {
       .subscribe(user => { this.user = user; },
         (err) => {
           console.error(err);
+          let message;
+          if(err.status == 0) {
+            message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
+          }else{
+            message = err.error;
+          }
           let alert = this.alertCtrl.create({
-            title: 'La requête a échoué.',
-            subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
+            title: 'Erreur',
+            subTitle: message,
             buttons: ['OK']
           });
           alert.present();
         });
+  }
+
+  update(){
+    if(this.user.password != this.passwordVerification){
+      let alert = this.alertCtrl.create({
+        title: 'Les mots de passes ne sont pas identiques.',
+        subTitle: '',
+        buttons: ['OK']
+      });
+      alert.present();
+      return;
+    }
+    this.userService.updateUser(this.user).subscribe(
+      user => { this.user = user; },
+      (err) => {
+        let message;
+        if(err.status == 0) {
+          message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
+        }else{
+          message = err.error;
+        }
+        let alert = this.alertCtrl.create({
+          title: 'Erreur lors de la mise à jour.',
+          subTitle: message,
+          buttons: ['OK']
+        });
+        alert.present();
+      });
   }
 
   logout() {
