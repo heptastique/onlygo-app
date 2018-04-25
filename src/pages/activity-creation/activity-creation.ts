@@ -14,8 +14,8 @@ import {SportService} from '../../services/sport.service';
 export class ActivityCreationPage {
 
   activity: Activity = {
-    sport: null,
-    programme: null,
+    sportName: null,
+    programmeId: null,
     distance: 0,
     date: null
   };
