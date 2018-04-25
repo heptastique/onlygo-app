@@ -17,7 +17,8 @@ export class HomePage {
     password: "",
     firstname: "",
     lastname: "",
-    email: ""
+    email: "",
+    objectif: null
   };
 
   constructor(public alertCtrl: AlertController, private userService: UserService) { }
