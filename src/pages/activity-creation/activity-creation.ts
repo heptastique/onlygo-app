@@ -57,10 +57,11 @@ export class ActivityCreationPage {
     this.activityService.addActivity(this.activity).subscribe(
       () => {
         let alert = this.alertCtrl.create({
-          title: 'Activité enregistré !',
+          title: 'Activité enregistrée !',
           buttons: ['OK']
         });
         alert.present();
+        this.navCtrl.pop();
       },
       (err) =>{
         console.error(err);
