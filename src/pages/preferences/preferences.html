@@ -7,17 +7,49 @@
 </ion-header>
 
 <ion-content padding>
-  <div>
-    <h3> Connecté en tant que {{user.username}} </h3>
-    <p>
-      Prénom : {{user.username}}
-      <br>
-      Nom : {{user.lastname}}
-      <br>
-      E-mail: {{user.email}}
-    </p>
+  <div class="registration-box">
+    <form (ngSubmit)="update()" #creationForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="E-mail" name="email" [(ngModel)]="user.email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="Nouveau mot de passe" name="password" [(ngModel)]="user.password"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="Confirmation mot de passe" name="passwordVerification"
+                         [(ngModel)]="passwordVerification"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked>Objectifs caloriques</ion-label>
+              <ion-input type="number" min="0" placeholder="Objectifs caloriques " name="objectif"
+                         [(ngModel)]="user.objectif"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit">Mettre à jour
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </form>
   </div>
   <div>
-    <button ion-button color="light" (click)="logout()">Logout</button>
+    <ion-row>
+      <ion-col>
+        <button ion-button color="light" full (click)="logout()">Logout</button>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>
