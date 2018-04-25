@@ -40,4 +40,14 @@ export class UserService {
     const url = `${API_SERVER.user}/add`;
     return this.http.post<User>(url, user, httpOptions);
   }
+
+  /**
+   * Update an user
+   * @param {User} user
+   * @returns {Observable<User>}
+   */
+  updateUser(user: User): Observable<User>{
+    const url = `${API_SERVER.user}/add`;
+    return this.http.put<User>(url, user, httpOptions);
+  }
 }

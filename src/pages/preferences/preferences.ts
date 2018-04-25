@@ -12,12 +12,15 @@ import { User } from '../../entities/user';
 })
 export class PreferencesPage {
 
+  passwordVerification;
+
   user: User = {
     username: "",
     password: "",
     firstname: "",
     lastname: "",
-    email: ""
+    email: "",
+    objectif: null
   };
 
   logged = false;
