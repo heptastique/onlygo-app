@@ -1,4 +1,3 @@
-import {Programme} from './programme';
 
 export class Activity{
   sportName: string;
