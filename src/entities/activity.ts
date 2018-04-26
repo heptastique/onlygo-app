@@ -1,6 +1,7 @@
+import {Sport} from './sport';
 
 export class Activity{
-  sportName: string;
+  sport: Sport;
   distance: number;
   date: any;
   programmeId: number;

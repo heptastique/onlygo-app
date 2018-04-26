@@ -1,9 +1,9 @@
-import {Activity} from './activity';
 import {User} from './user';
+import {Activity} from './activity';
 import {Realisation} from './realisation';
 
 export class Programme{
-  activities: Activity[];
+  activites: Activity[];
   user: User;
   realisations: Realisation[];
 }

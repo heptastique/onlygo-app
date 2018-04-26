@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {AlertController, NavController, NavParams} from 'ionic-angular';
+import {Programme} from '../../entities/programme';
+import {ProgrammeService} from '../../services/programme.service';
+
 
 @Component({
   selector: 'page-programme',
@@ -7,11 +10,32 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ProgrammePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  programme : Programme = {
+    activites: null,
+    realisations: null,
+    user: null
+  };
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private programmeService: ProgrammeService,
+              public alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProgrammePage');
+    this.getProgramme();
   }
 
+  getProgramme() {
+    this.programmeService.getProgramme().subscribe(
+      (programme) => {
+        this.programme=programme;
+      },
+      (err) => {
+        console.error(err);
+        let alert = this.alertCtrl.create({
+          title: 'La requête a échoué.',
+          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
+  }
 }

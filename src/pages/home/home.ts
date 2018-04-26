@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
-import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {EvaluationService} from '../../services/evaluation.service';
 import {Evaluation} from '../../entities/evaluation';
 import {ActivityPage} from '../activity/activity';

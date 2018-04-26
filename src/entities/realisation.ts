@@ -1,5 +1,5 @@
-import {Activity} from './activity';
+import {ActivityDTO} from './activityDTO';
 
 export class Realisation {
-  activity: Activity;
+  activity: ActivityDTO;
 }
