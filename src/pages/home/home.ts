@@ -6,6 +6,7 @@ import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {EvaluationService} from '../../services/evaluation.service';
 import {Evaluation} from '../../entities/evaluation';
 import {ActivityPage} from '../activity/activity';
+import {ProgrammePage} from '../programme/programme';
 
 @Component({
   selector: 'page-home',
@@ -86,6 +87,10 @@ export class HomePage {
 
   createActivity(): void{
     this.navCtrl.push(ActivityPage);
+  }
+
+  seeProgramme(){
+    this.navCtrl.push(ProgrammePage);
   }
 }
 
