@@ -5,6 +5,7 @@ import { UserService } from "../../services/user.service";
 import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {EvaluationService} from '../../services/evaluation.service';
 import {Evaluation} from '../../entities/evaluation';
+import {ActivityPage} from '../activity/activity';
 
 @Component({
   selector: 'page-home',
@@ -30,7 +31,8 @@ export class HomePage {
   };
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService) { }
+              private evaluationService: EvaluationService) {}
+
 
   ionViewDidLoad () {
     this.getUser();
@@ -83,7 +85,7 @@ export class HomePage {
   }
 
   createActivity(): void{
-    this.navCtrl.push(ActivityCreationPage);
+    this.navCtrl.push(ActivityPage);
   }
 }
 

@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 import { HistoryPage } from '../pages/history/history';
@@ -23,6 +24,8 @@ import {ActivityCreationPage} from '../pages/activity-creation/activity-creation
 import {ActivityService} from '../services/activity.service';
 import {SportService} from '../services/sport.service';
 import {EvaluationService} from '../services/evaluation.service';
+import {GeolocationService} from '../services/geolocation.service';
+import {ActivityPage} from '../pages/activity/activity';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import {EvaluationService} from '../services/evaluation.service';
     RegistrationPage,
     LoginPage,
     ProgressBarComponent,
-    ActivityCreationPage
+    ActivityCreationPage,
+    ActivityPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import {EvaluationService} from '../services/evaluation.service';
     TabsPage,
     RegistrationPage,
     LoginPage,
-    ActivityCreationPage
+    ActivityCreationPage,
+    ActivityPage
   ],
   providers: [
     StatusBar,
@@ -66,7 +71,9 @@ import {EvaluationService} from '../services/evaluation.service';
     UserService,
     ActivityService,
     SportService,
-    EvaluationService
+    EvaluationService,
+    Geolocation,
+    GeolocationService
   ]
 })
 export class AppModule {}
