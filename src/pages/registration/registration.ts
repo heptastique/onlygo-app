@@ -16,7 +16,9 @@ export class RegistrationPage {
     password: "",
     firstname: "",
     lastname: "",
-    email: ""
+    email: "",
+    objectifHebdo: null,
+    location: null
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService,
