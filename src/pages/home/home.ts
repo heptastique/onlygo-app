@@ -3,6 +3,7 @@ import {AlertController, NavController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
 import {ActivityCreationPage} from '../activity-creation/activity-creation';
+import {GeolocationService} from '../../services/geolocation.service';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +22,10 @@ export class HomePage {
     email: ""
   };
 
-  constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController) { }
+  constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
+              private geolocationService: GeolocationService) {
+    this.geolocationService.startRecording(1000);
+  }
 
   ionViewDidLoad () {
     this.getUser();
@@ -43,6 +47,7 @@ export class HomePage {
 
   createActivity(): void{
     this.navCtrl.push(ActivityCreationPage);
+    this.geolocationService.stopRecording();
   }
 }
 

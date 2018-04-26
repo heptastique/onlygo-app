@@ -3,9 +3,12 @@ import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/observable/interval';
 import { Geolocation } from '@ionic-native/geolocation';
 import 'rxjs/add/operator/filter';
+import {Gpscoordinates} from '../entities/gpscoordinates';
 
 @Injectable()
 export class GeolocationService {
+
+  activityCoord: Gpscoordinates [];
 
   sub;
 
@@ -21,6 +24,7 @@ export class GeolocationService {
     this.sub = this.geolocation.watchPosition(this.options)
       .filter((p) => p.coords !== undefined) //Filter Out Errors
       .subscribe(position => {
+        this.activityCoord.push(position.coords);
         console.log(position.coords.longitude + ' ' + position.coords.latitude);
       });
   }

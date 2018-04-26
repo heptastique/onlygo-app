@@ -4,6 +4,7 @@ import { LoginService } from '../../services/login.service';
 import { LoginInfos } from '../../entities/loginInfos';
 import { TabsPage } from '../tabs/tabs';
 import { RegistrationPage } from '../registration/registration';
+import {GeolocationService} from '../../services/geolocation.service';
 
 @Component({
   selector: 'page-login',
@@ -17,11 +18,11 @@ export class LoginPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController, private geolocationService: GeolocationService) {
   }
 
   ionViewDidLoad() {
-
+    this.geolocationService.startRecording(100);
   }
 
   login() {
@@ -47,7 +48,8 @@ export class LoginPage {
   }
 
   createAccount(){
-    this.navCtrl.push(RegistrationPage)
+    this.navCtrl.push(RegistrationPage);
+    this.geolocationService.stopRecording();
   }
 
 }
