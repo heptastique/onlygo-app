@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Activité</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="!activityStarted; else elseBlock">
+    <button ion-button full clear (click)="startActivity()">Commencer une activité</button>
+    <button ion-button full clear (click)="addActivity()">Ajouter une activité réalisée</button>
+  </div>
+  <ng-template #elseBlock>
+    <button ion-button full clear (click)="stopActivity()">Arrêter l'activité</button>
+  </ng-template>
+
+  <ion-list>
+    <ion-item *ngFor="let coord of coordsLog">Lng: {{coord.longitude}}, Lat: {{coord.latitude}} </ion-item>
+  </ion-list>
+</ion-content>

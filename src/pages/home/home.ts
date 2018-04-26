@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
-import {ActivityCreationPage} from '../activity-creation/activity-creation';
-import {GeolocationService} from '../../services/geolocation.service';
+import {ActivityPage} from '../activity/activity';
 
 @Component({
   selector: 'page-home',
@@ -22,13 +21,11 @@ export class HomePage {
     email: ""
   };
 
-  constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private geolocationService: GeolocationService) {}
+  constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController) {}
 
 
   ionViewDidLoad () {
     this.getUser();
-    this.geolocationService.startRecording(5000);
   }
 
   getUser(): void {
@@ -46,9 +43,7 @@ export class HomePage {
   }
 
   createActivity(): void{
-    this.navCtrl.push(ActivityCreationPage);
-    this.geolocationService.stopRecording();
-    console.log(this.geolocationService.getListCoord());
+    this.navCtrl.push(ActivityPage);
   }
 }
 

@@ -11,6 +11,11 @@ export class GeolocationService {
 
   activityCoords : Gpscoordinates [] = [];
 
+  coord: Gpscoordinates = {
+    latitude: null,
+    longitude: null
+  };
+
   constructor(private geolocation: Geolocation ) {
   }
 
@@ -26,13 +31,13 @@ export class GeolocationService {
       });
   }
 
-  getPos(){
+  getPos():Gpscoordinates{
      this.geolocation.getCurrentPosition().then((resp) => {
-      this.activityCoords.push(resp.coords);
-      console.log(resp.coords);
+      this.coord = resp.coords;
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+     return this.coord;
   }
 
   stopRecording(){
