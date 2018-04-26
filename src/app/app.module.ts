@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 import { HistoryPage } from '../pages/history/history';
@@ -19,6 +20,12 @@ import { UserService } from '../services/user.service';
 import { RegistrationPage } from '../pages/registration/registration';
 import { LoginPage } from '../pages/login/login';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
+import {ActivityService} from '../services/activity.service';
+import {SportService} from '../services/sport.service';
+import {EvaluationService} from '../services/evaluation.service';
+import {GeolocationService} from '../services/geolocation.service';
+import {ActivityPage} from '../pages/activity/activity';
 
 @NgModule({
   declarations: [
@@ -29,7 +36,9 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
     TabsPage,
     RegistrationPage,
     LoginPage,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ActivityCreationPage,
+    ActivityPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,9 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
     HomePage,
     TabsPage,
     RegistrationPage,
-    LoginPage
+    LoginPage,
+    ActivityCreationPage,
+    ActivityPage
   ],
   providers: [
     StatusBar,
@@ -57,7 +68,12 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
       useClass: AuthInterceptor,
       multi: true
     },
-    UserService
+    UserService,
+    ActivityService,
+    SportService,
+    EvaluationService,
+    Geolocation,
+    GeolocationService
   ]
 })
 export class AppModule {}

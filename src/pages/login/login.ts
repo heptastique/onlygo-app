@@ -21,7 +21,6 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-
   }
 
   login() {
@@ -47,7 +46,6 @@ export class LoginPage {
   }
 
   createAccount(){
-    this.navCtrl.push(RegistrationPage)
+    this.navCtrl.push(RegistrationPage);
   }
-
 }

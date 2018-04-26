@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
+import {ActivityCreationPage} from '../activity-creation/activity-creation';
+import {EvaluationService} from '../../services/evaluation.service';
+import {Evaluation} from '../../entities/evaluation';
+import {ActivityPage} from '../activity/activity';
 
 @Component({
   selector: 'page-home',
@@ -9,6 +13,12 @@ import { UserService } from "../../services/user.service";
 })
 
 export class HomePage {
+
+  color =  'black';
+  thumbup =  true;
+  evaluation: Evaluation ={
+    note: null
+  };
 
   loadProgress = 50;
 
@@ -21,10 +31,44 @@ export class HomePage {
     objectif: null
   };
 
-  constructor(public alertCtrl: AlertController, private userService: UserService) { }
+  constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
+              private evaluationService: EvaluationService) {}
+
 
   ionViewDidLoad () {
     this.getUser();
+    this.getEvaluation();
+  }
+
+  getEvaluation(){
+    this.evaluationService.getEvaluationNow().subscribe(
+      evaluation => {
+        if(evaluation == null){
+          let alert = this.alertCtrl.create({
+            title: 'La requête a échoué.',
+            subTitle: 'Pas de note',
+            buttons: ['OK']
+          });
+          alert.present();
+          return;
+        }
+        this.evaluation = evaluation;
+        if(this.evaluation.note<0.5){
+          this.thumbup = false;
+          this.color='red';
+        }else{
+          this.thumbup = true;
+          this.color='green';
+        }},
+      (err) => {
+        console.error(err);
+        let alert = this.alertCtrl.create({
+          title: 'La requête a échoué.',
+          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
   }
 
   getUser(): void {
@@ -39,6 +83,10 @@ export class HomePage {
           });
           alert.present();
         });
+  }
+
+  createActivity(): void{
+    this.navCtrl.push(ActivityPage);
   }
 }
 

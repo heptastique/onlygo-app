@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Création d'une activité</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="registration-box">
+    <form (ngSubmit)="validate()" #creationForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-label>Sports</ion-label>
+              <ion-select [(ngModel)]="activity.sportName" required name ="sports">
+                <ion-option *ngFor="let sportName of sports" [value]="sportName.nom"> {{sportName.nom}}</ion-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked>Distance en km</ion-label>
+              <ion-input type="number" min="0" placeholder="Distance en Km" required name="distance" [(ngModel)]="activity.distance"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Date</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="activity.date" required name="date"></ion-datetime>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!creationForm.form.valid">Valider
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+
+</ion-content>
