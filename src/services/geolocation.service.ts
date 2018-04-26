@@ -32,4 +32,8 @@ export class GeolocationService {
   stopRecording(){
     this.sub.unsubscribe();
   }
+
+  getListCoord(): Gpscoordinates[]{
+    return this.activityCoord;
+  }
 }

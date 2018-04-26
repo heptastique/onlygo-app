@@ -5,12 +5,15 @@ import { LoginInfos } from '../../entities/loginInfos';
 import { TabsPage } from '../tabs/tabs';
 import { RegistrationPage } from '../registration/registration';
 import {GeolocationService} from '../../services/geolocation.service';
+import {Gpscoordinates} from '../../entities/gpscoordinates';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
+  activityCoord: Gpscoordinates [];
 
   loginInfos : LoginInfos = {
     username: "",
@@ -26,6 +29,7 @@ export class LoginPage {
   }
 
   login() {
+    this.activityCoord = this.geolocationService.getListCoord();
     this.loginService.login(this.loginInfos)
       .subscribe(() => {
           this.navCtrl.setRoot(TabsPage);
@@ -50,6 +54,7 @@ export class LoginPage {
   createAccount(){
     this.navCtrl.push(RegistrationPage);
     this.geolocationService.stopRecording();
+
   }
 
 }
