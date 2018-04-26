@@ -1,4 +1,4 @@
 export class Gps_Coordinates{
-  latitude: number;
-  longitude: number;
+  x: number;
+  y: number;
 }

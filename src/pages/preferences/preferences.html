@@ -6,18 +6,16 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div>
-    <h3> Connecté en tant que {{user.username}} </h3>
-    <p>
-      Prénom : {{user.username}}
-      <br>
-      Nom : {{user.lastname}}
-      <br>
-      E-mail: {{user.email}}
-    </p>
+    <ion-list>
+      <ion-item (click)="updateObjectif()">Objectif</ion-item>
+      <ion-item (click)="updateLocalisation()">Localisation préférée</ion-item>
+    </ion-list>
   </div>
+
   <div>
-    <button ion-button color="light" (click)="logout()">Logout</button>
+    <button ion-button color="light" full (click)="logout()">Logout</button>
   </div>
+
 </ion-content>
