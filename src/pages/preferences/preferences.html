@@ -6,37 +6,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="registration-box">
-    <form (ngSubmit)="updateObjectif()" #creationForm="ngForm">
-      <ion-row>
-        <ion-col>
-          <ion-list inset>
+<ion-content>
 
-            <ion-item>
-              <ion-label stacked>Objectif distance course</ion-label>
-              <ion-input type="number" min="0" placeholder="Objectif" name="objectif"
-                         [(ngModel)]="objectif"></ion-input>
-            </ion-item>
+  <ion-list>
+        <ion-item (click)="updateObjectif()">Objectif</ion-item>
+  </ion-list>
 
-          </ion-list>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit">Mettre à jour
-          </button>
-        </ion-col>
-      </ion-row>
-
-    </form>
-  </div>
   <div>
-    <ion-row>
-      <ion-col>
-        <button ion-button color="light" full (click)="logout()">Logout</button>
-      </ion-col>
-    </ion-row>
+
+    <button ion-button color="light" full (click)="logout()">Logout</button>
+
   </div>
 </ion-content>

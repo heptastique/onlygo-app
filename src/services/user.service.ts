@@ -42,12 +42,13 @@ export class UserService {
   }
 
   /**
-   * Update objectif
-   * @param {number} objectif
+   * Update distance
+   * @param {number} distance
    * @returns {Observable<any>}
    */
-  updateObjectif(objectif: number): Observable<any>{
-    const url = `${API_SERVER.user}/updateObjectif`;
-    return this.http.put<any>(url, objectif, httpOptions);
+  updateObjectif(distance: number): Observable<any>{
+    const url = `${API_SERVER.user}/objectif`;
+    const payload = "{\"distance\":" + distance + "}";
+    return this.http.put<any>(url, payload, httpOptions);
   }
 }

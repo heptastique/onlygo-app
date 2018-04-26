@@ -18,7 +18,8 @@ export class PreferencesPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectif: null
+    objectifHebdo: null,
+    location: null
   };
 
   logged = false;
@@ -51,22 +52,45 @@ export class PreferencesPage {
   }
 
   updateObjectif(){
-    this.userService.updateObjectif(this.user.objectif).subscribe(
-      () => {  },
-      (err) => {
-        let message;
-        if(err.status == 0) {
-          message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-        }else{
-          message = err.error;
+    let alert = this.alertCtrl.create({
+      title: 'Objectif',
+      inputs: [
+        {
+          name: 'objectif',
+          type: 'number',
+          min: '0',
+          value: this.user.objectifHebdo.toString()
         }
-        let alert = this.alertCtrl.create({
-          title: 'Erreur lors de la mise à jour.',
-          subTitle: message,
-          buttons: ['OK']
-        });
-        alert.present();
-      });
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+        },
+        {
+          text: 'Valider',
+          handler: data => {
+            this.userService.updateObjectif(data.objectif).subscribe(
+              (res) => { this.user.objectifHebdo = res.distance },
+              (err) => {
+                let message;
+                if(err.status == 0) {
+                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
+                }else{
+                  message = err.error;
+                }
+                let alert = this.alertCtrl.create({
+                  title: 'Erreur lors de la mise à jour.',
+                  subTitle: message,
+                  buttons: ['OK']
+                });
+                alert.present();
+              });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   logout() {
