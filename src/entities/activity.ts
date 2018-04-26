@@ -5,4 +5,5 @@ export class Activity{
   distance: number;
   date: any;
   programmeId: number;
+  estRealisee: boolean;
 }

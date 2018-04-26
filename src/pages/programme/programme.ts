@@ -12,7 +12,6 @@ export class ProgrammePage {
 
   programme : Programme = {
     activites: null,
-    realisations: null,
     user: null
   };
 
