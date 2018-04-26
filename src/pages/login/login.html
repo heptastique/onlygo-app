@@ -38,11 +38,4 @@
     </form>
     <button ion-button class="register-btn" block clear (click)="createAccount()">Créer un compte</button>
   </div>
-
-  <div>
-    <ion-select  name ="coords">
-      <ion-option *ngFor="let coord of activityCoord" [value]="coord.longitude"> {{coord.longitude}} {{coord.latitude}} : </ion-option>
-    </ion-select>
-
-  </div>
 </ion-content>

@@ -23,12 +23,12 @@ export class HomePage {
   };
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private geolocationService: GeolocationService) {
-    this.geolocationService.startRecording(1000);
-  }
+              private geolocationService: GeolocationService) {}
+
 
   ionViewDidLoad () {
     this.getUser();
+    this.geolocationService.startRecording(5000);
   }
 
   getUser(): void {
@@ -48,6 +48,7 @@ export class HomePage {
   createActivity(): void{
     this.navCtrl.push(ActivityCreationPage);
     this.geolocationService.stopRecording();
+    console.log(this.geolocationService.getListCoord());
   }
 }
 

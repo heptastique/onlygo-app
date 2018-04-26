@@ -1,32 +1,38 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/observable/interval';
 import { Geolocation } from '@ionic-native/geolocation';
-import 'rxjs/add/operator/filter';
 import {Gpscoordinates} from '../entities/gpscoordinates';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class GeolocationService {
 
-  activityCoord: Gpscoordinates [] = [];
-
   sub;
 
-  options: PositionOptions = {
-    timeout: 1000
-  };
+  activityCoords : Gpscoordinates [] = [];
 
-  constructor(private http: HttpClient, private geolocation: Geolocation ) {
+  constructor(private geolocation: Geolocation ) {
   }
 
   startRecording(time: number){
-    this.options.timeout = time;
-    this.sub = this.geolocation.watchPosition(this.options)
-      .filter((p) => p.coords !== undefined) //Filter Out Errors
-      .subscribe(position => {
-        this.activityCoord.push(position.coords);
-        console.log(position.coords.longitude + ' ' + position.coords.latitude);
+    this.sub = Observable.interval(time).subscribe( () =>
+      {
+        this.geolocation.getCurrentPosition().then((resp) => {
+          this.activityCoords.push(resp.coords);
+          console.log(resp.coords);
+        }).catch((error) => {
+          console.log('Error getting location', error);
+        });
       });
+  }
+
+  getPos(){
+     this.geolocation.getCurrentPosition().then((resp) => {
+      this.activityCoords.push(resp.coords);
+      console.log(resp.coords);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
   stopRecording(){
@@ -34,6 +40,6 @@ export class GeolocationService {
   }
 
   getListCoord(): Gpscoordinates[]{
-    return this.activityCoord;
+    return this.activityCoords;
   }
 }

@@ -4,8 +4,6 @@ import { LoginService } from '../../services/login.service';
 import { LoginInfos } from '../../entities/loginInfos';
 import { TabsPage } from '../tabs/tabs';
 import { RegistrationPage } from '../registration/registration';
-import {GeolocationService} from '../../services/geolocation.service';
-import {Gpscoordinates} from '../../entities/gpscoordinates';
 
 @Component({
   selector: 'page-login',
@@ -13,23 +11,19 @@ import {Gpscoordinates} from '../../entities/gpscoordinates';
 })
 export class LoginPage {
 
-  activityCoord: Gpscoordinates [];
-
   loginInfos : LoginInfos = {
     username: "",
     password: ""
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService,
-              public alertCtrl: AlertController, private geolocationService: GeolocationService) {
+              public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
-    this.geolocationService.startRecording(100);
   }
 
   login() {
-    this.activityCoord = this.geolocationService.getListCoord();
     this.loginService.login(this.loginInfos)
       .subscribe(() => {
           this.navCtrl.setRoot(TabsPage);
@@ -53,8 +47,5 @@ export class LoginPage {
 
   createAccount(){
     this.navCtrl.push(RegistrationPage);
-    this.geolocationService.stopRecording();
-
   }
-
 }
