@@ -26,6 +26,7 @@ import {SportService} from '../services/sport.service';
 import {EvaluationService} from '../services/evaluation.service';
 import {GeolocationService} from '../services/geolocation.service';
 import {ActivityPage} from '../pages/activity/activity';
+import {ProgrammeService} from '../services/programme.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {ActivityPage} from '../pages/activity/activity';
     SportService,
     EvaluationService,
     Geolocation,
-    GeolocationService
+    GeolocationService,
+    ProgrammeService
   ]
 })
 export class AppModule {}
