@@ -40,6 +40,9 @@
   </div>
 
   <div>
-    <ion-item *ngFor="let coord of activityCoord" [value]="coor"> {{coord.latitude}} : {{coord.longitude}}</ion-item>
+    <ion-select  name ="coords">
+      <ion-option *ngFor="let coord of activityCoord" [value]="coord.longitude"> {{coord.longitude}} {{coord.latitude}} : </ion-option>
+    </ion-select>
+
   </div>
 </ion-content>

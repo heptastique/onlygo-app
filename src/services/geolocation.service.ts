@@ -8,7 +8,7 @@ import {Gpscoordinates} from '../entities/gpscoordinates';
 @Injectable()
 export class GeolocationService {
 
-  activityCoord: Gpscoordinates [];
+  activityCoord: Gpscoordinates [] = [];
 
   sub;
 
