@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {  NavController,  } from 'ionic-angular';
 import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {GeolocationService} from '../../services/geolocation.service';
-import {Gpscoordinates} from '../../entities/gpscoordinates';
+import {Gps_Coordinates} from '../../entities/gps_coordinates';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class ActivityPage {
 
   activityStarted = false;
 
-  coordsLog : Gpscoordinates [] = [];
+  coordsLog : Gps_Coordinates [] = [];
 
   constructor(public navCtrl: NavController, private geolocationService: GeolocationService) {
   }

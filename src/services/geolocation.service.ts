@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/interval';
 import { Geolocation } from '@ionic-native/geolocation';
-import {Gpscoordinates} from '../entities/gpscoordinates';
+import {Gps_Coordinates} from '../entities/gps_coordinates';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
@@ -9,9 +9,9 @@ export class GeolocationService {
 
   sub;
 
-  activityCoords : Gpscoordinates [] = [];
+  activityCoords : Gps_Coordinates [] = [];
 
-  coord: Gpscoordinates = {
+  coord: Gps_Coordinates = {
     latitude: null,
     longitude: null
   };
@@ -31,7 +31,7 @@ export class GeolocationService {
       });
   }
 
-  getPos():Gpscoordinates{
+  getPos():Gps_Coordinates{
      this.geolocation.getCurrentPosition().then((resp) => {
       this.coord = resp.coords;
     }).catch((error) => {
@@ -44,7 +44,7 @@ export class GeolocationService {
     this.sub.unsubscribe();
   }
 
-  getListCoord(): Gpscoordinates[]{
+  getListCoord(): Gps_Coordinates[]{
     return this.activityCoords;
   }
 }
