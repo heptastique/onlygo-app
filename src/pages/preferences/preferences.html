@@ -7,14 +7,15 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-list>
-        <ion-item (click)="updateObjectif()">Objectif</ion-item>
-  </ion-list>
+  <div>
+    <ion-list>
+      <ion-item (click)="updateObjectif()">Objectif</ion-item>
+      <ion-item (click)="updateLocalisation()">Localisation préférée</ion-item>
+    </ion-list>
+  </div>
 
   <div>
-
     <button ion-button color="light" full (click)="logout()">Logout</button>
-
   </div>
+
 </ion-content>

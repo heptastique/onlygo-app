@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {User} from "../entities/user";
 import {API_SERVER} from "../app/app.constants";
+import {Gps_Coordinates} from '../entities/gps_coordinates';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -50,5 +51,15 @@ export class UserService {
     const url = `${API_SERVER.user}/objectif`;
     const payload = "{\"distance\":" + distance + "}";
     return this.http.put<any>(url, payload, httpOptions);
+  }
+
+  /**
+   * Update location
+   * @param {Gps_Coordinates} location
+   * @returns {Observable<any>}
+   */
+  updateLocation(location: Gps_Coordinates):Observable<any>{
+    const url = `${API_SERVER.user}/location`;
+    return this.http.put<any>(url, location, httpOptions);
   }
 }

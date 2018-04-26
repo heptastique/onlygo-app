@@ -12,8 +12,8 @@ export class GeolocationService {
   activityCoords : Gps_Coordinates [] = [];
 
   coord: Gps_Coordinates = {
-    latitude: null,
-    longitude: null
+    x: null,
+    y: null
   };
 
   constructor(private geolocation: Geolocation ) {
@@ -23,7 +23,12 @@ export class GeolocationService {
     this.sub = Observable.interval(time).subscribe( () =>
       {
         this.geolocation.getCurrentPosition().then((resp) => {
-          this.activityCoords.push(resp.coords);
+          let coord : Gps_Coordinates = {
+            x : resp.coords.latitude,
+            y : resp.coords.longitude
+          };
+
+          this.activityCoords.push(coord);
           console.log(resp.coords);
         }).catch((error) => {
           console.log('Error getting location', error);
@@ -31,13 +36,15 @@ export class GeolocationService {
       });
   }
 
-  getPos():Gps_Coordinates{
-     this.geolocation.getCurrentPosition().then((resp) => {
-      this.coord = resp.coords;
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-     return this.coord;
+  getPos():Promise<Gps_Coordinates>{
+    this.coord.x = null;
+    this.coord.y = null;
+    return this.geolocation.getCurrentPosition().then((resp) => {
+       this.coord.x = resp.coords.latitude;
+       this.coord.y = resp.coords.longitude;
+       console.log(this.coord);
+       return this.coord;
+     });
   }
 
   stopRecording(){

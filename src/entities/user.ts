@@ -1,3 +1,5 @@
+import {Gps_Coordinates} from './gps_coordinates';
+
 export class User{
   username: string;
   password: string;
@@ -5,5 +7,5 @@ export class User{
   lastname: string;
   email: string;
   objectifHebdo: number;
-  location: number;
+  location: Gps_Coordinates;
 }
