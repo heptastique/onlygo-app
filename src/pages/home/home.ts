@@ -45,6 +45,12 @@ export class HomePage {
     this.getProgression();
   }
 
+  ionViewDidEnter() {
+    this.getUser();
+    this.getEvaluation();
+    this.getProgression();
+  }
+
   getProgression(){
     this.userService.getProgression().subscribe(
       (data) => {
