@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Programme</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div text-center="">
+    <h1>Mes activités</h1>
+    <ion-list>
+      <ion-card *ngFor="let activity of programme.activites">
+        <div *ngIf="!activity.estRealisee">
+          <ion-card-header text-center="">
+            <h2>{{activity.date}}</h2>
+          </ion-card-header>
+          <ion-card-content text-center="">
+            <p>{{activity.sport.nom}}, {{activity.distance}} m</p>
+          </ion-card-content>
+        </div>
+      </ion-card>
+    </ion-list>
+  </div>
+
+  <div text-center="">
+    <h1>Mes activités réalisées</h1>
+    <ion-list>
+      <ion-card *ngFor="let activity of programme.activites">
+        <div *ngIf="activity.estRealisee">
+          <ion-card-header text-center="">
+            <h2>{{activity.date}}</h2>
+          </ion-card-header>
+          <ion-card-content text-center="">
+            <p>{{activity.sport.nom}}, {{activity.distance}} m</p>
+          </ion-card-content>
+        </div>
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>

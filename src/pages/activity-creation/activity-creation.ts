@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {ActivityService} from '../../services/activity.service';
-import {Activity} from '../../entities/activity';
+import {ActivityDTO} from '../../entities/activityDTO';
 import {Sport} from '../../entities/sport';
 import {SportService} from '../../services/sport.service';
 
@@ -13,7 +13,7 @@ import {SportService} from '../../services/sport.service';
 })
 export class ActivityCreationPage {
 
-  activity: Activity = {
+  activity: ActivityDTO = {
     sportName: '',
     programmeId: null,
     distance: 0,
