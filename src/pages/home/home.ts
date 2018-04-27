@@ -38,13 +38,6 @@ export class HomePage {
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService) {}
 
-
-  ionViewDidLoad () {
-    this.getUser();
-    this.getEvaluation();
-    this.getProgression();
-  }
-
   ionViewDidEnter() {
     this.getUser();
     this.getEvaluation();
