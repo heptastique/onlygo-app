@@ -52,7 +52,7 @@ export class ActivityCreationPage {
   }
 
   validate(){
-    this.activityService.addActivity(this.realisation).subscribe(
+    this.activityService.addRealisation(this.realisation).subscribe(
       () => {
         let alert = this.alertCtrl.create({
           title: 'Réalisation enregistrée !',

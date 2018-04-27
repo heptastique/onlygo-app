@@ -13,7 +13,7 @@ export class RealisationService{
 
   constructor(private http: HttpClient) {}
 
-  addActivity(realisation: Realisation): Observable<Realisation>{
+  addRealisation(realisation: Realisation): Observable<Realisation>{
     const url = `${API_SERVER.realisation}/add`;
     return this.http.post<Realisation>(url, realisation, httpOptions);
   }
