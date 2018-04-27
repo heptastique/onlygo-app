@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
-import {ActivityService} from '../../services/activity.service';
-import {ActivityDTO} from '../../entities/activityDTO';
+import {RealisationService} from '../../services/realisation.service';
+import {Realisation} from '../../entities/realisation';
 import {Sport} from '../../entities/sport';
 import {SportService} from '../../services/sport.service';
-
-
 
 @Component({
   selector: 'page-activity-creation',
@@ -13,16 +11,16 @@ import {SportService} from '../../services/sport.service';
 })
 export class ActivityCreationPage {
 
-  activity: ActivityDTO = {
-    sportName: '',
+  realisation: Realisation = {
+    sportId: null,
     programmeId: null,
     distance: 0,
     date: null
   };
 
-  sports: Sport[]
+  sports: Sport[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityService: ActivityService,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityService: RealisationService,
               public alertCtrl:AlertController, private sportService: SportService) {
   }
 
@@ -54,10 +52,10 @@ export class ActivityCreationPage {
   }
 
   validate(){
-    this.activityService.addActivity(this.activity).subscribe(
+    this.activityService.addActivity(this.realisation).subscribe(
       () => {
         let alert = this.alertCtrl.create({
-          title: 'Activité enregistrée !',
+          title: 'Réalisation enregistrée !',
           buttons: ['OK']
         });
         alert.present();

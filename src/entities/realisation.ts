@@ -1,5 +1,7 @@
-import {ActivityDTO} from './activityDTO';
 
-export class Realisation {
-  activity: ActivityDTO;
+export class Realisation{
+  sportId: number;
+  distance: number;
+  date: any;
+  programmeId: number;
 }

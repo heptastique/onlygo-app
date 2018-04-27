@@ -21,7 +21,7 @@ import { RegistrationPage } from '../pages/registration/registration';
 import { LoginPage } from '../pages/login/login';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
-import {ActivityService} from '../services/activity.service';
+import {RealisationService} from '../services/realisation.service';
 import {SportService} from '../services/sport.service';
 import {EvaluationService} from '../services/evaluation.service';
 import {GeolocationService} from '../services/geolocation.service';
@@ -77,7 +77,7 @@ import {DateService} from '../services/date.service';
       multi: true
     },
     UserService,
-    ActivityService,
+    RealisationService,
     SportService,
     EvaluationService,
     Geolocation,

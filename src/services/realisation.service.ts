@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivityDTO} from '../entities/activityDTO';
+import {Realisation} from '../entities/realisation';
 import {Observable} from 'rxjs/Observable';
 import {API_SERVER} from '../app/app.constants';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -9,12 +9,12 @@ const httpOptions = {
 };
 
 @Injectable()
-export class ActivityService{
+export class RealisationService{
 
   constructor(private http: HttpClient) {}
 
-  addActivity(activity: ActivityDTO): Observable<ActivityDTO>{
-    const url = `${API_SERVER.activity}/add`;
-    return this.http.post<ActivityDTO>(url, activity, httpOptions);
+  addActivity(realisation: Realisation): Observable<Realisation>{
+    const url = `${API_SERVER.realisation}/add`;
+    return this.http.post<Realisation>(url, realisation, httpOptions);
   }
 }
