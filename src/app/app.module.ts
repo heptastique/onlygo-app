@@ -29,6 +29,7 @@ import {ActivityPage} from '../pages/activity/activity';
 import {ProgrammeService} from '../services/programme.service';
 import {ProgrammePage} from '../pages/programme/programme';
 import {ActivityDetailsPage} from '../pages/activity-details/activity-details';
+import {DateService} from '../services/date.service';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import {ActivityDetailsPage} from '../pages/activity-details/activity-details';
     EvaluationService,
     Geolocation,
     GeolocationService,
-    ProgrammeService
+    ProgrammeService,
+    DateService
   ]
 })
 export class AppModule {}
