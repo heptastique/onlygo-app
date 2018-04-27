@@ -23,7 +23,7 @@ export class HomePage {
     note: null
   };
 
-  loadProgress = 50;
+  loadProgress = 0;
 
   user: User = {
     username: "",
@@ -42,6 +42,27 @@ export class HomePage {
   ionViewDidLoad () {
     this.getUser();
     this.getEvaluation();
+    this.getProgression();
+  }
+
+  getProgression(){
+    this.userService.getProgression().subscribe(
+      (data) => {
+        if(data.progression > 100){
+          this.loadProgress  = 100;
+        }else{
+          this.loadProgress = Math.round(data.progression);
+        }
+      },
+      (err) => {
+        console.error(err);
+        let alert = this.alertCtrl.create({
+          title: 'La requête a échoué.',
+          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
   }
 
   getEvaluation(){
