@@ -28,6 +28,7 @@ import {GeolocationService} from '../services/geolocation.service';
 import {ActivityPage} from '../pages/activity/activity';
 import {ProgrammeService} from '../services/programme.service';
 import {ProgrammePage} from '../pages/programme/programme';
+import {ActivityDetailsPage} from '../pages/activity-details/activity-details';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {ProgrammePage} from '../pages/programme/programme';
     ProgressBarComponent,
     ActivityCreationPage,
     ActivityPage,
-    ProgrammePage
+    ProgrammePage,
+    ActivityDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import {ProgrammePage} from '../pages/programme/programme';
     LoginPage,
     ActivityCreationPage,
     ActivityPage,
-    ProgrammePage
+    ProgrammePage,
+    ActivityDetailsPage
   ],
   providers: [
     StatusBar,

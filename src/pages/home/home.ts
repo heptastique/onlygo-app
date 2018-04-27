@@ -7,6 +7,7 @@ import {Evaluation} from '../../entities/evaluation';
 import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
+import {ActivityDetailsPage} from '../activity-details/activity-details';
 
 
 @Component({
@@ -111,6 +112,10 @@ export class HomePage {
 
   seeProgramme(){
     this.navCtrl.push(ProgrammePage);
+  }
+
+  seeDetails(){
+    this.navCtrl.push(ActivityDetailsPage);
   }
 }
 
