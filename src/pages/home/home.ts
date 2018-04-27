@@ -10,6 +10,7 @@ import {PreferencesPage} from '../preferences/preferences';
 import {ActivityDetailsPage} from '../activity-details/activity-details';
 import {ActivityService} from '../../services/activity.service';
 import {Activity} from '../../entities/activity';
+import {DateService} from '../../services/date.service';
 
 @Component({
   selector: 'page-home',
@@ -43,9 +44,12 @@ export class HomePage {
     programmeId: null,
     estRealisee: null
   };
+  nextActivity = false;
+  dateStr = "";
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService, private activityService: ActivityService) {}
+              private evaluationService: EvaluationService, private activityService: ActivityService,
+              private dateService: DateService) {}
 
   ionViewDidEnter() {
     this.getUser();
@@ -140,6 +144,8 @@ export class HomePage {
     this.activityService.getNextPlanned().subscribe(
       (activity) => {
         this.activity = activity;
+        this.dateStr = this.dateService.getDateFromString(this.activity.date);
+        this.nextActivity = true;
       },
       (err) => {
         console.error(err);
