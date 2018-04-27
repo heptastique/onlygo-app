@@ -61,7 +61,7 @@ export class ActivityCreationPage {
           buttons: ['OK']
         });
         alert.present();
-        this.navCtrl.pop();
+        this.navCtrl.popToRoot();
       },
       (err) =>{
         console.error(err);
