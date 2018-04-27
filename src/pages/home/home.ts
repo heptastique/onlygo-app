@@ -8,7 +8,8 @@ import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
 import {ActivityDetailsPage} from '../activity-details/activity-details';
-
+import {ActivityService} from '../../services/activity.service';
+import {Activity} from '../../entities/activity';
 
 @Component({
   selector: 'page-home',
@@ -35,13 +36,22 @@ export class HomePage {
     location: null
   };
 
+  activity: Activity = {
+    sport: null,
+    distance: null,
+    date: null,
+    programmeId: null,
+    estRealisee: null
+  };
+
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService) {}
+              private evaluationService: EvaluationService, private activityService: ActivityService) {}
 
   ionViewDidEnter() {
     this.getUser();
     this.getEvaluation();
     this.getProgression();
+    this.getNextActivity();
   }
 
   getProgression(){
@@ -124,6 +134,16 @@ export class HomePage {
           });
           alert.present();
         });
+  }
+
+  getNextActivity(){
+    this.activityService.getNextPlanned().subscribe(
+      (activity) => {
+        this.activity = activity;
+      },
+      (err) => {
+        console.error(err);
+      });
   }
 
   createActivity(): void{

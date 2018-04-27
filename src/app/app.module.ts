@@ -30,6 +30,7 @@ import {ProgrammeService} from '../services/programme.service';
 import {ProgrammePage} from '../pages/programme/programme';
 import {ActivityDetailsPage} from '../pages/activity-details/activity-details';
 import {DateService} from '../services/date.service';
+import {ActivityService} from '../services/activity.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import {DateService} from '../services/date.service';
     Geolocation,
     GeolocationService,
     ProgrammeService,
-    DateService
+    DateService,
+    ActivityService
   ]
 })
 export class AppModule {}

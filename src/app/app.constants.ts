@@ -4,5 +4,6 @@ export const API_SERVER: any = {
   realisation: 'http://localhost:8080/realisation',
   sport: 'http://localhost:8080/sport',
   evaluation: 'http://localhost:8080/timeFrame/evaluation',
-  programme: 'http://localhost:8080/programme'
+  programme: 'http://localhost:8080/programme',
+  activity: 'http://localhost:8080/activity'
 };
