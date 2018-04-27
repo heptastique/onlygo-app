@@ -26,12 +26,14 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card (click)="seeProgramme()">
+  <ion-card>
     <ion-card-header text-center="">
-      Objectif hebdo
+      Mon objectif hebdomadaire
     </ion-card-header>
     <ion-card-content text-center="">
+      <p>Progression de l'objectif pour cette semaine</p>
       <progress-bar [progress]="loadProgress"></progress-bar>
+      <button ion-button clear (click)="seeProgramme()">Voir mon programme</button>
     </ion-card-content>
   </ion-card>
 
