@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {DateService} from '../../services/date.service';
 
 @Component({
   selector: 'page-history',
@@ -7,9 +8,29 @@ import { NavController } from 'ionic-angular';
 })
 export class HistoryPage {
 
-  constructor(public navCtrl: NavController) {
+  aDate = new Date();
 
+  week = {
+    message: "",
+    date: this.aDate
+  };
+
+
+  constructor(public navCtrl: NavController, private dateService: DateService) { }
+
+  ionViewDidLoad(){
+    this.displayCurrentWeek();
   }
 
-  Date = "Aujourd'hui";
+  displayCurrentWeek(){
+    this.week = this.dateService.getCurrentWeek();
+  }
+
+  displayNextWeek(){
+    this.week = this.dateService.getNextWeek(this.week.date);
+  }
+
+  displayLastWeek(){
+    this.week = this.dateService.getLastWeek(this.week.date);
+  }
 }

@@ -9,17 +9,25 @@
 <ion-content padding>
 
   <div text-center="">
-    <button ion-button color="dark" clear icon-start style="vertical-align:middle">
-      <ion-icon name='arrow-back'></ion-icon>
-    </button>
+    <ion-row>
 
-    <span>
-      {{Date}}
-    </span>
+      <ion-col col-2>
+        <button ion-button color="dark" clear icon-start style="vertical-align:middle" (click)="displayLastWeek()">
+          <ion-icon name='arrow-back'></ion-icon>
+        </button>
+      </ion-col>
 
-    <button ion-button color="dark" clear icon-end style="vertical-align:middle">
-      <ion-icon name='arrow-forward'></ion-icon>
-    </button>
+      <ion-col col-8>
+        Semaine {{week.message}}
+      </ion-col>
+
+      <ion-col col-2>
+        <button ion-button color="dark" clear icon-end style="vertical-align:middle" (click)="displayNextWeek()">
+          <ion-icon name='arrow-forward'></ion-icon>
+        </button>
+      </ion-col>
+
+    </ion-row>
   </div>
 
   <ion-card>
