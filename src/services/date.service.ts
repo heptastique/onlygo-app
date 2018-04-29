@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class DateService{
 
-  jours: string [] = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+  jours: string [] = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
   mois: string [] = ["janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout",
     "septembre", "octobre", "novembre", "decembre"];
