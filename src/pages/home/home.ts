@@ -42,7 +42,8 @@ export class HomePage {
     distance: null,
     date: null,
     programmeId: null,
-    estRealisee: null
+    estRealisee: null,
+    centreInteret: null
   };
   nextActivity = false;
   dateStr = "";

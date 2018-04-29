@@ -5,7 +5,7 @@ import {ActivityService} from '../../services/activity.service';
 import {Sport} from '../../entities/sport';
 import {DateService} from '../../services/date.service';
 import {GeolocationService} from '../../services/geolocation.service';
-import {Geolocation} from '@ionic-native/geolocation';
+import {Gps_Coordinates} from '../../entities/gps_coordinates';
 
 declare var google;
 
@@ -30,7 +30,8 @@ export class ActivityDetailsPage {
     distance: null,
     date: null,
     programmeId: null,
-    estRealisee: null
+    estRealisee: null,
+    centreInteret: null
   };
   activityTime = 0;
   kcal = 0;
@@ -39,7 +40,7 @@ export class ActivityDetailsPage {
   icon = '../../assets/icon/pin-icon.png';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private activityService: ActivityService,
-              private dateService: DateService, private geolocationService: GeolocationService, private geolocation: Geolocation) { }
+              private dateService: DateService, private geolocationService: GeolocationService) { }
 
   ionViewDidLoad() {
     this.activityService.getNextPlanned().subscribe(activity => {
@@ -47,11 +48,8 @@ export class ActivityDetailsPage {
       this.dateStr = this.dateService.getDateFromString(this.activity.date);
       this.activityTime = Math.round( 60 * this.activity.distance / this.activity.sport.kmH);
       this.kcal = Math.round(this.activity.distance * this.activity.sport.kcalKm);
+      this.loadMap();
     });
-    this.geolocation.getCurrentPosition().then((resp) => {
-      console.log(resp);
-    });
-    this.loadMap();
   }
 
   loadMap(){
@@ -65,12 +63,12 @@ export class ActivityDetailsPage {
       };
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      console.log(this.map.getCenter());
-      this.addPoint();
+      this.addCurrentPos();
+      this.addActivityPos(this.activity.centreInteret.point);
     });
   }
 
-  addPoint(){
+  addCurrentPos(){
     let marker = new google.maps.Marker({
       map: this.map,
       position: this.map.getCenter(),
@@ -79,6 +77,20 @@ export class ActivityDetailsPage {
     });
 
     let content = "<h4>Ma localisation</h4>";
+
+    this.addInfoWindow(marker, content);
+  }
+
+  addActivityPos(gps_coords: Gps_Coordinates){
+    let myLatlng = new google.maps.LatLng(gps_coords.x, gps_coords.y);
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: myLatlng,
+      animation: google.maps.Animation.DROP,
+    });
+
+    let content = "<h4>Lieu de l'activité</h4>";
 
     this.addInfoWindow(marker, content);
   }
