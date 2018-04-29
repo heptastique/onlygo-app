@@ -14,4 +14,9 @@ export class ProgrammeService {
     const url = `${API_SERVER.programme}/active`;
     return this.http.get<Programme>(url);
   }
+
+  getProgrammeByDate(date: Date):Observable<Programme>{
+    const url = `${API_SERVER.programme}/getbydate`;
+    return this.http.get<Programme>(url);
+  }
 }
