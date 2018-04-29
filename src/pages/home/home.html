@@ -43,7 +43,10 @@
         Prochaine activité
       </ion-card-header>
       <ion-card-content text-center="">
-        {{dateStr}}, {{activity.distance}} km de {{activity.sport.nom}}
+        <p>
+          {{dateStr}}, {{activity.distance}} km de {{activity.sport.nom}} à
+          {{activity.centreInteret.name }}
+        </p>
       </ion-card-content>
     </ion-card>
   </div>
