@@ -20,6 +20,8 @@ export class ActivityPage {
 
   coordsLog : Gps_Coordinates [] = [];
 
+  icon = '../../assets/icon/pin-icon.png';
+
   constructor(public navCtrl: NavController, private geolocationService: GeolocationService) {
   }
 
@@ -64,7 +66,8 @@ export class ActivityPage {
     let marker = new google.maps.Marker({
       map: this.map,
       position: this.map.getCenter(),
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP,
+      icon: this.icon
     });
 
     let content = "<h4>Ma localisation</h4>";

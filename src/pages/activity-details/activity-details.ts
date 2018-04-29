@@ -5,6 +5,7 @@ import {ActivityService} from '../../services/activity.service';
 import {Sport} from '../../entities/sport';
 import {DateService} from '../../services/date.service';
 import {GeolocationService} from '../../services/geolocation.service';
+import {Geolocation} from '@ionic-native/geolocation';
 
 declare var google;
 
@@ -35,8 +36,10 @@ export class ActivityDetailsPage {
   kcal = 0;
   dateStr;
 
+  icon = '../../assets/icon/pin-icon.png';
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private activityService: ActivityService,
-              private dateService: DateService, private geolocationService: GeolocationService) { }
+              private dateService: DateService, private geolocationService: GeolocationService, private geolocation: Geolocation) { }
 
   ionViewDidLoad() {
     this.activityService.getNextPlanned().subscribe(activity => {
@@ -44,6 +47,9 @@ export class ActivityDetailsPage {
       this.dateStr = this.dateService.getDateFromString(this.activity.date);
       this.activityTime = Math.round( 60 * this.activity.distance / this.activity.sport.kmH);
       this.kcal = Math.round(this.activity.distance * this.activity.sport.kcalKm);
+    });
+    this.geolocation.getCurrentPosition().then((resp) => {
+      console.log(resp);
     });
     this.loadMap();
   }
@@ -59,23 +65,24 @@ export class ActivityDetailsPage {
       };
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-      this.addCurrentPoint();
+      console.log(this.map.getCenter());
+      this.addPoint();
     });
   }
 
-  addCurrentPoint(){
+  addPoint(){
     let marker = new google.maps.Marker({
       map: this.map,
       position: this.map.getCenter(),
       animation: google.maps.Animation.DROP,
-      color: 'blue'
+      icon: this.icon
     });
 
     let content = "<h4>Ma localisation</h4>";
 
     this.addInfoWindow(marker, content);
   }
+
 
   addInfoWindow(marker, content){
 
