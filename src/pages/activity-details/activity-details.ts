@@ -6,6 +6,7 @@ import {Sport} from '../../entities/sport';
 import {DateService} from '../../services/date.service';
 import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
+import {Centre_Interet} from '../../entities/centre_interet';
 
 declare var google;
 
@@ -25,14 +26,21 @@ export class ActivityDetailsPage {
     id: null
   };
 
+  centreInteret: Centre_Interet={
+    name: "",
+    point: null
+  };
+
   activity: Activity = {
     sport: this.sport,
     distance: null,
     date: null,
     programmeId: null,
     estRealisee: null,
-    centreInteret: null
+    centreInteret: this.centreInteret
   };
+
+
   activityTime = 0;
   kcal = 0;
   dateStr;
