@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {RealisationService} from '../../services/realisation.service';
 import {Realisation} from '../../entities/realisation';
+import {ActivityService} from '../../services/activity.service';
+import {Activity} from '../../entities/activity';
 import {Sport} from '../../entities/sport';
-import {SportService} from '../../services/sport.service';
+import {Centre_Interet} from '../../entities/centre_interet';
+import {DateService} from '../../services/date.service';
 
 @Component({
   selector: 'page-activity-creation',
@@ -12,47 +15,49 @@ import {SportService} from '../../services/sport.service';
 export class ActivityCreationPage {
 
   realisation: Realisation = {
-    sportId: null,
-    programmeId: null,
     distance: 0,
-    date: null
+    date: new Date()
   };
 
-  sports: Sport[];
+  centreInteret : Centre_Interet = {
+    name: "",
+    point: null
+  };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityService: RealisationService,
-              public alertCtrl:AlertController, private sportService: SportService) {
+  sport : Sport = {
+    id: null,
+    nom: '',
+    kcalKm: null,
+    kmH: null
+  };
+
+  activity: Activity = {
+    sport: this.sport,
+    distance: null,
+    date: null,
+    programmeId: null,
+    estRealisee: null,
+    centreInteret: this.centreInteret
+  };
+
+  dateStr = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private realisationService: RealisationService,
+              public alertCtrl:AlertController, private activityService: ActivityService, private dateService: DateService) {
   }
 
   ionViewDidLoad() {
-    this.getAllSports();
+    this.getNextActivity();
   }
 
-  getAllSports(){
-    this.sportService.getAllSports().subscribe(
-      (sports) => {
-        this.sports = sports;
-      },
-      (err) =>{
-        console.error(err);
-        let message;
-        if(err.status == 0) {
-          message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-        }else{
-          message = err.error;
-        }
-        let alert = this.alertCtrl.create({
-          title: 'Erreur lors de la requête.',
-          subTitle: message,
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-    )
+  getNextActivity(){
+    this.activityService.getNextPlanned().subscribe((activity) => {
+      this.activity = activity;
+      this.dateStr = this.dateService.getDateFromString(this.activity.date);})
   }
 
   validate(){
-    this.activityService.addRealisation(this.realisation).subscribe(
+    this.realisationService.addRealisation(this.realisation).subscribe(
       () => {
         let alert = this.alertCtrl.create({
           title: 'Réalisation enregistrée !',
