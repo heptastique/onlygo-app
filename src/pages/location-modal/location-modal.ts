@@ -15,9 +15,6 @@ export class LocationModalPage {
   map: any;
 
   gps_coordinates_settings : Gps_Coordinates;
-  current_gps_coords: Gps_Coordinates;
-
-  currentAsSetting: boolean;
 
   icon = '../../assets/icon/pin-icon.png';
 
@@ -42,10 +39,8 @@ export class LocationModalPage {
       let myLatlng;
       if(this.gps_coordinates_settings === null){
         myLatlng = new google.maps.LatLng(coords.x, coords.y);
-        this.currentAsSetting = true;
       }else{
         myLatlng = new google.maps.LatLng(this.gps_coordinates_settings.x, this.gps_coordinates_settings.y);
-        this.currentAsSetting = false;
       }
       let mapOptions = {
         center: myLatlng,
@@ -54,25 +49,25 @@ export class LocationModalPage {
       };
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      if(this.currentAsSetting){
-        let content = "<h4>Ma position courrante est ma position préférée</h4>";
-        this.addSettingsMarker(content);
-      }else{
-        let content = "<h4>Ma position préférée</h4>";
-        this.addSettingsMarker(content);
-        this.addCurrentPos(coords);
-      }
-    });
-  }
 
-  addSettingsMarker(content){
-    let marker = new google.maps.Marker({
-      map: this.map,
-      position: this.map.getCenter(),
-      animation: google.maps.Animation.DROP,
-    });
 
-    this.addInfoWindow(marker, content);
+      let marker = new google.maps.Marker({
+        map: this.map,
+        position: this.map.getCenter(),
+        animation: google.maps.Animation.DROP,
+      });
+
+      google.maps.event.addListener(this.map, 'click', (event) => {
+        marker.setPosition(event.latLng);
+        this.gps_coordinates_settings.x = event.latLng.lat();
+        this.gps_coordinates_settings.y = event.latLng.lng();
+        console.log(event.latLng.lng());
+      });
+
+      let content = "<h4>Ma position préférée</h4>";
+      this.addInfoWindow(marker, content);
+      this.addCurrentPos(coords);
+    });
   }
 
   addCurrentPos(gps_coords: Gps_Coordinates ){
