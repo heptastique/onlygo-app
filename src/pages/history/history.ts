@@ -18,7 +18,7 @@ export class HistoryPage {
     date: this.aDate
   };
 
-  activites: Activity [];
+  activites: Activity [] = [];
 
   activitesRealisees: Activity [] = [];
 
@@ -55,20 +55,25 @@ export class HistoryPage {
   getProgrammeByDate(date: Date){
     this.programmeService.getProgrammeByDate(date).subscribe(
       (programme) => {
+        this.bilanKcal = 0;
+        this.bilanDistance = 0;
+        this.activitesRealisees = [];
         this.programme=programme;
-        for(let i in this.programme.activites){
-          if(this.programme.activites[i].estRealisee){
-            this.programme.activites[i].date = this.dateService.getDateFromString(this.programme.activites[i].date);
-            this.programme.activites[i].distance = Math.round(this.programme.activites[i].distance*10)/10;
+        if(this.programme !== null){
+          for(let i in this.programme.activites){
+            if(this.programme.activites[i].estRealisee){
+              this.programme.activites[i].date = this.dateService.getDateFromString(this.programme.activites[i].date);
+              this.programme.activites[i].distance = Math.round(this.programme.activites[i].distance*10)/10;
 
-            this.activitesRealisees.push(this.programme.activites[i]);
+              this.activitesRealisees.push(this.programme.activites[i]);
 
-            this.bilanKcal = this.bilanKcal + this.programme.activites[i].distance * this.programme.activites[i].sport.kcalKm;
-            this.bilanDistance += this.programme.activites[i].distance;
+              this.bilanKcal = this.bilanKcal + this.programme.activites[i].distance * this.programme.activites[i].sport.kcalKm;
+              this.bilanDistance += this.programme.activites[i].distance;
+            }
           }
+          this.bilanKcal = Math.round(this.bilanKcal*10)/10;
+          this.bilanDistance = Math.round(this.bilanDistance*10)/10;
         }
-        this.bilanKcal = Math.round(this.bilanKcal*10)/10;
-        this.bilanDistance = Math.round(this.bilanDistance*10)/10;
       },
       (err) => {
         console.error(err);
