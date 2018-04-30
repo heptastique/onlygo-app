@@ -30,12 +30,18 @@
     </ion-row>
   </div>
 
-  <ion-card>
-    <ion-card-content text-center="">
-      <p>13h50 -> 14h30</p>
-      <br>
-      <p>50km</p>
-    </ion-card-content>
-  </ion-card>
+  <h1>Mes activités</h1>
+  <ion-list>
+    <ion-card *ngFor="let activity of programme.activites">
+      <div *ngIf="activity.estRealisee">
+        <ion-card-header text-center="">
+          <h2>{{activity.date}}</h2>
+        </ion-card-header>
+        <ion-card-content text-center="">
+          <p>{{activity.sport.nom}}, {{activity.distance}} kms</p>
+        </ion-card-content>
+      </div>
+    </ion-card>
+  </ion-list>
 
 </ion-content>
