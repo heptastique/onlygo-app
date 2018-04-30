@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {RealisationService} from '../../services/realisation.service';
 import {Realisation} from '../../entities/realisation';
 import {ActivityService} from '../../services/activity.service';
@@ -44,7 +44,8 @@ export class ActivityCreationPage {
   dateStr = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private realisationService: RealisationService,
-              public alertCtrl:AlertController, private activityService: ActivityService, private dateService: DateService) {
+              public alertCtrl:AlertController, private activityService: ActivityService, private dateService: DateService,
+              public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -60,11 +61,13 @@ export class ActivityCreationPage {
   validate(){
     this.realisationService.addRealisation(this.realisation).subscribe(
       () => {
-        let alert = this.alertCtrl.create({
-          title: 'Réalisation enregistrée !',
-          buttons: ['OK']
+        let toast = this.toastCtrl.create({
+          message: 'Réalisation enregistrée !',
+          duration: 3000,
+          showCloseButton: true,
+          closeButtonText: 'Ok'
         });
-        alert.present();
+        toast.present();
         this.navCtrl.popToRoot();
       },
       (err) =>{
@@ -75,12 +78,13 @@ export class ActivityCreationPage {
         }else{
           message = err.error;
         }
-        let alert = this.alertCtrl.create({
-          title: 'Erreur lors de l\'enregistrement.',
-          subTitle: message,
-          buttons: ['OK']
+        let toast = this.toastCtrl.create({
+          message: 'Erreur lors de l\'enregistrement : ' + message,
+          duration: 3000,
+          showCloseButton: true,
+          closeButtonText: 'Ok'
         });
-        alert.present();
+        toast.present();
       });
   }
 
