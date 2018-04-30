@@ -1,7 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {AlertController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {GeolocationService} from '../../services/geolocation.service';
+import {UserService} from '../../services/user.service';
 
 declare var google;
 
@@ -19,7 +20,7 @@ export class LocationModalPage {
   icon = '../../assets/icon/pin-icon.png';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
-              private geolocationService: GeolocationService) {
+              private geolocationService: GeolocationService, public alertCtrl: AlertController, private userService: UserService) {
   }
 
   ionViewDidLoad() {
@@ -39,6 +40,7 @@ export class LocationModalPage {
       let myLatlng;
       if(this.gps_coordinates_settings === null){
         myLatlng = new google.maps.LatLng(coords.x, coords.y);
+        this.gps_coordinates_settings = coords;
       }else{
         myLatlng = new google.maps.LatLng(this.gps_coordinates_settings.x, this.gps_coordinates_settings.y);
       }
@@ -61,7 +63,6 @@ export class LocationModalPage {
         marker.setPosition(event.latLng);
         this.gps_coordinates_settings.x = event.latLng.lat();
         this.gps_coordinates_settings.y = event.latLng.lng();
-        console.log(event.latLng.lng());
       });
 
       let content = "<h4>Ma position préférée</h4>";
@@ -93,5 +94,39 @@ export class LocationModalPage {
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
+  }
+
+  validate(){
+    let confirm = this.alertCtrl.create({
+      title: 'Confirmation',
+      message: 'Voulez-vous confirmer cette nouvelle localtion ?',
+      buttons: [
+        {
+          text: 'Non',
+        },
+        {
+          text: 'oui',
+          handler: () => {
+            this.userService.updateLocation(this.gps_coordinates_settings).subscribe(
+              (res) => { this.dismiss(); },
+              (err) => {
+                let message;
+                if(err.status == 0) {
+                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
+                }else{
+                  message = err.error;
+                }
+                let alert = this.alertCtrl.create({
+                  title: 'Erreur lors de la mise à jour.',
+                  subTitle: message,
+                  buttons: ['OK']
+                });
+                alert.present();
+              });
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }
