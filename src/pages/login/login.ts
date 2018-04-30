@@ -27,6 +27,7 @@ export class LoginPage {
   login() {
     this.loginService.login(this.loginInfos)
       .subscribe(() => {
+          this.update();
           this.navCtrl.setRoot(TabsPage);
         },
         (err) => {
@@ -47,22 +48,7 @@ export class LoginPage {
   }
 
   update(){
-    this.cronService.update().subscribe(() => {},
-      (err) => {
-        console.error(err);
-        let message;
-        if (err.status == 0) {
-          message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-        } else {
-          message = err.error;
-        }
-        let alert = this.alertCtrl.create({
-          title: 'La connexion a échoué',
-          subTitle: message,
-          buttons: ['OK']
-        });
-        alert.present();
-      });
+    this.cronService.update();
   }
 
   createAccount(){
