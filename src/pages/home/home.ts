@@ -181,17 +181,20 @@ export class HomePage {
       buttons: [
         {
           text: 'Commencer l\'activité du jour',
+          icon: 'pulse',
           handler: () => {
             this.recordActivity();
           }
         },{
           text: 'Ajouter une activité réalisée',
+          icon: 'add',
           handler: () => {
             this.addActivity();
           }
         },{
           text: 'Annuler',
           role: 'cancel',
+          icon: 'close',
           handler: () => {}
         }
       ]
