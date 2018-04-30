@@ -1,12 +1,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Activité</ion-title>
+    <ion-title>Enregistrement activié</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
+    <div text-center>
+        <div class="col text-center">
+            <button ion-button outline (click)="stopActivity()">Arrêter l'activité</button>
+        </div>
+    </div>
     <div #map id="map"></div>
-    <button ion-button full clear (click)="stopActivity()">Arrêter l'activité</button>
 </ion-content>
