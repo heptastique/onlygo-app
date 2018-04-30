@@ -55,7 +55,6 @@ export class HistoryPage {
         this.programme=programme;
         for(let i in this.programme.activites){
           this.programme.activites[i].date = this.dateService.getDateFromString(this.programme.activites[i].date);
-          console.log(this.programme.activites[i].date);
         }
       },
       (err) => {
