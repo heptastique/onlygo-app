@@ -11,16 +11,15 @@
     </ion-card-header>
     <ion-card-content text-center="">
 
-      <div *ngIf="evaluation.note===null; else notNullBlock">
+      <div *ngIf="plageHoraire===null; else notNullBlock">
         <ion-icon ios="ios-help" md="md-help"></ion-icon>
       </div>
+
       <ng-template #notNullBlock>
-        <div *ngIf="thumbup; else elseBlock">
-          <ion-icon ios="ios-thumbs-up" md="md-thumbs-up" [ngStyle]="{'color': color}"></ion-icon>
-        </div>
-        <ng-template #elseBlock>
-          <ion-icon ios="ios-thumbs-down" md="md-thumbs-down" [ngStyle]="{'color': color}"></ion-icon>
-        </ng-template>
+        <ion-item>
+            <ion-icon name='leaf' item-start></ion-icon>
+            {{plageHoraire.donneeAthmospherique.indice}}%
+        </ion-item>
       </ng-template>
 
     </ion-card-content>

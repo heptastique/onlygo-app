@@ -11,6 +11,8 @@ import {ActivityDetailsPage} from '../activity-details/activity-details';
 import {ActivityService} from '../../services/activity.service';
 import {Activity} from '../../entities/activity';
 import {DateService} from '../../services/date.service';
+import { PlageHoraireService } from '../../services/plagehoraire.service';
+import { PlageHoraire } from '../../entities/plagehoraire';
 
 @Component({
   selector: 'page-home',
@@ -48,15 +50,18 @@ export class HomePage {
   nextActivity = false;
   dateStr = "";
 
+  plageHoraire = null;
+
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
-              private dateService: DateService) {}
+              private dateService: DateService, private plageHoraireService: PlageHoraireService) {}
 
   ionViewDidEnter() {
     this.getUser();
     this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
+    this.getPlageActuelle();
   }
 
   getProgression(){
@@ -108,6 +113,14 @@ export class HomePage {
         });
         alert.present();
       });
+  }
+
+  getPlageActuelle() {
+    this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
+      console.log(plageHoraire);
+      this.plageHoraire = plageHoraire;
+      this.plageHoraire.donneeAthmospherique.indice = this.plageHoraire.donneeAthmospherique.indice.toFixed(2);
+    })
   }
 
   getUser(): void {
