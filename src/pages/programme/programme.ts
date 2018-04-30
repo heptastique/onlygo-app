@@ -30,7 +30,7 @@ export class ProgrammePage {
         this.programme=programme;
         for(let i in this.programme.activites){
           this.programme.activites[i].date = this.dateService.getDateFromString(this.programme.activites[i].date);
-          console.log(this.programme.activites[i].date);
+          this.programme.activites[i].distance = Math.round(this.programme.activites[i].distance*10)/10;
         }
       },
       (err) => {

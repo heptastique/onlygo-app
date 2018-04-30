@@ -55,6 +55,7 @@ export class ActivityDetailsPage {
       this.activity = activity;
       this.dateStr = this.dateService.getDateFromString(this.activity.date);
       this.activityTime = Math.round( 60 * this.activity.distance / this.activity.sport.kmH);
+      this.activity.distance = Math.round(this.activity.distance*10)/10;
       this.kcal = Math.round(this.activity.distance * this.activity.sport.kcalKm);
       this.loadMap();
     });

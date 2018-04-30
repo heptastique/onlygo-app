@@ -146,6 +146,7 @@ export class HomePage {
       (activity) => {
         this.activity = activity;
         this.dateStr = this.dateService.getDateFromString(this.activity.date);
+        this.activity.distance = Math.round(this.activity.distance*10)/10;
         this.nextActivity = true;
       },
       (err) => {
