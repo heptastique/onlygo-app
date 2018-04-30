@@ -7,7 +7,10 @@ import {Evaluation} from '../../entities/evaluation';
 import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
-
+import {ActivityDetailsPage} from '../activity-details/activity-details';
+import {ActivityService} from '../../services/activity.service';
+import {Activity} from '../../entities/activity';
+import {DateService} from '../../services/date.service';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +25,7 @@ export class HomePage {
     note: null
   };
 
-  loadProgress = 50;
+  loadProgress = 0;
 
   user: User = {
     username: "",
@@ -34,13 +37,46 @@ export class HomePage {
     location: null
   };
 
+  activity: Activity = {
+    sport: null,
+    distance: null,
+    date: null,
+    programmeId: null,
+    estRealisee: null,
+    centreInteret: null
+  };
+  nextActivity = false;
+  dateStr = "";
+
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService) {}
+              private evaluationService: EvaluationService, private activityService: ActivityService,
+              private dateService: DateService) {}
 
-
-  ionViewDidLoad () {
+  ionViewDidEnter() {
     this.getUser();
     this.getEvaluation();
+    this.getProgression();
+    this.getNextActivity();
+  }
+
+  getProgression(){
+    this.userService.getProgression().subscribe(
+      (data) => {
+        if(data.progression > 100){
+          this.loadProgress  = 100;
+        }else{
+          this.loadProgress = Math.round(data.progression);
+        }
+      },
+      (err) => {
+        console.error(err);
+        let alert = this.alertCtrl.create({
+          title: 'La requête a échoué.',
+          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
   }
 
   getEvaluation(){
@@ -105,12 +141,29 @@ export class HomePage {
         });
   }
 
+  getNextActivity(){
+    this.activityService.getNextPlanned().subscribe(
+      (activity) => {
+        this.activity = activity;
+        this.dateStr = this.dateService.getDateFromString(this.activity.date);
+        this.activity.distance = Math.round(this.activity.distance*10)/10;
+        this.nextActivity = true;
+      },
+      (err) => {
+        console.error(err);
+      });
+  }
+
   createActivity(): void{
     this.navCtrl.push(ActivityPage);
   }
 
   seeProgramme(){
     this.navCtrl.push(ProgrammePage);
+  }
+
+  seeDetails(){
+    this.navCtrl.push(ActivityDetailsPage);
   }
 }
 

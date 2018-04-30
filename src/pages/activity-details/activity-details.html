@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Détails de l'activité</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>{{dateStr}}, {{activity.distance}} km de {{activity.sport.nom}} à {{activity.centreInteret.name }}.</p>
+  <P>Durée de l'activité avec une vitesse de {{activity.sport.kmH}} km/H: {{activityTime}} minutes.</P>
+  <P>Dépense énergétique {{kcal}} kcal.</P>
+
+  <div #map id="map"></div>
+
+</ion-content>

@@ -62,4 +62,9 @@ export class UserService {
     const url = `${API_SERVER.user}/location`;
     return this.http.put<any>(url, location, httpOptions);
   }
+
+  getProgression():Observable<any>{
+    const url = `${API_SERVER.user}/progression`;
+    return this.http.get<any>(url);
+  }
 }

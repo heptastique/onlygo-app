@@ -21,13 +21,16 @@ import { RegistrationPage } from '../pages/registration/registration';
 import { LoginPage } from '../pages/login/login';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
-import {ActivityService} from '../services/activity.service';
+import {RealisationService} from '../services/realisation.service';
 import {SportService} from '../services/sport.service';
 import {EvaluationService} from '../services/evaluation.service';
 import {GeolocationService} from '../services/geolocation.service';
 import {ActivityPage} from '../pages/activity/activity';
 import {ProgrammeService} from '../services/programme.service';
 import {ProgrammePage} from '../pages/programme/programme';
+import {ActivityDetailsPage} from '../pages/activity-details/activity-details';
+import {DateService} from '../services/date.service';
+import {ActivityService} from '../services/activity.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import {ProgrammePage} from '../pages/programme/programme';
     ProgressBarComponent,
     ActivityCreationPage,
     ActivityPage,
-    ProgrammePage
+    ProgrammePage,
+    ActivityDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import {ProgrammePage} from '../pages/programme/programme';
     LoginPage,
     ActivityCreationPage,
     ActivityPage,
-    ProgrammePage
+    ProgrammePage,
+    ActivityDetailsPage
   ],
   providers: [
     StatusBar,
@@ -73,12 +78,14 @@ import {ProgrammePage} from '../pages/programme/programme';
       multi: true
     },
     UserService,
-    ActivityService,
+    RealisationService,
     SportService,
     EvaluationService,
     Geolocation,
     GeolocationService,
-    ProgrammeService
+    ProgrammeService,
+    DateService,
+    ActivityService
   ]
 })
 export class AppModule {}

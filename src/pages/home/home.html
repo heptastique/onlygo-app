@@ -37,14 +37,27 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header text-center="">
-      Prochain entraînement
-    </ion-card-header>
-    <ion-card-content text-center="">
-      Demain 16H, à la tête d'or
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="nextActivity; else noActivityBlock">
+    <ion-card (click)="seeDetails()">
+      <ion-card-header text-center="">
+        Prochaine activité
+      </ion-card-header>
+      <ion-card-content text-center="">
+        <p>
+          {{dateStr}}, {{activity.distance}} km de {{activity.sport.nom}} à
+          {{activity.centreInteret.name }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #noActivityBlock>
+    <ion-card>
+      <ion-card-content text-center="">
+        Pas de prochaine activité cette semaine.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
 
   <ion-fab right bottom>
     <button ion-fab (click)="createActivity()" ><ion-icon name="add"></ion-icon></button>

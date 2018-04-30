@@ -9,25 +9,41 @@
 <ion-content padding>
 
   <div text-center="">
-    <button ion-button color="dark" clear icon-start style="vertical-align:middle">
-      <ion-icon name='arrow-back'></ion-icon>
-    </button>
+    <ion-row>
 
-    <span>
-      {{Date}}
-    </span>
+      <ion-col col-2>
+        <button ion-button color="dark" clear icon-start style="vertical-align:middle" (click)="displayLastWeek()">
+          <ion-icon name='arrow-back'></ion-icon>
+        </button>
+      </ion-col>
 
-    <button ion-button color="dark" clear icon-end style="vertical-align:middle">
-      <ion-icon name='arrow-forward'></ion-icon>
-    </button>
+      <ion-col col-8>
+        Semaine {{week.message}}
+      </ion-col>
+
+      <ion-col col-2>
+        <button ion-button color="dark" clear icon-end style="vertical-align:middle" (click)="displayNextWeek()">
+          <ion-icon name='arrow-forward'></ion-icon>
+        </button>
+      </ion-col>
+
+    </ion-row>
   </div>
 
-  <ion-card>
-    <ion-card-content text-center="">
-      <p>13h50 -> 14h30</p>
-      <br>
-      <p>50km</p>
-    </ion-card-content>
-  </ion-card>
+  <h1>Bilan de la semaine</h1>
+  <p>Distance parcourue: {{bilanDistance}} kms</p>
+  <p>Kcal: {{bilanKcal}}</p>
+
+  <h2>Mes activités</h2>
+  <ion-list>
+    <ion-card *ngFor="let activity of activitesRealisees">
+      <ion-card-header text-center="">
+        <h2>{{activity.date}}</h2>
+      </ion-card-header>
+      <ion-card-content text-center="">
+        <p>{{activity.sport.nom}}, {{activity.distance}} kms</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
 </ion-content>
