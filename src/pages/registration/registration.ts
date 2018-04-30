@@ -17,7 +17,7 @@ export class RegistrationPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifHebdo: 0,
     location: null
   };
 
