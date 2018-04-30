@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, App, NavController  } from 'ionic-angular';
+import {AlertController, App, ModalController, NavController} from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
@@ -8,6 +8,7 @@ import { User } from '../../entities/user';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {GeolocationService} from '../../services/geolocation.service';
 import {ProgrammeService} from '../../services/programme.service';
+import {LocationModalPage} from '../location-modal/location-modal';
 
 @Component({
   selector: 'page-preferences',
@@ -29,7 +30,8 @@ export class PreferencesPage {
 
   constructor(public navCtrl: NavController, private loginService: LoginService, private userService: UserService,
               private authService: AuthService, public appCtrl: App, public alertCtrl : AlertController,
-              private geolocationService: GeolocationService, private programmeService: ProgrammeService) { }
+              private geolocationService: GeolocationService, private programmeService: ProgrammeService,
+              public modalCtrl: ModalController) { }
 
   ionViewDidLoad () {
     this.getUser();
@@ -104,10 +106,14 @@ export class PreferencesPage {
     if(this.user.location === null){
      this.geolocationService.getPos().then(
        (coords)=> {
-         this.promptLocation(coords, "Localisation actuelle par défaut");
+         //this.promptLocation(coords, "Localisation actuelle par défaut");
+         let modal = this.modalCtrl.create(LocationModalPage);
+         modal.present();
        });
     }else{
-      this.promptLocation(this.user.location, "Localisation");
+      //this.promptLocation(this.user.location, "Localisation");
+      let modal = this.modalCtrl.create(LocationModalPage);
+      modal.present();
     }
   }
 
