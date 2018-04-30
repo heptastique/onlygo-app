@@ -6,17 +6,7 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  <div *ngIf="!activityStarted; else elseBlock">
-    <button ion-button full clear (click)="startActivity()">Commencer l'activité du jour</button>
-    <button ion-button full clear (click)="addActivity()">Ajouter une activité réalisée</button>
-  </div>
-  <ng-template #elseBlock>
     <div #map id="map"></div>
     <button ion-button full clear (click)="stopActivity()">Arrêter l'activité</button>
-  </ng-template>
-
-
-
 </ion-content>

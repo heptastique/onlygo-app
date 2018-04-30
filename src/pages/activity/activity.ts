@@ -33,6 +33,7 @@ export class ActivityPage {
               private realisationService: RealisationService, public alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
+    this.startActivity()
   }
 
   startActivity(){
@@ -58,10 +59,6 @@ export class ActivityPage {
       this.navCtrl.popToRoot();
     });
     this.map = null;
-  }
-
-  addActivity() {
-    this.navCtrl.push(ActivityCreationPage);
   }
 
   loadMap(){
