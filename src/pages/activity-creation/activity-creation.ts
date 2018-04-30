@@ -7,6 +7,7 @@ import {Activity} from '../../entities/activity';
 import {Sport} from '../../entities/sport';
 import {Centre_Interet} from '../../entities/centre_interet';
 import {DateService} from '../../services/date.service';
+import {ActivityDetailsPage} from '../activity-details/activity-details';
 
 @Component({
   selector: 'page-activity-creation',
@@ -81,5 +82,9 @@ export class ActivityCreationPage {
         });
         alert.present();
       });
+  }
+
+  seeDetails(){
+    this.navCtrl.push(ActivityDetailsPage);
   }
 }
