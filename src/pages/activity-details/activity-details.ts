@@ -64,23 +64,24 @@ export class ActivityDetailsPage {
   loadMap(){
     this.geolocationService.getPos().then((coords) =>
     {
-      let latLng = new google.maps.LatLng(coords.x, coords.y);
+      let myLatlng = new google.maps.LatLng(this.activity.centreInteret.point.x, this.activity.centreInteret.point.y);
       let mapOptions = {
-        center: latLng,
+        center: myLatlng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      this.addCurrentPos();
+      this.addCurrentPos(coords);
       this.addActivityPos(this.activity.centreInteret.point);
     });
   }
 
-  addCurrentPos(){
+  addCurrentPos(gps_coords: Gps_Coordinates ){
+    let myLatlng = new google.maps.LatLng(gps_coords.x, gps_coords.y);
     let marker = new google.maps.Marker({
       map: this.map,
-      position: this.map.getCenter(),
+      position: myLatlng,
       animation: google.maps.Animation.DROP,
       icon: this.icon
     });

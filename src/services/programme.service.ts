@@ -24,4 +24,9 @@ export class ProgrammeService {
     let params = new HttpParams().set("date",date.toDateString());
     return this.http.get<Programme>(url, {headers: httpOptions.headers, params: params});
   }
+
+  generateProgramme():Observable<any>{
+    const url = `${API_SERVER.programme}/generate`;
+    return this.http.get<any>(url);
+  }
 }

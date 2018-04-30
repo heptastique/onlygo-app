@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../entities/user';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {GeolocationService} from '../../services/geolocation.service';
+import {ProgrammeService} from '../../services/programme.service';
 
 @Component({
   selector: 'page-preferences',
@@ -28,7 +29,7 @@ export class PreferencesPage {
 
   constructor(public navCtrl: NavController, private loginService: LoginService, private userService: UserService,
               private authService: AuthService, public appCtrl: App, public alertCtrl : AlertController,
-              private geolocationService: GeolocationService) { }
+              private geolocationService: GeolocationService, private programmeService: ProgrammeService) { }
 
   ionViewDidLoad () {
     this.getUser();
@@ -74,7 +75,10 @@ export class PreferencesPage {
           text: 'Valider',
           handler: data => {
             this.userService.updateObjectif(data.objectif).subscribe(
-              (res) => { this.user.objectifHebdo = res.distance },
+              (res) => {
+                this.user.objectifHebdo = res.distance;
+                this.generateProgramme();
+                },
               (err) => {
                 let message;
                 if(err.status == 0) {
@@ -105,6 +109,10 @@ export class PreferencesPage {
     }else{
       this.promptLocation(this.user.location, "Localisation");
     }
+  }
+
+  generateProgramme(){
+    this.programmeService.generateProgramme().subscribe(() => {});
   }
 
   promptLocation(coords: Gps_Coordinates, title: string){
