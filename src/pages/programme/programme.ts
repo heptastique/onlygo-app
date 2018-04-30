@@ -20,7 +20,6 @@ export class ProgrammePage {
               public alertCtrl: AlertController, private dateService: DateService) { }
 
   ionViewDidLoad() {
-    console.log(this.dateService.getCurrentDate());
     this.getProgramme();
   }
 
