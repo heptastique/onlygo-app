@@ -1,17 +1,43 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Détails de l'activité</ion-title>
+    <ion-title>Prochaine activité</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-  <p>{{dateStr}}, {{activity.distance}} km de {{activity.sport.nom}} à {{activity.centreInteret.name }}.</p>
-  <P>Durée de l'activité avec une vitesse de {{activity.sport.kmH}} km/H: {{activityTime}} minutes.</P>
-  <P>Dépense énergétique {{kcal}} kcal.</P>
 
   <div #map id="map"></div>
+
+  <ion-item>
+    <ion-icon name='calendar' item-start></ion-icon>
+    {{dateStr}}
+  </ion-item>
+
+  <ion-item>
+      <ion-icon name='flag' item-start></ion-icon>
+      {{activity.distance}}km
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name='clock' item-start></ion-icon>
+    {{activityTime}} min à {{activity.sport.kmH}} km/h
+  </ion-item>
+
+  <ion-item>
+      <ion-icon name='compass' item-start></ion-icon>
+      {{activity.centreInteret.name}}
+  </ion-item>
+
+  <ion-item>
+      <ion-icon name='walk' item-start></ion-icon>
+      {{activity.sport.nom}}
+  </ion-item>
+
+  <ion-item>
+      <ion-icon name='flame' item-start></ion-icon>
+      {{kcal}} kcal
+  </ion-item>
 
 </ion-content>

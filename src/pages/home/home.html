@@ -38,7 +38,7 @@
   </ion-card>
 
   <div *ngIf="nextActivity; else noActivityBlock">
-    <ion-card (click)="seeDetails()">
+    <ion-card>
       <ion-card-header text-center="">
         Prochaine activité
       </ion-card-header>
@@ -47,6 +47,7 @@
           {{dateStr}}, {{activity.distance}} km de {{activity.sport.nom}} à
           {{activity.centreInteret.name }}
         </p>
+        <button ion-button clear (click)="seeDetails()">Détails</button>
       </ion-card-content>
     </ion-card>
   </div>
@@ -60,7 +61,7 @@
   </ng-template>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="createActivity()" ><ion-icon name="add"></ion-icon></button>
+    <button ion-fab (click)="presentActionSheet()" ><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 
 </ion-content>
