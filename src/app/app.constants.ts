@@ -6,5 +6,6 @@ export const API_SERVER: any = {
   evaluation: 'http://localhost:8080/timeFrame/evaluation',
   programme: 'http://localhost:8080/programme',
   activity: 'http://localhost:8080/activity',
-  update: 'http://localhost:8080/update'
+  update: 'http://localhost:8080/update',
+  plagehoraire: 'http://localhost:8080/timeFrame'
 };

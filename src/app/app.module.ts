@@ -32,6 +32,7 @@ import {ActivityDetailsPage} from '../pages/activity-details/activity-details';
 import {DateService} from '../services/date.service';
 import {ActivityService} from '../services/activity.service';
 import {CronService} from '../services/cron.service';
+import { PlageHoraireService } from '../services/plagehoraire.service';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import {CronService} from '../services/cron.service';
     ProgrammeService,
     DateService,
     ActivityService,
-    CronService
+    CronService,
+    PlageHoraireService
   ]
 })
 export class AppModule {}
