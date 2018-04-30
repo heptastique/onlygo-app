@@ -103,18 +103,8 @@ export class PreferencesPage {
   }
 
   updateLocalisation(){
-    if(this.user.location === null){
-     this.geolocationService.getPos().then(
-       (coords)=> {
-         //this.promptLocation(coords, "Localisation actuelle par défaut");
-         let modal = this.modalCtrl.create(LocationModalPage);
-         modal.present();
-       });
-    }else{
-      //this.promptLocation(this.user.location, "Localisation");
-      let modal = this.modalCtrl.create(LocationModalPage);
-      modal.present();
-    }
+    let modal = this.modalCtrl.create(LocationModalPage, {coords: this.user.location});
+    modal.present();
   }
 
   generateProgramme(){
