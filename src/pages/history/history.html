@@ -30,7 +30,11 @@
     </ion-row>
   </div>
 
-  <h1>Mes activités</h1>
+  <h1>Bilan de la semaine</h1>
+  <p>Distance parcourue: {{bilanDistance}} kms</p>
+  <p>Kcal: {{bilanKcal}}</p>
+
+  <h2>Mes activités</h2>
   <ion-list>
     <ion-card *ngFor="let activity of programme.activites">
       <div *ngIf="activity.estRealisee">
