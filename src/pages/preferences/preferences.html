@@ -7,15 +7,22 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-list>
-      <ion-item (click)="updateObjectif()">Objectif</ion-item>
-      <ion-item (click)="updateLocalisation()">Localisation préférée</ion-item>
-    </ion-list>
-  </div>
 
-  <div>
-    <button ion-button color="light" full (click)="logout()">Logout</button>
+  <ion-list>
+    <ion-item (click)="updateObjectif()">
+      <ion-icon name="flag" item-start></ion-icon>
+      Objectif
+    </ion-item>
+    <ion-item (click)="updateLocalisation()">
+      <ion-icon name="compass" item-start></ion-icon>
+      Localisation de départ
+    </ion-item>
+  </ion-list>
+
+  <div text-center>
+      <div class="col text-center">
+          <button (click)="logout()" ion-button color="danger" outline>Déconnexion</button>
+      </div>
   </div>
 
 </ion-content>

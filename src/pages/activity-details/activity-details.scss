@@ -1,6 +1,9 @@
 page-activity-details {
   #map {
     width: 100%;
-    height: 100%;
+    height: 30%;
+  }
+  ion-icon {
+    color: map-get($colors, primary);
   }
 }

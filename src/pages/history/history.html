@@ -30,11 +30,23 @@
     </ion-row>
   </div>
 
-  <h1>Bilan de la semaine</h1>
-  <p>Distance parcourue: {{bilanDistance}} kms</p>
-  <p>Kcal: {{bilanKcal}}</p>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Bilan de la semaine</ion-card-title>
+      <ion-item>
+          <ion-icon name='flag' item-start></ion-icon>
+          {{bilanDistance}} km
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name='flame' item-start></ion-icon>
+          {{bilanKcal}} kcal
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
 
   <h2>Mes activités</h2>
+  <p style="text-align: center" *ngIf="activitesRealisees.length === 0">Pas d'activités pour cette semaine</p>
   <ion-list>
     <ion-card *ngFor="let activity of activitesRealisees">
       <ion-card-header text-center="">
