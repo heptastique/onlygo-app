@@ -4,6 +4,7 @@ import { LoginService } from '../../services/login.service';
 import { LoginInfos } from '../../entities/loginInfos';
 import { TabsPage } from '../tabs/tabs';
 import { RegistrationPage } from '../registration/registration';
+import {CronService} from '../../services/cron.service';
 
 @Component({
   selector: 'page-login',
@@ -17,7 +18,7 @@ export class LoginPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController, private cronService: CronService) {
   }
 
   ionViewDidLoad() {
@@ -43,6 +44,25 @@ export class LoginPage {
           });
           alert.present();
         });
+  }
+
+  update(){
+    this.cronService.update().subscribe(() => {},
+      (err) => {
+        console.error(err);
+        let message;
+        if (err.status == 0) {
+          message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
+        } else {
+          message = err.error;
+        }
+        let alert = this.alertCtrl.create({
+          title: 'La connexion a échoué',
+          subTitle: message,
+          buttons: ['OK']
+        });
+        alert.present();
+      });
   }
 
   createAccount(){
