@@ -1,8 +1,10 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {  NavController,  } from 'ionic-angular';
+import {AlertController, NavController,} from 'ionic-angular';
 import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
+import {RealisationService} from '../../services/realisation.service';
+import {Realisation} from '../../entities/realisation';
 
 declare var google;
 
@@ -20,10 +22,15 @@ export class ActivityPage {
 
   coordsLog : Gps_Coordinates [] = [];
 
+  realisatation: Realisation = {
+    distance: 0,
+    date: new Date()
+  };
+
   icon = '../../assets/icon/pin-icon.png';
 
-  constructor(public navCtrl: NavController, private geolocationService: GeolocationService) {
-  }
+  constructor(public navCtrl: NavController, private geolocationService: GeolocationService,
+              private realisationService: RealisationService, public alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
   }
@@ -39,6 +46,17 @@ export class ActivityPage {
     this.activityStarted = false;
     this.geolocationService.stopRecording();
     this.coordsLog = this.geolocationService.getListCoord();
+    // TODO
+    // this.realisatation.distance
+    this.realisatation.date = new Date();
+    this.realisationService.addRealisation(this.realisatation).subscribe(() => {
+      let alert = this.alertCtrl.create({
+        title: 'Réalisation enregistrée !',
+        buttons: ['OK']
+      });
+      alert.present();
+      this.navCtrl.popToRoot();
+    });
     this.map = null;
   }
 
