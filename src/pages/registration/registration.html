@@ -10,48 +10,62 @@
 <ion-content padding>
   <div class="registration-box">
     <form (ngSubmit)="register()" #registerForm="ngForm">
-      <ion-row>
-        <ion-col>
-          <ion-list inset>
 
-            <ion-item>
-              <ion-input type="text" placeholder="Identifiant" name="username" [(ngModel)]="user.username"
-                         required></ion-input>
-            </ion-item>
+      <ion-list inset>
 
-            <ion-item>
-              <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="user.password"
-                         required></ion-input>
-            </ion-item>
+        <h1>Bienvenue {{user.firstname}}</h1>
 
-            <ion-item>
-              <ion-input type="password" placeholder="Confirmation mot de passe" name="passwordVerification" [(ngModel)]="passwordVerification"
-                         required></ion-input>
-            </ion-item>
+        <ion-item>
+          <ion-label floating>Prénom</ion-label>
+          <ion-input type="text" name="firstname" [(ngModel)]="user.firstname"
+                      required></ion-input>
+        </ion-item>
 
-            <ion-item>
-              <ion-input type="text" placeholder="Prénom" name="firstname" [(ngModel)]="user.firstname"
-                         required></ion-input>
-            </ion-item>
+        <ion-item>
+          <ion-label floating>Nom</ion-label>
+          <ion-input type="text" name="lastname" [(ngModel)]="user.lastname"
+                      required></ion-input>
+        </ion-item>
 
-            <ion-item>
-              <ion-input type="text" placeholder="Nom" name="lastname" [(ngModel)]="user.lastname"
-                         required></ion-input>
-            </ion-item>
+        <ion-item>
+          <ion-label floating>Identifiant</ion-label>
+          <ion-input type="text" name="username" [(ngModel)]="user.username"
+          required></ion-input>
+        </ion-item>
 
-            <ion-item>
-              <ion-input type="text" placeholder="E-mail" name="email" [(ngModel)]="user.email"
-                         required></ion-input>
-            </ion-item>
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="text" name="email" [(ngModel)]="user.email"
+                      required></ion-input>
+        </ion-item>
 
-            <ion-item>
-              <ion-input type="number" min="0" placeholder="Objectif" name="objectifHebdo" [(ngModel)]="user.objectifHebdo"
-                         required></ion-input>
-            </ion-item>
+        <ion-item>
+          <ion-label floating>Mot de passe</ion-label>
+          <ion-input type="password" name="password" [(ngModel)]="user.password"
+                      required></ion-input>
+        </ion-item>
 
-          </ion-list>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label floating>Confirmation mot de passe</ion-label>
+          <ion-input type="password" name="passwordVerification" [(ngModel)]="passwordVerification"
+                      required></ion-input>
+        </ion-item>
+
+        <h2>Vos préférences</h2>
+
+        <ion-item>
+          <ion-label floating>Objectif distance hebomadaire</ion-label>
+          <ion-input type="number" min="0" name="objectifHebdo" [(ngModel)]="user.objectifHebdo"
+                      required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>Distance max par séance</ion-label>
+            <ion-input type="number" min="0" name="distanceMax" [(ngModel)]="user.distanceMax"
+                        required></ion-input>
+        </ion-item>
+
+      </ion-list>
 
       <ion-row>
         <ion-col class="signup-col">
