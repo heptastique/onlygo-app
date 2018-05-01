@@ -52,6 +52,8 @@ export class HomePage {
 
   plageHoraire = null;
 
+  evaluationPourcentage = null;
+
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
               private dateService: DateService, private plageHoraireService: PlageHoraireService) {}
@@ -120,6 +122,7 @@ export class HomePage {
       console.log(plageHoraire);
       this.plageHoraire = plageHoraire;
       this.plageHoraire.donneeAthmospherique.indice = this.plageHoraire.donneeAthmospherique.indice.toFixed(2);
+      this.evaluationPourcentage = Math.round(this.plageHoraire.evaluation * 100)
     })
   }
 

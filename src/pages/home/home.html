@@ -16,10 +16,15 @@
       </div>
 
       <ng-template #notNullBlock>
+        <div class="pourcentage" text-center="">{{this.evaluationPourcentage}}%</div>
         <ion-item>
             <ion-icon name='leaf' item-start></ion-icon>
             {{plageHoraire.donneeAthmospherique.indice}}%
         </ion-item>
+        <ion-item>
+          <ion-icon name='sunny' item-start></ion-icon>
+          {{plageHoraire.weatherData.weather.description}}
+      </ion-item>
       </ng-template>
 
     </ion-card-content>
