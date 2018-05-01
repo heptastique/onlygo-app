@@ -80,6 +80,8 @@ export class HistoryPage {
           if(this.loadProgress > 100) {
             this.loadProgress = 100;
           }
+        }else{
+          this.loadProgress = null;
         }
       },
       (err) => {
