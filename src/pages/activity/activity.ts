@@ -48,13 +48,13 @@ export class ActivityPage {
     this.startActivity();
   }
 
-  startActivity(){
+  async startActivity(){
     this.activityStarted = true;
     this.coordsLog = [];
     this.mapsCoords = [];
-    this.loadMap();
+    await this.loadMap();
 
-    
+
     // Uncomment comments to simulate a movement
     this.sub = Observable.interval(1000).subscribe( () =>{
       this.geolocationService.getPos().then((coords) => {
@@ -68,7 +68,7 @@ export class ActivityPage {
         }else{
           this.loadProgress = 100;
         }
-        
+
       })
     });
   }
@@ -92,47 +92,49 @@ export class ActivityPage {
     this.map = null;
   }
 
-  loadMap(){
-    this.geolocationService.getPos().then((coords) =>
-    {
-      let latLng = new google.maps.LatLng(coords.x, coords.y);
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
+  async loadMap(){
+    return new Promise(resolve => {
+      this.geolocationService.getPos().then((coords) =>
+      {
+        let latLng = new google.maps.LatLng(coords.x, coords.y);
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-      this.path = new google.maps.Polyline({
-        path: this.mapsCoords,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
+        this.path = new google.maps.Polyline({
+          path: this.mapsCoords,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        this.path.setMap(this.map);
+        this.addCurrentPoint();
+
+        /*google.maps.LatLng.prototype.kmTo = function(a){
+          var e = Math, ra = e.PI/180;
+          var b = this.lat() * ra, c = a.lat() * ra, d = b - c;
+          var g = this.lng() * ra - a.lng() * ra;
+          var f = 2 * e.asin(e.sqrt(e.pow(e.sin(d/2), 2) + e.cos(b) * e.cos
+          (c) * e.pow(e.sin(g/2), 2)));
+          return f * 6378.137;
+      }
+
+      google.maps.Polyline.prototype.inKm = function(n){
+          var a = this.getPath(n), len = a.getLength(), dist = 0;
+          for (var i=0; i < len-1; i++) {
+            dist += a.getAt(i).kmTo(a.getAt(i+1));
+          }
+          return dist;
+      }*/
+      resolve();
       });
-
-      this.path.setMap(this.map);
-      this.addCurrentPoint();
-
-      /*google.maps.LatLng.prototype.kmTo = function(a){ 
-        var e = Math, ra = e.PI/180; 
-        var b = this.lat() * ra, c = a.lat() * ra, d = b - c; 
-        var g = this.lng() * ra - a.lng() * ra; 
-        var f = 2 * e.asin(e.sqrt(e.pow(e.sin(d/2), 2) + e.cos(b) * e.cos 
-        (c) * e.pow(e.sin(g/2), 2))); 
-        return f * 6378.137; 
-    }
-    
-    google.maps.Polyline.prototype.inKm = function(n){ 
-        var a = this.getPath(n), len = a.getLength(), dist = 0; 
-        for (var i=0; i < len-1; i++) { 
-           dist += a.getAt(i).kmTo(a.getAt(i+1)); 
-        }
-        return dist; 
-    }*/
-
-    });
+    })
   }
 
   addCurrentPoint(){
