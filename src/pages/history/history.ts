@@ -24,11 +24,14 @@ export class HistoryPage {
 
   programme : Programme = {
     activites: this.activites,
-    user: null
+    user: null,
+    objectifDistance: null
   };
 
   bilanKcal: number = 0;
   bilanDistance: number = 0;
+
+  loadProgress = null;
 
   constructor(public navCtrl: NavController, private dateService: DateService, private programmeService: ProgrammeService,
               public alertCtrl: AlertController) { }
@@ -73,6 +76,12 @@ export class HistoryPage {
           }
           this.bilanKcal = Math.round(this.bilanKcal*10)/10;
           this.bilanDistance = Math.round(this.bilanDistance*10)/10;
+          this.loadProgress = Math.round(this.bilanDistance/this.programme.objectifDistance * 100)
+          if(this.loadProgress > 100) {
+            this.loadProgress = 100;
+          }
+        }else{
+          this.loadProgress = null;
         }
       },
       (err) => {
