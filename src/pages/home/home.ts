@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {AlertController, NavController, ActionSheetController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
 import {EvaluationService} from '../../services/evaluation.service';
@@ -13,6 +13,7 @@ import {Activity} from '../../entities/activity';
 import {DateService} from '../../services/date.service';
 import { PlageHoraireService } from '../../services/plagehoraire.service';
 import { PlageHoraire } from '../../entities/plagehoraire';
+import { ActivityCreationPage } from '../activity-creation/activity-creation';
 
 @Component({
   selector: 'page-home',
@@ -56,7 +57,9 @@ export class HomePage {
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
-              private dateService: DateService, private plageHoraireService: PlageHoraireService) {}
+              private dateService: DateService, private plageHoraireService: PlageHoraireService,
+              public createActivitySheet: ActionSheetController) {}
+
 
   ionViewDidEnter() {
     this.getUser();
@@ -180,6 +183,41 @@ export class HomePage {
 
   seeDetails(){
     this.navCtrl.push(ActivityDetailsPage);
+  }
+
+  addActivity() {
+    this.navCtrl.push(ActivityCreationPage);
+  }
+
+  recordActivity() {
+    this.navCtrl.push(ActivityPage)
+  }
+
+  presentActionSheet() {
+    let actionSheet = this.createActivitySheet.create({
+      title: 'Effectuer une activité',
+      buttons: [
+        {
+          text: 'Commencer l\'activité du jour',
+          icon: 'pulse',
+          handler: () => {
+            this.recordActivity();
+          }
+        },{
+          text: 'Ajouter une activité réalisée',
+          icon: 'add',
+          handler: () => {
+            this.addActivity();
+          }
+        },{
+          text: 'Annuler',
+          role: 'cancel',
+          icon: 'close',
+          handler: () => {}
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }
 

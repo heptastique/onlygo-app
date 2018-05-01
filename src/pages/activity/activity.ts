@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {AlertController, NavController,} from 'ionic-angular';
+import {AlertController, NavController, ToastController,} from 'ionic-angular';
 import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
@@ -30,9 +30,11 @@ export class ActivityPage {
   icon = '../../assets/icon/pin-icon.png';
 
   constructor(public navCtrl: NavController, private geolocationService: GeolocationService,
-              private realisationService: RealisationService, public alertCtrl: AlertController) { }
+              private realisationService: RealisationService, public alertCtrl: AlertController,
+              public toastCtrl: ToastController) { }
 
   ionViewDidLoad() {
+    this.startActivity()
   }
 
   startActivity(){
@@ -50,18 +52,16 @@ export class ActivityPage {
     // this.realisatation.distance
     this.realisatation.date = new Date();
     this.realisationService.addRealisation(this.realisatation).subscribe(() => {
-      let alert = this.alertCtrl.create({
-        title: 'Réalisation enregistrée !',
-        buttons: ['OK']
+      let toast = this.toastCtrl.create({
+        message: 'Réalisation enregistrée !',
+        duration: 3000,
+        showCloseButton: true,
+        closeButtonText: 'Ok'
       });
-      alert.present();
+      toast.present();
       this.navCtrl.popToRoot();
     });
     this.map = null;
-  }
-
-  addActivity() {
-    this.navCtrl.push(ActivityCreationPage);
   }
 
   loadMap(){

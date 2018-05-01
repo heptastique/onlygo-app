@@ -6,36 +6,28 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <div text-center="">
-    <h1>Mes activités</h1>
     <ion-list>
       <ion-card *ngFor="let activity of programme.activites">
-        <div *ngIf="!activity.estRealisee">
-          <ion-card-header text-center="">
-            <h2>{{activity.date}}</h2>
-          </ion-card-header>
-          <ion-card-content text-center="">
-            <p>{{activity.sport.nom}}, {{activity.distance}} kms</p>
-          </ion-card-content>
-        </div>
-      </ion-card>
-    </ion-list>
-  </div>
-
-  <div text-center="">
-    <h1>Mes activités réalisées</h1>
-    <ion-list>
-      <ion-card *ngFor="let activity of programme.activites">
-        <div *ngIf="activity.estRealisee">
-          <ion-card-header text-center="">
-            <h2>{{activity.date}}</h2>
-          </ion-card-header>
-          <ion-card-content text-center="">
-            <p>{{activity.sport.nom}}, {{activity.distance}} m</p>
-          </ion-card-content>
-        </div>
+        <ion-card-title text-center="">
+          <ion-icon name="checkmark-circle" style="color: green" *ngIf="activity.estRealisee"></ion-icon>
+          {{activity.date}}
+        </ion-card-title>
+        <ion-card-content>
+            <ion-item>
+                <ion-icon name='flag' item-start></ion-icon>
+                {{activity.distance}}km
+            </ion-item>
+            <ion-item>
+                <ion-icon name='walk' item-start></ion-icon>
+                {{activity.sport.nom}}
+            </ion-item>
+            <ion-item>
+                <ion-icon name='compass' item-start></ion-icon>
+                {{activity.centreInteret.name}}
+            </ion-item>
+        </ion-card-content>
       </ion-card>
     </ion-list>
   </div>
