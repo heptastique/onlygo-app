@@ -17,7 +17,11 @@ export class LocationModalPage {
 
   gps_coordinates_settings : Gps_Coordinates;
 
+  gps_current_pos: Gps_Coordinates;
+
   icon = '../../assets/icon/pin-icon.png';
+
+  marker;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
               private geolocationService: GeolocationService, public alertCtrl: AlertController, private userService: UserService) {
@@ -37,6 +41,7 @@ export class LocationModalPage {
   loadMap(){
     this.geolocationService.getPos().then((coords) =>
     {
+      this.gps_current_pos = coords;
       let myLatlng;
       if(this.gps_coordinates_settings === null){
         myLatlng = new google.maps.LatLng(coords.x, coords.y);
@@ -53,27 +58,27 @@ export class LocationModalPage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
 
-      let marker = new google.maps.Marker({
+      this.marker = new google.maps.Marker({
         map: this.map,
         position: this.map.getCenter(),
         animation: google.maps.Animation.DROP,
       });
 
       google.maps.event.addListener(this.map, 'click', (event) => {
-        marker.setPosition(event.latLng);
+        this.marker.setPosition(event.latLng);
         this.gps_coordinates_settings.x = event.latLng.lat();
         this.gps_coordinates_settings.y = event.latLng.lng();
       });
 
       let content = "<h4>Ma position préférée</h4>";
-      this.addInfoWindow(marker, content);
+      this.addInfoWindow(this.marker, content);
       this.addCurrentPos(coords);
     });
   }
 
   addCurrentPos(gps_coords: Gps_Coordinates ){
     let myLatlng = new google.maps.LatLng(gps_coords.x, gps_coords.y);
-    let marker = new google.maps.Marker({
+     let marker = new google.maps.Marker({
       map: this.map,
       position: myLatlng,
       animation: google.maps.Animation.DROP,
@@ -128,5 +133,12 @@ export class LocationModalPage {
       ]
     });
     confirm.present();
+  }
+
+  setCurrentPos(){
+    let myLatlng = new google.maps.LatLng(this.gps_current_pos.x, this.gps_current_pos.y);
+    this.marker.setPosition(myLatlng);
+    this.gps_coordinates_settings.x = this.gps_current_pos.x;
+    this.gps_coordinates_settings.y = this.gps_current_pos.y;
   }
 }
