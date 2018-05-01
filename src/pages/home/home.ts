@@ -191,7 +191,7 @@ export class HomePage {
   }
 
   recordActivity() {
-    this.navCtrl.push(ActivityPage)
+    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distance});
   }
 
   presentActionSheet() {

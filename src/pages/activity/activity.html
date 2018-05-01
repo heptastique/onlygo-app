@@ -10,6 +10,7 @@
     <div text-center>
         <div class="col text-center">
             <button ion-button outline (click)="stopActivity()">Arrêter l'activité</button>
+            <progress-bar [progress]="loadProgress"></progress-bar>
         </div>
     </div>
     <div #map id="map"></div>
