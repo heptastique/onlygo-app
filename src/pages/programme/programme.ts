@@ -13,8 +13,9 @@ export class ProgrammePage {
 
   programme : Programme = {
     activites: null,
+    realisations: null,
     user: null,
-    objectifDistance: null
+    objectifDistance: null,
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private programmeService: ProgrammeService,

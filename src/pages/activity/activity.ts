@@ -33,7 +33,8 @@ export class ActivityPage {
 
   realisatation: Realisation = {
     distance: 0,
-    date: new Date()
+    date: new Date(),
+    centreInteret: null
   };
 
   icon = '../../assets/icon/pin-icon.png';
