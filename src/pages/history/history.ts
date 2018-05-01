@@ -44,6 +44,11 @@ export class HistoryPage {
     this.displayCurrentWeek();
   }
 
+  doRefresh(refresher) {
+    this.getProgrammeByDate(this.week.date);
+    refresher.complete();
+  }
+
   displayCurrentWeek(){
     this.week = this.dateService.getCurrentWeek();
     this.getProgrammeByDate(this.week.date);
