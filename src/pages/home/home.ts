@@ -11,6 +11,8 @@ import {ActivityDetailsPage} from '../activity-details/activity-details';
 import {ActivityService} from '../../services/activity.service';
 import {Activity} from '../../entities/activity';
 import {DateService} from '../../services/date.service';
+import { PlageHoraireService } from '../../services/plagehoraire.service';
+import { PlageHoraire } from '../../entities/plagehoraire';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
 
 @Component({
@@ -49,15 +51,22 @@ export class HomePage {
   nextActivity = false;
   dateStr = "";
 
+  plageHoraire = null;
+
+  evaluationPourcentage = null;
+
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
-              private dateService: DateService, public createActivitySheet: ActionSheetController) {}
+              private dateService: DateService, private plageHoraireService: PlageHoraireService,
+              public createActivitySheet: ActionSheetController) {}
+
 
   ionViewDidEnter() {
     this.getUser();
     this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
+    this.getPlageActuelle();
   }
 
   getProgression(){
@@ -109,6 +118,15 @@ export class HomePage {
         });
         alert.present();
       });
+  }
+
+  getPlageActuelle() {
+    this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
+      console.log(plageHoraire);
+      this.plageHoraire = plageHoraire;
+      this.plageHoraire.donneeAthmospherique.indice = this.plageHoraire.donneeAthmospherique.indice.toFixed(2);
+      this.evaluationPourcentage = Math.round(this.plageHoraire.evaluation * 100)
+    })
   }
 
   getUser(): void {
