@@ -45,17 +45,13 @@
     </ion-card-content>
   </ion-card>
 
-  <h2>Mes activités</h2>
+  <h2>Mes activités réalisées</h2>
   <p style="text-align: center" *ngIf="activitesRealisees.length === 0">Pas d'activités pour cette semaine</p>
   <ion-list>
-    <ion-card *ngFor="let activity of activitesRealisees">
-      <ion-card-header text-center="">
+    <ion-item *ngFor="let activity of activitesRealisees">
         <h2>{{activity.date}}</h2>
-      </ion-card-header>
-      <ion-card-content text-center="">
         <p>{{activity.sport.nom}}, {{activity.distance}} kms</p>
-      </ion-card-content>
-    </ion-card>
+    </ion-item>
   </ion-list>
 
 </ion-content>
