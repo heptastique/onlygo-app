@@ -70,6 +70,15 @@ export class HomePage {
     this.getPlageActuelle();
   }
 
+  doRefresh(refresher) {
+    this.getUser();
+    this.getEvaluation();
+    this.getProgression();
+    this.getNextActivity();
+    this.getPlageActuelle();
+    refresher.complete();
+  }
+
   getProgression(){
     this.userService.getProgression().subscribe(
       (data) => {
