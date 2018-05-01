@@ -99,7 +99,7 @@ export class LocationModalPage {
   validate(){
     let confirm = this.alertCtrl.create({
       title: 'Confirmation',
-      message: 'Voulez-vous confirmer cette nouvelle localtion ?',
+      message: 'Confirmer cette nouvelle localisation de départ ?',
       buttons: [
         {
           text: 'Non',
