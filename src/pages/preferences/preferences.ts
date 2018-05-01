@@ -21,6 +21,7 @@ export class PreferencesPage {
     lastname: "",
     email: "",
     objectifHebdo: null,
+    distanceMax: null,
     location: null
   };
 
@@ -76,6 +77,51 @@ export class PreferencesPage {
             this.userService.updateObjectif(data.objectif).subscribe(
               (res) => {
                 this.user.objectifHebdo = res.distance;
+                this.generateProgramme();
+                },
+              (err) => {
+                let message;
+                if(err.status == 0) {
+                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
+                }else{
+                  message = err.error;
+                }
+                let alert = this.alertCtrl.create({
+                  title: 'Erreur lors de la mise à jour.',
+                  subTitle: message,
+                  buttons: ['OK']
+                });
+                alert.present();
+              });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  updateDistanceMax(){
+    let alert = this.alertCtrl.create({
+      title: 'Distance max par séance',
+      inputs: [
+        {
+          name: 'distance',
+          type: 'number',
+          min: '0',
+          value: this.user.distanceMax.toString()
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+        },
+        {
+          text: 'Valider',
+          handler: data => {
+            this.userService.updateDistanceMax(data.distance).subscribe(
+              (res) => {
+                this.user.distanceMax = res.distance;
                 this.generateProgramme();
                 },
               (err) => {

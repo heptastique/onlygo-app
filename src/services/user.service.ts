@@ -54,6 +54,17 @@ export class UserService {
   }
 
   /**
+   * Update distance max per session
+   * @param {number} distance
+   * @returns {Observable<any>}
+   */
+  updateDistanceMax(distance: number): Observable<any>{
+    const url = `${API_SERVER.user}/maxDistance`;
+    const payload = "{\"distance\":" + distance + "}";
+    return this.http.put<any>(url, payload, httpOptions);
+  }
+
+  /**
    * Update location
    * @param {Gps_Coordinates} location
    * @returns {Observable<any>}
