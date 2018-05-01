@@ -1,26 +1,22 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Connexion</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
+  <h1 class="title">Only<strong class="go">Go</strong></h1>
   <div class="login-box">
     <form (ngSubmit)="login()" #registerForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list inset>
 
+            <h2>Connexion</h2>
+
             <ion-item>
-              <ion-input type="text" placeholder="Identifiant" name="username" [(ngModel)]="loginInfos.username"
+              <ion-label floating>Identifiant</ion-label>
+              <ion-input type="text" name="username" [(ngModel)]="loginInfos.username"
                          required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="loginInfos.password"
+              <ion-label floating>Mot de passe</ion-label>
+              <ion-input type="password" name="password" [(ngModel)]="loginInfos.password"
                          required></ion-input>
             </ion-item>
 

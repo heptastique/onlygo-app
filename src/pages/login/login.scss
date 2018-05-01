@@ -1,3 +1,9 @@
 page-login {
+  .title {
+    text-align: center;
+  }
 
+  .go {
+    color: map-get($colors, primary);
+  }
 }
