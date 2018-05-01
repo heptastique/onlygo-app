@@ -17,7 +17,8 @@ export class ActivityCreationPage {
 
   realisation: Realisation = {
     distance: 0,
-    date: new Date()
+    date: new Date(),
+    centreInteret: null
   };
 
   centreInteret : Centre_Interet = {
