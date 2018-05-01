@@ -7,5 +7,6 @@ export class User{
   lastname: string;
   email: string;
   objectifHebdo: number;
+  distanceMax: number;
   location: Gps_Coordinates;
 }
