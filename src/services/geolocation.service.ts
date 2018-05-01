@@ -42,7 +42,7 @@ export class GeolocationService {
     return this.geolocation.getCurrentPosition().then((resp) => {
        this.coord.x = resp.coords.latitude;
        this.coord.y = resp.coords.longitude;
-       console.log(this.coord);
+       //console.log(this.coord);
        return this.coord;
      });
   }
