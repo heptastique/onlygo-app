@@ -1,4 +1,7 @@
+import { Centre_Interet } from "./centre_interet";
+
 export class Realisation{
   distance: number;
-  date: Date;
+  date: any;
+  centreInteret: Centre_Interet;
 }

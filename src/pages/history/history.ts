@@ -4,6 +4,7 @@ import {DateService} from '../../services/date.service';
 import {ProgrammeService} from '../../services/programme.service';
 import {Programme} from '../../entities/programme';
 import {Activity} from '../../entities/activity';
+import { Realisation } from '../../entities/realisation';
 
 @Component({
   selector: 'page-history',
@@ -20,10 +21,13 @@ export class HistoryPage {
 
   activites: Activity [] = [];
 
+  realisations: Realisation [] = [];
+
   activitesRealisees: Activity [] = [];
 
   programme : Programme = {
     activites: this.activites,
+    realisations: this.realisations,
     user: null,
     objectifDistance: null
   };
@@ -38,6 +42,11 @@ export class HistoryPage {
 
   ionViewDidLoad(){
     this.displayCurrentWeek();
+  }
+
+  doRefresh(refresher) {
+    this.getProgrammeByDate(this.week.date);
+    refresher.complete();
   }
 
   displayCurrentWeek(){
@@ -69,10 +78,13 @@ export class HistoryPage {
               this.programme.activites[i].distance = Math.round(this.programme.activites[i].distance*10)/10;
 
               this.activitesRealisees.push(this.programme.activites[i]);
-
-              this.bilanKcal = this.bilanKcal + this.programme.activites[i].distance * this.programme.activites[i].sport.kcalKm;
-              this.bilanDistance += this.programme.activites[i].distance;
             }
+          }
+          for(let i in this.programme.realisations) {
+            this.programme.realisations[i].date = this.dateService.getDateFromString(this.programme.realisations[i].date);
+            this.programme.realisations[i].distance = Math.round(this.programme.realisations[i].distance*10)/10;
+            this.bilanDistance += this.programme.realisations[i].distance;
+            this.bilanKcal = this.bilanKcal + this.programme.activites[i].distance * 73.333336; // Un problème ?
           }
           this.bilanKcal = Math.round(this.bilanKcal*10)/10;
           this.bilanDistance = Math.round(this.bilanDistance*10)/10;
