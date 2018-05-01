@@ -7,7 +7,7 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header text-center="">
-      Maintenant
+      Indice actuel
     </ion-card-header>
     <ion-card-content text-center="">
 
@@ -19,11 +19,11 @@
         <div class="pourcentage" text-center="">{{this.evaluationPourcentage}}%</div>
         <ion-item>
             <ion-icon name='cloud-done' item-start></ion-icon>
-            {{plageHoraire.donneeAthmospherique.indice}}%
+            Taux pollution : {{plageHoraire.donneeAthmospherique.indice}}%
         </ion-item>
         <ion-item>
           <ion-icon name='sunny' item-start></ion-icon>
-          {{plageHoraire.weatherData.weather.description}}
+          Météo : {{plageHoraire.weatherData.weather.description}}
       </ion-item>
       </ng-template>
 
