@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Programme</ion-title>
+    <ion-title>Programme de cette semaine</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,26 +9,23 @@
 <ion-content padding>
   <div text-center="">
     <ion-list>
-      <ion-card *ngFor="let activity of programme.activites">
-        <ion-card-title text-center="">
-          <ion-icon name="checkmark-circle" style="color: green" *ngIf="activity.estRealisee"></ion-icon>
-          {{activity.date}}
-        </ion-card-title>
-        <ion-card-content>
-            <ion-item>
-                <ion-icon name='flag' item-start></ion-icon>
-                {{activity.distance}}km
-            </ion-item>
-            <ion-item>
-                <ion-icon name='walk' item-start></ion-icon>
-                {{activity.sport.nom}}
-            </ion-item>
-            <ion-item>
-                <ion-icon name='compass' item-start></ion-icon>
-                {{activity.centreInteret.name}}
-            </ion-item>
-        </ion-card-content>
-      </ion-card>
+      <ion-item *ngFor="let activity of programme.activites">
+        <ion-row>
+          <ion-col col-8>
+            <h2>
+              {{activity.date}}
+            </h2>
+            <p><ion-icon name='walk' item-start></ion-icon>{{activity.sport.nom}}</p>
+            <p><ion-icon name='flag' item-start></ion-icon>{{activity.distance}} kms</p>
+            <p><ion-icon name='pin' item-start></ion-icon>{{activity.centreInteret.name}}</p>
+          </ion-col>
+          <ion-col col-4>
+            <div class="icon-div">
+              <ion-icon name="checkmark-circle" class="check" *ngIf="activity.estRealisee"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-item>
     </ion-list>
   </div>
 </ion-content>
