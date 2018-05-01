@@ -33,6 +33,7 @@
   <ion-card>
     <ion-card-content>
       <ion-card-title>Bilan de la semaine</ion-card-title>
+      <progress-bar *ngIf="loadProgress !== null" [progress]="loadProgress"></progress-bar>
       <ion-item>
           <ion-icon name='flag' item-start></ion-icon>
           {{bilanDistance}} km
