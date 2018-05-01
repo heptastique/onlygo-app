@@ -35,6 +35,7 @@ export class HomePage {
     lastname: "",
     email: "",
     objectifHebdo: null,
+    distanceMax: null,
     location: null
   };
 

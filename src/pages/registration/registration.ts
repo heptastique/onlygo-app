@@ -18,6 +18,7 @@ export class RegistrationPage {
     lastname: "",
     email: "",
     objectifHebdo: 0,
+    distanceMax: 5,
     location: null
   };
 
