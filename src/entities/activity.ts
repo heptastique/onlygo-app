@@ -1,5 +1,6 @@
 import {Sport} from './sport';
 import {Centre_Interet} from './centre_interet';
+import {PlageHoraire} from './plagehoraire';
 
 export class Activity{
   sport: Sport;
@@ -10,4 +11,5 @@ export class Activity{
   programmeId: number;
   estRealisee: boolean;
   centreInteret: Centre_Interet;
+  timeFrame: PlageHoraire
 }

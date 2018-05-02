@@ -7,6 +7,8 @@ import {DateService} from '../../services/date.service';
 import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {Centre_Interet} from '../../entities/centre_interet';
+import {PlageHoraire} from '../../entities/plagehoraire';
+import {JourSemaine} from '../../entities/joursemaine';
 
 declare var google;
 
@@ -20,10 +22,21 @@ export class ActivityDetailsPage {
   map: any;
 
   sport : Sport = {
-    nom : "",
+    nom: "",
     kcalKm: null,
     kmH: null,
     id: null
+  };
+
+  timeFrame: PlageHoraire = {
+    id: null,
+    heureDebut: 0,
+    heureFin: 0,
+    jour: null,
+    evaluation: null,
+    date: null,
+    donneeAthmospherique: null,
+    nomJour: null
   };
 
   centreInteret: Centre_Interet={
@@ -39,7 +52,8 @@ export class ActivityDetailsPage {
     dateRealisee: null,
     programmeId: null,
     estRealisee: null,
-    centreInteret: this.centreInteret
+    centreInteret: this.centreInteret,
+    timeFrame: this.timeFrame
   };
 
 

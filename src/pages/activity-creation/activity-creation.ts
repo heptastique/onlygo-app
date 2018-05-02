@@ -41,7 +41,8 @@ export class ActivityCreationPage {
     dateRealisee: null,
     programmeId: null,
     estRealisee: null,
-    centreInteret: this.centreInteret
+    centreInteret: this.centreInteret,
+    timeFrame: null
   };
 
   dateStr = "";

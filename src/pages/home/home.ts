@@ -57,10 +57,9 @@ export class HomePage {
     dateRealisee: "",
     programmeId: null,
     estRealisee: null,
-    centreInteret: null
+    centreInteret: null,
+    timeFrame: null
   };
-
-
 
   nextActivity = false;
   dateStr = "";
