@@ -73,7 +73,7 @@
       </ion-card-header>
       <ion-card-content text-center="">
         <p>
-          {{dateStr}}, {{activity.distancePrevue}} km de {{activity.sport.nom}} à
+          {{dateStr}} entre {{activity.timeFrame.heureDebut}}h et {{activity.timeFrame.heureFin}}h, {{activity.distancePrevue}} km de {{activity.sport.nom}} à
           {{activity.centreInteret.name }}
         </p>
         <button ion-button clear (click)="seeDetails()">Détails</button>
