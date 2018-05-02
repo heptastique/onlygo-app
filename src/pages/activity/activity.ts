@@ -169,7 +169,7 @@ export class ActivityPage {
           this.mapsGeneratedCoords.push({'lat': points.x, 'lng': points.y});
           this.pathGenerated.setPath(this.mapsGeneratedCoords);
         }
-        console.log(this.pathGenerated);
+        console.log(this.mapsGeneratedCoords);
         resolve();
       });
     });

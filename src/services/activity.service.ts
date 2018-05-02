@@ -22,6 +22,7 @@ export class ActivityService{
   getItenary(idActivity: number): Observable<Gps_Coordinates []>{
     const url = `${API_SERVER.activity}/itinary`;
     let params = new HttpParams().set("activite",idActivity.toString());
-    return this.http.get<Gps_Coordinates []>(url, {headers: httpOptions.headers, params: params});
+    return this.http.get<Gps_Coordinates []>(url, {headers: httpOptions.headers, params: params})
+    .map((result)=> result['pointCentreInteretList']);
   }
 }
