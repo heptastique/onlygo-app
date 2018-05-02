@@ -28,7 +28,7 @@ export class HistoryPage {
   programme : Programme = {
     activites: this.activites,
     user: null,
-    objectifDistance: null
+    objectifs: null
   };
 
   bilanKcal: number = 0;
@@ -76,13 +76,13 @@ export class HistoryPage {
               this.programme.activites[i].dateRealisee = this.dateService.getDateFromString(this.programme.activites[i].dateRealisee);
               this.programme.activites[i].distanceRealisee = Math.round(this.programme.activites[i].distanceRealisee*10)/10;
               this.bilanDistance += this.programme.activites[i].distanceRealisee;
-              this.bilanKcal = this.bilanKcal + this.programme.activites[i].distanceRealisee * 73.333336; // Un problème ?
+              this.bilanKcal = this.bilanKcal + this.sumKcal(this.programme.activites[i]);
               this.activitesRealisees.push(this.programme.activites[i]);
             }
           }
           this.bilanKcal = Math.round(this.bilanKcal*10)/10;
           this.bilanDistance = Math.round(this.bilanDistance*10)/10;
-          this.loadProgress = Math.round(this.bilanDistance/this.programme.objectifDistance * 100)
+          this.loadProgress = Math.round(this.bilanDistance/this.sumSportGoals(this.programme) * 100)
           if(this.loadProgress > 100) {
             this.loadProgress = 100;
           }
@@ -99,5 +99,19 @@ export class HistoryPage {
         });
         alert.present();
       });
+
   }
+
+  sumKcal(activity: Activity): number {
+    return activity.distanceRealisee * activity.sport.kcalKm;
+  }
+
+  sumSportGoals(programme: Programme): number {
+    var sum: number = 0;
+    programme.objectifs.forEach(objectif => {
+      sum += objectif.objectif;
+    });
+    return sum;
+  }
+
 }
