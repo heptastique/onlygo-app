@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { NgxGaugeModule } from 'ngx-gauge';
 
 import { HistoryPage } from '../pages/history/history';
 import { PreferencesPage } from '../pages/preferences/preferences';
@@ -34,6 +34,7 @@ import {ActivityService} from '../services/activity.service';
 import {CronService} from '../services/cron.service';
 import { PlageHoraireService } from '../services/plagehoraire.service';
 import {LocationModalPage} from '../pages/location-modal/location-modal';
+import { InfoIndicePage } from '../pages/info-indice/info-indice';
 
 @NgModule({
   declarations: [
@@ -49,12 +50,14 @@ import {LocationModalPage} from '../pages/location-modal/location-modal';
     ActivityPage,
     ProgrammePage,
     ActivityDetailsPage,
-    LocationModalPage
+    LocationModalPage,
+    InfoIndicePage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    NgxGaugeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -69,7 +72,8 @@ import {LocationModalPage} from '../pages/location-modal/location-modal';
     ActivityPage,
     ProgrammePage,
     ActivityDetailsPage,
-    LocationModalPage
+    LocationModalPage,
+    InfoIndicePage
   ],
   providers: [
     StatusBar,
