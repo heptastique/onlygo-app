@@ -15,6 +15,8 @@ import { PlageHoraireService } from '../../services/plagehoraire.service';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
 import { Sport } from '../../entities/sport';
 import { InfoIndicePage } from '../info-indice/info-indice';
+import { ProgrammeService } from '../../services/programme.service';
+import { Programme } from '../../entities/programme';
 
 @Component({
   selector: 'page-home',
@@ -88,7 +90,8 @@ export class HomePage {
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
               private dateService: DateService, private plageHoraireService: PlageHoraireService,
-              public createActivitySheet: ActionSheetController, public modalCtrl: ModalController) {}
+              public createActivitySheet: ActionSheetController, public modalCtrl: ModalController,
+              public programmeService: ProgrammeService) {}
 
 
   ionViewDidEnter() {
@@ -111,23 +114,15 @@ export class HomePage {
   }
 
   getProgression(){
-    this.userService.getProgression().subscribe(
-      (data) => {
-        if(data.progression > 100){
-          this.loadProgress  = 100;
-        }else{
-          this.loadProgress = Math.round(data.progression);
+    this.programmeService.getProgramme().subscribe(programme => {
+      var sommeDistance = 0;
+      programme.activites.forEach(activity => {
+        if(activity.estRealisee) {
+          sommeDistance += activity.distanceRealisee;
         }
-      },
-      (err) => {
-        console.error(err);
-        let alert = this.alertCtrl.create({
-          title: 'La requête a échoué.',
-          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
-          buttons: ['OK']
-        });
-        alert.present();
-      });
+      })
+      this.loadProgress = Math.round(sommeDistance/this.sumSportGoals(programme)*100);
+    })
   }
 
   /*getEvaluation(){
@@ -260,6 +255,14 @@ export class HomePage {
   infoIndice(){
     let modal = this.modalCtrl.create(InfoIndicePage);
     modal.present();
+  }
+
+  sumSportGoals(programme: Programme): number {
+    var sum: number = 0;
+    programme.objectifs.forEach(objectif => {
+      sum += objectif.objectif;
+    });
+    return sum;
   }
 }
 
