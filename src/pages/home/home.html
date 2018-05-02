@@ -22,14 +22,34 @@
 
       <ng-template #notNullBlock>
         <div class="pourcentage" text-center="">{{this.evaluationPourcentage}}%</div>
+        <div [ngSwitch]="plageHoraire.weatherData.weather.icon">
         <ion-item>
             <ion-icon name='cloud-done' item-start></ion-icon>
             Taux pollution : {{plageHoraire.donneeAthmospherique.indice}}%
         </ion-item>
         <ion-item>
-          <ion-icon name='sunny' item-start></ion-icon>
-          Météo : {{plageHoraire.weatherData.weather.description}}
-      </ion-item>
+          <ion-icon  name='sunny' *ngSwitchCase="'01d'" item-start></ion-icon> 
+          <ion-icon  name='sunny' *ngSwitchCase="'02d'" item-start></ion-icon>
+          <ion-icon  name='cloud' *ngSwitchCase="'03d'" item-start></ion-icon>
+          <ion-icon  name='cloud' *ngSwitchCase="'04d'" item-start></ion-icon>
+          <ion-icon  name='cloud' *ngSwitchCase="'50d'" item-start></ion-icon>
+          <ion-icon  name='rainy' *ngSwitchCase="'09d'" item-start></ion-icon>
+          <ion-icon  name='rainy' *ngSwitchCase="'10d'" item-start></ion-icon>
+          <ion-icon  name='thunderstorm' *ngSwitchCase="'12d'" item-start></ion-icon>
+          <ion-icon  name='snow' *ngSwitchCase="'13d'" item-start></ion-icon>
+          <ion-icon  name='moon' *ngSwitchCase="'01n'" item-start></ion-icon> 
+          <ion-icon  name='moon' *ngSwitchCase="'02n'" item-start></ion-icon>
+          <ion-icon  name='cloud' *ngSwitchCase="'03n'" item-start></ion-icon>
+          <ion-icon  name='cloud' *ngSwitchCase="'04n'" item-start></ion-icon>
+          <ion-icon  name='cloud' *ngSwitchCase="'50n'" item-start></ion-icon>
+          <ion-icon  name='rainy' *ngSwitchCase="'09n'" item-start></ion-icon>
+          <ion-icon  name='rainy' *ngSwitchCase="'10n'" item-start></ion-icon>
+          <ion-icon  name='thunderstorm' *ngSwitchCase="'12n'" item-start></ion-icon>
+          <ion-icon  name='snow' *ngSwitchCase="'13n'" item-start></ion-icon>
+          <ion-icon *ngSwitchDefault name='sunny' item-start></ion-icon> 
+          Météo actuelle
+        </ion-item>
+      </div>
       </ng-template>
 
     </ion-card-content>
