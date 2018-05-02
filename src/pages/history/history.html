@@ -53,13 +53,17 @@
   </ion-card>
 
   <h2>Mes activités réalisées</h2>
-  <p style="text-align: center" *ngIf="programme.realisations.length === 0">Pas d'activités réalisées cette semaine</p>
-  <ion-list>
-    <ion-item *ngFor="let realisation of programme.realisations">
+  <div *ngIf="programme === null; else realisationBlock">
+    <p style="text-align: center">Pas d'activités réalisées cette semaine</p>
+  </div>
+  <ng-template #realisationBlock>
+    <ion-list> 
+      <ion-item *ngFor="let realisation of programme.realisations">
         <h2>{{realisation.date}}</h2>
         <p>Course, {{realisation.distance}} kms</p>
         <p>{{realisation.centreInteret.name}}</p>
-    </ion-item>
-  </ion-list>
+      </ion-item>
+    </ion-list>
+  </ng-template>
 
 </ion-content>
