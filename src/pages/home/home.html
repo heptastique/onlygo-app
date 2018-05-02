@@ -10,49 +10,61 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card>
-    <ion-card-header text-center="">
-      Indice actuel
-    </ion-card-header>
-    <ion-card-content text-center="">
+  <ion-card (click)="infoIndice()">
+    <div *ngIf="plageHoraire===null; else notNullBlock">
+      <ion-icon ios="ios-help" md="md-help"></ion-icon>
+    </div>
 
-      <div *ngIf="plageHoraire===null; else notNullBlock">
-        <ion-icon ios="ios-help" md="md-help"></ion-icon>
-      </div>
+    <ng-template #notNullBlock>
+      <ion-card-content>
+        <ion-row justify-content-center align-items-center>
+          <ngx-gauge class="gaugeIndice" [type]="gaugeTypeIndice" [value]="gaugeValueIndice" [size]=80 [thick]="gaugeThickIndice"
+          [cap]="gaugeCapIndice">
+          </ngx-gauge>
+        </ion-row>
+        <ion-row justify-content-center align-items-center>
+          <h2>Indice</h2>
+        </ion-row>
 
-      <ng-template #notNullBlock>
-        <div class="pourcentage" text-center="">{{this.evaluationPourcentage}}%</div>
-        <div [ngSwitch]="plageHoraire.weatherData.weather.icon">
-        <ion-item>
-            <ion-icon name='cloud-done' item-start></ion-icon>
-            Taux pollution : {{plageHoraire.donneeAthmospherique.indice}}%
-        </ion-item>
-        <ion-item>
-          <ion-icon  name='sunny' *ngSwitchCase="'01d'" item-start></ion-icon>
-          <ion-icon  name='sunny' *ngSwitchCase="'02d'" item-start></ion-icon>
-          <ion-icon  name='cloud' *ngSwitchCase="'03d'" item-start></ion-icon>
-          <ion-icon  name='cloud' *ngSwitchCase="'04d'" item-start></ion-icon>
-          <ion-icon  name='cloud' *ngSwitchCase="'50d'" item-start></ion-icon>
-          <ion-icon  name='rainy' *ngSwitchCase="'09d'" item-start></ion-icon>
-          <ion-icon  name='rainy' *ngSwitchCase="'10d'" item-start></ion-icon>
-          <ion-icon  name='thunderstorm' *ngSwitchCase="'12d'" item-start></ion-icon>
-          <ion-icon  name='snow' *ngSwitchCase="'13d'" item-start></ion-icon>
-          <ion-icon  name='moon' *ngSwitchCase="'01n'" item-start></ion-icon>
-          <ion-icon  name='moon' *ngSwitchCase="'02n'" item-start></ion-icon>
-          <ion-icon  name='cloud' *ngSwitchCase="'03n'" item-start></ion-icon>
-          <ion-icon  name='cloud' *ngSwitchCase="'04n'" item-start></ion-icon>
-          <ion-icon  name='cloud' *ngSwitchCase="'50n'" item-start></ion-icon>
-          <ion-icon  name='rainy' *ngSwitchCase="'09n'" item-start></ion-icon>
-          <ion-icon  name='rainy' *ngSwitchCase="'10n'" item-start></ion-icon>
-          <ion-icon  name='thunderstorm' *ngSwitchCase="'12n'" item-start></ion-icon>
-          <ion-icon  name='snow' *ngSwitchCase="'13n'" item-start></ion-icon>
-          <ion-icon *ngSwitchDefault name='sunny' item-start></ion-icon>
-          Météo actuelle
-        </ion-item>
-      </div>
-      </ng-template>
-
-    </ion-card-content>
+        <ion-row justify-content-center align-items-center>
+          <ion-col col-6 justify-content-center align-items-center>
+            <ion-item>
+              <ngx-gauge class="gaugePollution" [type]="gaugeTypePollution" [value]="gaugeValuePollution" [thresholds]="thresholdConfigPollution" [size]=60></ngx-gauge>
+              <p class="label">Pollution</p>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6 justify-content-center align-items-center>
+            <ion-item>
+              <div [ngSwitch]="plageHoraire.weatherData.weather.icon" text-center="">
+                <ion-icon class="weather-icon" name='sunny' *ngSwitchCase="'01d'"></ion-icon>
+                <ion-icon class="weather-icon" name='sunny' *ngSwitchCase="'02d'"></ion-icon>
+                <ion-icon class="weather-icon" name='cloud' *ngSwitchCase="'03d'"></ion-icon>
+                <ion-icon class="weather-icon" name='cloud' *ngSwitchCase="'04d'"></ion-icon>
+                <ion-icon class="weather-icon" name='cloud' *ngSwitchCase="'50d'"></ion-icon>
+                <ion-icon class="weather-icon" name='rainy' *ngSwitchCase="'09d'"></ion-icon>
+                <ion-icon class="weather-icon" name='rainy' *ngSwitchCase="'10d'"></ion-icon>
+                <ion-icon class="weather-icon" name='thunderstorm' *ngSwitchCase="'12d'"></ion-icon>
+                <ion-icon class="weather-icon" name='snow' *ngSwitchCase="'13d'"></ion-icon>
+                <ion-icon class="weather-icon" name='moon' *ngSwitchCase="'01n'"></ion-icon>
+                <ion-icon class="weather-icon" name='moon' *ngSwitchCase="'02n'"></ion-icon>
+                <ion-icon class="weather-icon" name='cloud' *ngSwitchCase="'03n'"></ion-icon>
+                <ion-icon class="weather-icon" name='cloud' *ngSwitchCase="'04n'"></ion-icon>
+                <ion-icon class="weather-icon" name='cloud' *ngSwitchCase="'50n'"></ion-icon>
+                <ion-icon class="weather-icon" name='rainy' *ngSwitchCase="'09n'"></ion-icon>
+                <ion-icon class="weather-icon" name='rainy' *ngSwitchCase="'10n'"></ion-icon>
+                <ion-icon class="weather-icon" name='thunderstorm' *ngSwitchCase="'12n'"></ion-icon>
+                <ion-icon class="weather-icon" name='snow' *ngSwitchCase="'13n'"></ion-icon>
+                <ion-icon class="weather-icon" *ngSwitchDefault name='sunny'></ion-icon>
+              </div>
+              <p class="label">Météo</p>
+            </ion-item>
+          </ion-col>
+          </ion-row>
+        <ion-row class="info">
+          <ion-icon name="information-circle"></ion-icon>
+        </ion-row>
+      </ion-card-content>
+    </ng-template>
   </ion-card>
 
   <ion-card>
@@ -90,8 +102,9 @@
   </ng-template>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="presentActionSheet()" ><ion-icon name="add"></ion-icon></button>
+    <button ion-fab (click)="presentActionSheet()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 
 </ion-content>
-

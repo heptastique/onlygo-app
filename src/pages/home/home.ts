@@ -1,9 +1,9 @@
+import { Evaluation } from './../../entities/evaluation';
 import { Component } from '@angular/core';
-import {AlertController, NavController, ActionSheetController} from 'ionic-angular';
+import {AlertController, NavController, ActionSheetController, ModalController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
 import {EvaluationService} from '../../services/evaluation.service';
-import {Evaluation} from '../../entities/evaluation';
 import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
@@ -12,9 +12,9 @@ import {ActivityService} from '../../services/activity.service';
 import {Activity} from '../../entities/activity';
 import {DateService} from '../../services/date.service';
 import { PlageHoraireService } from '../../services/plagehoraire.service';
-import { PlageHoraire } from '../../entities/plagehoraire';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
 import { Sport } from '../../entities/sport';
+import { InfoIndicePage } from '../info-indice/info-indice';
 
 @Component({
   selector: 'page-home',
@@ -23,10 +23,26 @@ import { Sport } from '../../entities/sport';
 
 export class HomePage {
 
-  color =  'black';
-  thumbup =  true;
-  evaluation: Evaluation ={
-    note: null
+  gaugeTypePollution = "semi";
+  gaugeValuePollution = 0;
+
+  gaugeTypeIndice = "arch";
+  gaugeValueIndice = 0;
+  gaugeLabelIndice = "Indice";
+  gaugeThickIndice = "10";
+  gaugeCapIndice = "round";
+
+  thresholdConfigPollution = {
+    '0': {color: '#32B8A3'},
+    '10': {color: '#5CCB60'},
+    '20': {color: '#99E600'},
+    '30': {color: '#C3F000'},
+    '40': {color: '#FFFF00'},
+    '50': {color: '#FFD100'},
+    '60': {color: '#FFAA00'},
+    '70': {color: '#FF5E00'},
+    '80': {color: '#FF0000'},
+    '90': {color: '#800000'},
   };
 
   loadProgress = 0;
@@ -72,13 +88,13 @@ export class HomePage {
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
               private dateService: DateService, private plageHoraireService: PlageHoraireService,
-              public createActivitySheet: ActionSheetController) {}
+              public createActivitySheet: ActionSheetController, public modalCtrl: ModalController) {}
 
 
   ionViewDidEnter() {
     this.nextActivity = false;
     this.getUser();
-    this.getEvaluation();
+    //this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
@@ -87,7 +103,7 @@ export class HomePage {
   doRefresh(refresher) {
     this.nextActivity = false;
     this.getUser();
-    this.getEvaluation();
+    //this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
@@ -114,7 +130,7 @@ export class HomePage {
       });
   }
 
-  getEvaluation(){
+  /*getEvaluation(){
     this.evaluationService.getEvaluationNow().subscribe(
       evaluation => {
         if(evaluation == null){
@@ -126,14 +142,7 @@ export class HomePage {
           alert.present();
           return;
         }
-        this.evaluation = evaluation;
-        if(this.evaluation.note<0.5){
-          this.thumbup = false;
-          this.color='red';
-        }else{
-          this.thumbup = true;
-          this.color='green';
-        }},
+        this.evaluation = evaluation;},
       (err) => {
         console.error(err);
         let alert = this.alertCtrl.create({
@@ -143,14 +152,15 @@ export class HomePage {
         });
         alert.present();
       });
-  }
+  }*/
 
   getPlageActuelle() {
     this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
       console.log(plageHoraire);
       this.plageHoraire = plageHoraire;
       this.plageHoraire.donneeAthmospherique.indice = this.plageHoraire.donneeAthmospherique.indice.toFixed(2);
-      this.evaluationPourcentage = Math.round(this.plageHoraire.evaluation * 100)
+      this.gaugeValuePollution = Math.round(this.plageHoraire.donneeAthmospherique.indice);
+      this.gaugeValueIndice = Math.round(this.plageHoraire.evaluation * 100)
     })
   }
 
@@ -245,6 +255,11 @@ export class HomePage {
       ]
     });
     actionSheet.present();
+  }
+
+  infoIndice(){
+    let modal = this.modalCtrl.create(InfoIndicePage);
+    modal.present();
   }
 }
 
