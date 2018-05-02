@@ -253,5 +253,9 @@ export class HomePage {
     });
     actionSheet.present();
   }
+
+  infoIndice(){
+    
+  }
 }
 
