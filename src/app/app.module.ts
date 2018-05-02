@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { NgxGaugeModule } from 'ngx-gauge';
 
 import { HistoryPage } from '../pages/history/history';
 import { PreferencesPage } from '../pages/preferences/preferences';
@@ -54,7 +54,8 @@ import {LocationModalPage} from '../pages/location-modal/location-modal';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    NgxGaugeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

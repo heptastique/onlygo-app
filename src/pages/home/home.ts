@@ -22,8 +22,16 @@ import { Sport } from '../../entities/sport';
 
 export class HomePage {
 
-  color =  'black';
-  thumbup =  true;
+  gaugeType = "semi";
+  gaugeValue = 80;
+
+  thresholdConfig = {
+    '0': {color: 'green'},
+    '40': {color: 'orange'},
+    '75.5': {color: 'red'}
+  };
+
+
   evaluation: Evaluation ={
     note: null
   };
@@ -123,14 +131,7 @@ export class HomePage {
           alert.present();
           return;
         }
-        this.evaluation = evaluation;
-        if(this.evaluation.note<0.5){
-          this.thumbup = false;
-          this.color='red';
-        }else{
-          this.thumbup = true;
-          this.color='green';
-        }},
+        this.evaluation = evaluation;},
       (err) => {
         console.error(err);
         let alert = this.alertCtrl.create({

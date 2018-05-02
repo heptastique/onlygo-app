@@ -1,6 +1,16 @@
 page-home {
   ion-icon {
-    font-size: 30px; //Preferred size here
+    display: inline-block;
+    font-size: 100% !important; //Preferred size here
+  }
+
+  ion-row{
+    display: flex;
+    justify-content: center;
+  }
+  ion-col{
+    display: flex;
+    justify-content: center;
   }
   .pourcentage {
     color: #7a4d4a;
