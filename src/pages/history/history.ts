@@ -27,7 +27,6 @@ export class HistoryPage {
 
   programme : Programme = {
     activites: this.activites,
-    realisations: this.realisations,
     user: null,
     objectifDistance: null
   };
@@ -74,17 +73,12 @@ export class HistoryPage {
         if(this.programme !== null){
           for(let i in this.programme.activites){
             if(this.programme.activites[i].estRealisee){
-              this.programme.activites[i].date = this.dateService.getDateFromString(this.programme.activites[i].date);
-              this.programme.activites[i].distance = Math.round(this.programme.activites[i].distance*10)/10;
-
+              this.programme.activites[i].dateRealisee = this.dateService.getDateFromString(this.programme.activites[i].dateRealisee);
+              this.programme.activites[i].distanceRealisee = Math.round(this.programme.activites[i].distanceRealisee*10)/10;
+              this.bilanDistance += this.programme.activites[i].distanceRealisee;
+              this.bilanKcal = this.bilanKcal + this.programme.activites[i].distanceRealisee * 73.333336; // Un problème ?
               this.activitesRealisees.push(this.programme.activites[i]);
             }
-          }
-          for(let i in this.programme.realisations) {
-            this.programme.realisations[i].date = this.dateService.getDateFromString(this.programme.realisations[i].date);
-            this.programme.realisations[i].distance = Math.round(this.programme.realisations[i].distance*10)/10;
-            this.bilanDistance += this.programme.realisations[i].distance;
-            this.bilanKcal = this.bilanKcal + this.programme.activites[i].distance * 73.333336; // Un problème ?
           }
           this.bilanKcal = Math.round(this.bilanKcal*10)/10;
           this.bilanDistance = Math.round(this.bilanDistance*10)/10;

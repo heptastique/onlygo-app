@@ -57,11 +57,11 @@
     <p style="text-align: center">Pas d'activités réalisées cette semaine</p>
   </div>
   <ng-template #realisationBlock>
-    <ion-list> 
-      <ion-item *ngFor="let realisation of programme.realisations">
-        <h2>{{realisation.date}}</h2>
-        <p>Course, {{realisation.distance}} kms</p>
-        <p>{{realisation.centreInteret.name}}</p>
+    <ion-list>
+      <ion-item *ngFor="let activite of activitesRealisees">
+        <h2>{{activite.dateRealisee}}</h2>
+        <p>Course, {{activite.distanceRealisee}} kms</p>
+        <p>{{activite.centreInteret.name}}</p>
       </ion-item>
     </ion-list>
   </ng-template>

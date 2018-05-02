@@ -35,11 +35,14 @@ export class ActivityCreationPage {
 
   activity: Activity = {
     sport: this.sport,
-    distance: null,
-    date: null,
+    distancePrevue: null,
+    distanceRealisee: null,
+    datePrevue: null,
+    dateRealisee: null,
     programmeId: null,
     estRealisee: null,
-    centreInteret: this.centreInteret
+    centreInteret: this.centreInteret,
+    timeFrame: null
   };
 
   dateStr = "";
@@ -56,7 +59,7 @@ export class ActivityCreationPage {
   getNextActivity(){
     this.activityService.getNextPlanned().subscribe((activity) => {
       this.activity = activity;
-      this.dateStr = this.dateService.getDateFromString(this.activity.date);})
+      this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);})
   }
 
   validate(){

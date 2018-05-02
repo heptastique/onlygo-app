@@ -10,21 +10,35 @@
   <div text-center="">
     <ion-list>
       <ion-item *ngFor="let activity of programme.activites">
-        <ion-row>
-          <ion-col col-8>
-            <h2>
-              {{activity.date}}
-            </h2>
-            <p><ion-icon name='walk' item-start></ion-icon>{{activity.sport.nom}}</p>
-            <p><ion-icon name='flag' item-start></ion-icon>{{activity.distance}} kms</p>
-            <p><ion-icon name='pin' item-start></ion-icon>{{activity.centreInteret.name}}</p>
-          </ion-col>
-          <ion-col col-4>
-            <div class="icon-div">
-              <ion-icon name="checkmark-circle" class="check" *ngIf="activity.estRealisee"></ion-icon>
-            </div>
-          </ion-col>
-        </ion-row>
+        <div *ngIf="!activity.estRealisee;else realiseeBlock">
+          <ion-row>
+            <ion-col col-8>
+              <h2>
+                {{activity.datePrevue}}
+              </h2>
+              <p><ion-icon name='walk' item-start></ion-icon>{{activity.sport.nom}}</p>
+              <p><ion-icon name='flag' item-start></ion-icon>{{activity.distancePrevue}} kms</p>
+              <p><ion-icon name='pin' item-start></ion-icon>{{activity.centreInteret.name}}</p>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ng-template #realiseeBlock>
+          <ion-row>
+            <ion-col col-8>
+              <h2>
+                {{activity.dateRealisee}}
+              </h2>
+              <p><ion-icon name='walk' item-start></ion-icon>{{activity.sport.nom}}</p>
+              <p><ion-icon name='flag' item-start></ion-icon>{{activity.distanceRealisee}} kms</p>
+              <p><ion-icon name='pin' item-start></ion-icon>{{activity.centreInteret.name}}</p>
+            </ion-col>
+            <ion-col col-4>
+              <div class="icon-div">
+                <ion-icon name="checkmark-circle" class="check"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ng-template>
       </ion-item>
     </ion-list>
   </div>

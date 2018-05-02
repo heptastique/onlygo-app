@@ -7,6 +7,8 @@ import {DateService} from '../../services/date.service';
 import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {Centre_Interet} from '../../entities/centre_interet';
+import {PlageHoraire} from '../../entities/plagehoraire';
+import {JourSemaine} from '../../entities/joursemaine';
 
 declare var google;
 
@@ -20,10 +22,21 @@ export class ActivityDetailsPage {
   map: any;
 
   sport : Sport = {
-    nom : "",
+    nom: "",
     kcalKm: null,
     kmH: null,
     id: null
+  };
+
+  timeFrame: PlageHoraire = {
+    id: null,
+    heureDebut: 0,
+    heureFin: 0,
+    jour: null,
+    evaluation: null,
+    date: null,
+    donneeAthmospherique: null,
+    nomJour: null
   };
 
   centreInteret: Centre_Interet={
@@ -33,11 +46,14 @@ export class ActivityDetailsPage {
 
   activity: Activity = {
     sport: this.sport,
-    distance: null,
-    date: null,
+    distancePrevue: null,
+    distanceRealisee: null,
+    datePrevue: null,
+    dateRealisee: null,
     programmeId: null,
     estRealisee: null,
-    centreInteret: this.centreInteret
+    centreInteret: this.centreInteret,
+    timeFrame: this.timeFrame
   };
 
 
@@ -53,10 +69,10 @@ export class ActivityDetailsPage {
   ionViewDidLoad() {
     this.activityService.getNextPlanned().subscribe(activity => {
       this.activity = activity;
-      this.dateStr = this.dateService.getDateFromString(this.activity.date);
-      this.activityTime = Math.round( 60 * this.activity.distance / this.activity.sport.kmH);
-      this.activity.distance = Math.round(this.activity.distance*10)/10;
-      this.kcal = Math.round(this.activity.distance * this.activity.sport.kcalKm);
+      this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);
+      this.activityTime = Math.round( 60 * this.activity.distancePrevue / this.activity.sport.kmH);
+      this.activity.distancePrevue = Math.round(this.activity.distancePrevue*10)/10;
+      this.kcal = Math.round(this.activity.distancePrevue * this.activity.sport.kcalKm);
       this.loadMap();
     });
   }
