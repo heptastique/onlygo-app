@@ -29,6 +29,7 @@
                 [value]="gaugeValue" 
                 [thresholds]="thresholdConfig"
                 [size]=60 ></ngx-gauge>
+                <p>Pollution</p>
             </ion-item>
           </ion-col>
           <ion-col col-6>
@@ -54,17 +55,10 @@
                     <ion-icon  name='snow' *ngSwitchCase="'13n'" ></ion-icon>
                     <ion-icon *ngSwitchDefault name='sunny'></ion-icon> 
                   </ion-item>
-                </div>  
+                </div>
+                <p>Météo</p>
           </ion-col>
         </ion-row> 
-        <ion-row>
-          <ion-col col-6>
-            Pollution
-          </ion-col>
-          <ion-col col-6>
-            Météo
-          </ion-col>
-        </ion-row>
       </ng-template>
 
     </ion-card-content>

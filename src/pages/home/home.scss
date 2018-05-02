@@ -1,7 +1,11 @@
 page-home {
   ion-icon {
     display: inline-block;
-    font-size: 100% !important; //Preferred size here
+    font-size: 300% !important; //Preferred size here
+  }
+
+  ngx-gauge {
+    margin-top: 35%; 
   }
 
   ion-row{
@@ -9,6 +13,7 @@ page-home {
     justify-content: center;
   }
   ion-col{
+
     display: flex;
     justify-content: center;
   }
