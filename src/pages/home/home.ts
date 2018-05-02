@@ -1,6 +1,6 @@
 import { Evaluation } from './../../entities/evaluation';
 import { Component } from '@angular/core';
-import {AlertController, NavController, ActionSheetController} from 'ionic-angular';
+import {AlertController, NavController, ActionSheetController, ModalController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
 import {EvaluationService} from '../../services/evaluation.service';
@@ -14,6 +14,7 @@ import {DateService} from '../../services/date.service';
 import { PlageHoraireService } from '../../services/plagehoraire.service';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
 import { Sport } from '../../entities/sport';
+import { InfoIndicePage } from '../info-indice/info-indice';
 
 @Component({
   selector: 'page-home',
@@ -85,7 +86,7 @@ export class HomePage {
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
               private evaluationService: EvaluationService, private activityService: ActivityService,
               private dateService: DateService, private plageHoraireService: PlageHoraireService,
-              public createActivitySheet: ActionSheetController) {}
+              public createActivitySheet: ActionSheetController, public modalCtrl: ModalController) {}
 
 
   ionViewDidEnter() {
@@ -156,7 +157,7 @@ export class HomePage {
       console.log(plageHoraire);
       this.plageHoraire = plageHoraire;
       this.plageHoraire.donneeAthmospherique.indice = this.plageHoraire.donneeAthmospherique.indice.toFixed(2);
-      this.gaugeValuePollution = this.plageHoraire.donneeAthmospherique.indice;
+      this.gaugeValuePollution = Math.round(this.plageHoraire.donneeAthmospherique.indice);
       this.gaugeValueIndice = Math.round(this.plageHoraire.evaluation * 100)
     })
   }
@@ -255,7 +256,8 @@ export class HomePage {
   }
 
   infoIndice(){
-    
+    let modal = this.modalCtrl.create(InfoIndicePage);
+    modal.present();
   }
 }
 
