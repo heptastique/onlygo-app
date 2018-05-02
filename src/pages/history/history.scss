@@ -2,4 +2,8 @@ page-history {
   ion-icon {
     color: map-get($colors, primary);
   }
+
+  .completion {
+    justify-content: flex-end;
+  }
 }

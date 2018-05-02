@@ -74,7 +74,8 @@ export class HomePage {
     programmeId: null,
     estRealisee: null,
     centreInteret: null,
-    timeFrame: null
+    timeFrame: null,
+    tauxCompletion: null
   };
 
   nextActivity = false;
