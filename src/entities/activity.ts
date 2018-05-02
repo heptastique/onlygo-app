@@ -11,5 +11,6 @@ export class Activity{
   programmeId: number;
   estRealisee: boolean;
   centreInteret: Centre_Interet;
-  timeFrame: PlageHoraire
+  timeFrame: PlageHoraire;
+  tauxCompletion: number;
 }
