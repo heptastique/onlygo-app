@@ -7,6 +7,7 @@ import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {RealisationService} from '../../services/realisation.service';
 import {Realisation} from '../../entities/realisation';
 import {Observable} from 'rxjs/Rx';
+import {ActivityService} from '../../services/activity.service';
 
 declare var google;
 
@@ -21,15 +22,19 @@ export class ActivityPage {
   map: any;
 
   objectif = 0;
+  id = 0;
   loadProgress = 0;
   activityStarted = false;
 
   sub;
   coordsLog : Gps_Coordinates [] = [];
-  path;
+  pathGenerated;
+  pathUser;
 
   i = 0;
   mapsCoords: Maps_Coordinates [] = [];
+  generatedCoords: Gps_Coordinates [] = [];
+  mapsGeneratedCoords: Maps_Coordinates [] = [];
 
   realisatation: Realisation = {
     distance: 0,
@@ -41,11 +46,13 @@ export class ActivityPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocationService: GeolocationService,
               private realisationService: RealisationService, public alertCtrl: AlertController,
-              public toastCtrl: ToastController) { }
+              public toastCtrl: ToastController, private activityService: ActivityService) { }
 
   ionViewDidLoad() {
     this.objectif = this.navParams.get('objectif');
+    this.id = this.navParams.get('id');
     console.log('r' + this.objectif);
+
     this.startActivity();
   }
 
@@ -54,24 +61,24 @@ export class ActivityPage {
     this.coordsLog = [];
     this.mapsCoords = [];
     await this.loadMap();
+    await this.getItenary();
 
 
     // Uncomment comments to simulate a movement
-    this.sub = Observable.interval(1000).subscribe( () =>{
+    /*this.sub = Observable.interval(1000).subscribe( () =>{
       this.geolocationService.getPos().then((coords) => {
-        this.mapsCoords.push({'lat': coords.x /*+ this.i*/, 'lng': coords.y /*+ this.i*/ });
+        this.mapsCoords.push({'lat': coords.x /*+ this.i, 'lng': coords.y /*+ this.i });
         // this.i += 0.01;
-        this.path.setPath(this.mapsCoords);
+        // this.pathUser.setPath(this.mapsCoords);
         this.coordsLog.push(coords);
-        this.realisatation.distance = google.maps.geometry.spherical.computeLength(this.path.getPath())/1000;
+        // this.realisatation.distance = google.maps.geometry.spherical.computeLength(this.pathUser.getPath())/1000;
         if(Math.round(this.realisatation.distance/this.objectif)*100<100){
           this.loadProgress = Math.round(this.realisatation.distance/this.objectif)*100;
         }else{
           this.loadProgress = 100;
         }
-
       })
-    });
+    });*/
   }
 
   stopActivity(){
@@ -106,15 +113,15 @@ export class ActivityPage {
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-        this.path = new google.maps.Polyline({
-          path: this.mapsCoords,
+        this.pathGenerated = new google.maps.Polyline({
+          path: this.mapsGeneratedCoords,
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
 
-        this.path.setMap(this.map);
+        this.pathGenerated.setMap(this.map);
         this.addCurrentPoint();
 
       resolve();
@@ -143,6 +150,19 @@ export class ActivityPage {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
+    });
+  }
+
+  async getItenary(){
+    return new Promise(resolve => {
+      this.activityService.getItenary(this.id).subscribe((coords) => {
+        for(let points of coords){
+          this.mapsGeneratedCoords.push({'lat': points.x, 'lng': points.y});
+          this.pathGenerated.setPath(this.mapsGeneratedCoords);
+        }
+        console.log(this.pathGenerated);
+        resolve();
+      });
     });
   }
 }

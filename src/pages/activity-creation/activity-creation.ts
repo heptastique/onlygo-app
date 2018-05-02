@@ -34,6 +34,7 @@ export class ActivityCreationPage {
   };
 
   activity: Activity = {
+    id: null,
     sport: this.sport,
     distancePrevue: null,
     distanceRealisee: null,
