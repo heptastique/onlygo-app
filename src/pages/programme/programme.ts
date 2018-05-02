@@ -13,7 +13,6 @@ export class ProgrammePage {
 
   programme : Programme = {
     activites: null,
-    realisations: null,
     user: null,
     objectifDistance: null,
   };
@@ -30,8 +29,8 @@ export class ProgrammePage {
       (programme) => {
         this.programme=programme;
         for(let i in this.programme.activites){
-          this.programme.activites[i].date = this.dateService.getDateFromString(this.programme.activites[i].date);
-          this.programme.activites[i].distance = Math.round(this.programme.activites[i].distance*10)/10;
+          this.programme.activites[i].datePrevue = this.dateService.getDateFromString(this.programme.activites[i].datePrevue);
+          this.programme.activites[i].distancePrevue = Math.round(this.programme.activites[i].distancePrevue*10)/10;
         }
       },
       (err) => {
