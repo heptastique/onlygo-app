@@ -19,7 +19,7 @@ export class ActivityService{
     return this.http.get<Activity>(url);
   }
 
-  getItanary(idActivity: number): Observable<Gps_Coordinates []>{
+  getItenary(idActivity: number): Observable<Gps_Coordinates []>{
     const url = `${API_SERVER.activity}/itenary`;
     let params = new HttpParams().set("activite",idActivity.toString());
     return this.http.get<Gps_Coordinates []>(url, {headers: httpOptions.headers, params: params});
