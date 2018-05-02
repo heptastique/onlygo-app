@@ -12,7 +12,6 @@ import {ActivityService} from '../../services/activity.service';
 import {Activity} from '../../entities/activity';
 import {DateService} from '../../services/date.service';
 import { PlageHoraireService } from '../../services/plagehoraire.service';
-import { PlageHoraire } from '../../entities/plagehoraire';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
 import { Sport } from '../../entities/sport';
 
