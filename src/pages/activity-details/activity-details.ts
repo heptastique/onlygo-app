@@ -54,7 +54,8 @@ export class ActivityDetailsPage {
     programmeId: null,
     estRealisee: null,
     centreInteret: this.centreInteret,
-    timeFrame: this.timeFrame
+    timeFrame: this.timeFrame,
+    tauxCompletion: null
   };
 
 

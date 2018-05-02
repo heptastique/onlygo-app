@@ -59,9 +59,16 @@
   <ng-template #realisationBlock>
     <ion-list>
       <ion-item *ngFor="let activite of activitesRealisees">
-        <h2>{{activite.dateRealisee}}</h2>
-        <p>Course, {{activite.distanceRealisee}} kms</p>
-        <p>{{activite.centreInteret.name}}</p>
+        <ion-row>
+          <ion-col col-9>
+            <h2>{{activite.dateRealisee}}</h2>
+            <p>Course, {{activite.distanceRealisee}} kms</p>
+            <p>{{activite.centreInteret.name}}</p>
+          </ion-col>
+          <ion-col col-3 class="completion">
+            <ngx-gauge class="gaugePollution" [value]="activite.tauxCompletion" [size]=60></ngx-gauge>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </ion-list>
   </ng-template>
