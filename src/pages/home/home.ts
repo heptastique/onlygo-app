@@ -14,6 +14,7 @@ import {DateService} from '../../services/date.service';
 import { PlageHoraireService } from '../../services/plagehoraire.service';
 import { PlageHoraire } from '../../entities/plagehoraire';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
+import { Sport } from '../../entities/sport';
 
 @Component({
   selector: 'page-home',
@@ -41,14 +42,24 @@ export class HomePage {
     location: null
   };
 
+  sport: Sport = {
+    nom: "",
+    kcalKm: null,
+    kmH: null,
+    id: null
+  };
+
   activity: Activity = {
-    sport: null,
-    distance: null,
-    date: null,
+    sport: this.sport,
+    distance: 0,
+    date: "",
     programmeId: null,
     estRealisee: null,
     centreInteret: null
   };
+
+
+
   nextActivity = false;
   dateStr = "";
 
@@ -63,6 +74,7 @@ export class HomePage {
 
 
   ionViewDidEnter() {
+    this.nextActivity = false;
     this.getUser();
     this.getEvaluation();
     this.getProgression();
@@ -71,6 +83,7 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
+    this.nextActivity = false;
     this.getUser();
     this.getEvaluation();
     this.getProgression();
@@ -173,10 +186,12 @@ export class HomePage {
   getNextActivity(){
     this.activityService.getNextPlanned().subscribe(
       (activity) => {
-        this.activity = activity;
-        this.dateStr = this.dateService.getDateFromString(this.activity.date);
-        this.activity.distance = Math.round(this.activity.distance*10)/10;
-        this.nextActivity = true;
+        if(activity !== null){
+          this.activity = activity;
+          this.dateStr = this.dateService.getDateFromString(this.activity.date);
+          this.activity.distance = Math.round(this.activity.distance*10)/10;
+          this.nextActivity = true;
+        }
       },
       (err) => {
         console.error(err);
