@@ -33,8 +33,10 @@ export class ActivityDetailsPage {
 
   activity: Activity = {
     sport: this.sport,
-    distance: null,
-    date: null,
+    distancePrevue: null,
+    distanceRealisee: null,
+    datePrevue: null,
+    dateRealisee: null,
     programmeId: null,
     estRealisee: null,
     centreInteret: this.centreInteret
@@ -53,10 +55,10 @@ export class ActivityDetailsPage {
   ionViewDidLoad() {
     this.activityService.getNextPlanned().subscribe(activity => {
       this.activity = activity;
-      this.dateStr = this.dateService.getDateFromString(this.activity.date);
-      this.activityTime = Math.round( 60 * this.activity.distance / this.activity.sport.kmH);
-      this.activity.distance = Math.round(this.activity.distance*10)/10;
-      this.kcal = Math.round(this.activity.distance * this.activity.sport.kcalKm);
+      this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);
+      this.activityTime = Math.round( 60 * this.activity.distancePrevue / this.activity.sport.kmH);
+      this.activity.distancePrevue = Math.round(this.activity.distancePrevue*10)/10;
+      this.kcal = Math.round(this.activity.distancePrevue * this.activity.sport.kcalKm);
       this.loadMap();
     });
   }

@@ -51,8 +51,10 @@ export class HomePage {
 
   activity: Activity = {
     sport: this.sport,
-    distance: 0,
-    date: "",
+    distancePrevue: 0,
+    distanceRealisee: 0,
+    datePrevue: "",
+    dateRealisee: "",
     programmeId: null,
     estRealisee: null,
     centreInteret: null
@@ -188,8 +190,8 @@ export class HomePage {
       (activity) => {
         if(activity !== null){
           this.activity = activity;
-          this.dateStr = this.dateService.getDateFromString(this.activity.date);
-          this.activity.distance = Math.round(this.activity.distance*10)/10;
+          this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);
+          this.activity.distancePrevue = Math.round(this.activity.distancePrevue*10)/10;
           this.nextActivity = true;
         }
       },
@@ -215,7 +217,7 @@ export class HomePage {
   }
 
   recordActivity() {
-    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distance});
+    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distancePrevue});
   }
 
   presentActionSheet() {

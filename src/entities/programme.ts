@@ -4,7 +4,6 @@ import { Realisation } from './realisation';
 
 export class Programme{
   activites: Activity[];
-  realisations: Realisation[];
   user: User;
   objectifDistance: number | null;
 }
