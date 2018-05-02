@@ -65,20 +65,20 @@ export class ActivityPage {
 
 
     // Uncomment comments to simulate a movement
-    /*this.sub = Observable.interval(1000).subscribe( () =>{
+    this.sub = Observable.interval(1000).subscribe( () =>{
       this.geolocationService.getPos().then((coords) => {
-        this.mapsCoords.push({'lat': coords.x /*+ this.i, 'lng': coords.y /*+ this.i });
+        this.mapsCoords.push({'lat': coords.x /*+ this.i*/, 'lng': coords.y /*+ this.i */});
         // this.i += 0.01;
-        // this.pathUser.setPath(this.mapsCoords);
+        this.pathUser.setPath(this.mapsCoords);
         this.coordsLog.push(coords);
-        // this.realisatation.distance = google.maps.geometry.spherical.computeLength(this.pathUser.getPath())/1000;
+        this.realisatation.distance = google.maps.geometry.spherical.computeLength(this.pathUser.getPath())/1000;
         if(Math.round(this.realisatation.distance/this.objectif)*100<100){
           this.loadProgress = Math.round(this.realisatation.distance/this.objectif)*100;
         }else{
           this.loadProgress = 100;
         }
       })
-    });*/
+    });
   }
 
   stopActivity(){
@@ -121,6 +121,15 @@ export class ActivityPage {
           strokeWeight: 2
         });
 
+        this.pathUser = new google.maps.Polyline({
+          path: this.mapsCoords,
+          geodesic: true,
+          strokeColor: '#000FFF',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        this.pathUser.setMap(this.map);
         this.pathGenerated.setMap(this.map);
         this.addCurrentPoint();
 
