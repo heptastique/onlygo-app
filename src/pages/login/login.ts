@@ -34,11 +34,9 @@ export class LoginPage {
     loading.present();
     this.loginService.login(this.loginInfos).subscribe(() => {
         this.cronService.update().subscribe(() => {
-          this.cronService.strava().subscribe(() => {
-            this.programmeService.generateProgramme().subscribe(() => {
-              loading.dismiss();
-              this.navCtrl.setRoot(TabsPage);
-            });
+          this.programmeService.generateProgramme().subscribe(() => {
+            loading.dismiss();
+            this.navCtrl.setRoot(TabsPage);
           });
         });
       },
