@@ -7,7 +7,9 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../entities/user';
 import {ProgrammeService} from '../../services/programme.service';
 import {LocationModalPage} from '../location-modal/location-modal';
+
 import {IdentifiantsModalPage} from "../identifiants-modal/identifiants-modal";
+import { ObjectifsPreferencesPage } from '../objectifs-preferences/objectifs-preferences';
 
 @Component({
   selector: 'page-preferences',
@@ -21,7 +23,10 @@ export class PreferencesPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };
@@ -36,6 +41,9 @@ export class PreferencesPage {
     this.getUser();
   }
 
+  /**
+   * Get the user
+   */
   getUser(): void {
     this.userService.getUser()
       .subscribe(user => { this.user = user; },
@@ -56,110 +64,38 @@ export class PreferencesPage {
         });
   }
 
+  /**
+   * Display ObjectifsPreferencesPage to update the goals
+   */
   updateObjectif(){
-    let alert = this.alertCtrl.create({
-      title: 'Objectif',
-      inputs: [
-        {
-          name: 'objectif',
-          type: 'number',
-          min: '0',
-          value: this.user.objectifHebdo.toString()
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-        {
-          text: 'Valider',
-          handler: data => {
-            this.userService.updateObjectif(data.objectif).subscribe(
-              (res) => {
-                this.user.objectifHebdo = res.distance;
-                this.generateProgramme();
-                },
-              (err) => {
-                let message;
-                if(err.status == 0) {
-                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-                }else{
-                  message = err.error;
-                }
-                let alert = this.alertCtrl.create({
-                  title: 'Erreur lors de la mise à jour.',
-                  subTitle: message,
-                  buttons: ['OK']
-                });
-                alert.present();
-              });
-          }
-        }
-      ]
-    });
-    alert.present();
+    let modal = this.modalCtrl.create(ObjectifsPreferencesPage);
+    modal.present();
   }
 
-  updateDistanceMax(){
-    let alert = this.alertCtrl.create({
-      title: 'Distance max par séance',
-      inputs: [
-        {
-          name: 'distance',
-          type: 'number',
-          min: '0',
-          value: this.user.distanceMax.toString()
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-        {
-          text: 'Valider',
-          handler: data => {
-            this.userService.updateDistanceMax(data.distance).subscribe(
-              (res) => {
-                this.user.distanceMax = res.distance;
-                this.generateProgramme();
-                },
-              (err) => {
-                let message;
-                if(err.status == 0) {
-                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-                }else{
-                  message = err.error;
-                }
-                let alert = this.alertCtrl.create({
-                  title: 'Erreur lors de la mise à jour.',
-                  subTitle: message,
-                  buttons: ['OK']
-                });
-                alert.present();
-              });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
+  /**
+   * Display LocationModalPage to update the location
+   */
   updateLocalisation(){
     let modal = this.modalCtrl.create(LocationModalPage, {coords: this.user.location});
     modal.present();
   }
 
+  /**
+   * Call to generate a new programme
+   */
   generateProgramme(){
     this.programmeService.generateProgramme().subscribe(() => {});
   }
+
 
   updateIdentifiants(){
     let modal = this.modalCtrl.create(IdentifiantsModalPage,this.getUser());
     modal.present();
   }
 
+  /**
+   * Logout the user, and go back to LoginPage
+   */
   logout() {
     this.loginService.logout();
     this.logged = this.authService.isLogged();

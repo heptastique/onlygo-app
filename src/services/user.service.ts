@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {User} from "../entities/user";
 import {API_SERVER} from "../app/app.constants";
 import {Gps_Coordinates} from '../entities/gps_coordinates';
+import { PreferenceSport } from "../entities/preference_sport";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -47,10 +48,9 @@ export class UserService {
    * @param {number} distance
    * @returns {Observable<any>}
    */
-  updateObjectif(distance: number): Observable<any>{
+  updateObjectif(preference: PreferenceSport): Observable<any>{
     const url = `${API_SERVER.user}/objectif`;
-    const payload = "{\"distance\":" + distance + "}";
-    return this.http.put<any>(url, payload, httpOptions);
+    return this.http.put<any>(url, preference, httpOptions);
   }
 
   /**
@@ -74,6 +74,10 @@ export class UserService {
     return this.http.put<any>(url, location, httpOptions);
   }
 
+  /**
+   * Get the progression of the user
+   * @returns {Observable<any>}
+   */
   getProgression():Observable<any>{
     const url = `${API_SERVER.user}/progression`;
     return this.http.get<any>(url);
@@ -97,5 +101,13 @@ export class UserService {
   updatePassword(user: User):Observable<any>{
     const url = `${API_SERVER.user}/password`;
     return this.http.put<any>(url, user, httpOptions);
+  }
+
+   * Get the goals of the user
+   * @returns {Observable<any>}
+   */
+  getObjectifs():Observable<any>{
+    const url = `${API_SERVER.user}/objectif`;
+    return this.http.get<any>(url);
   }
 }

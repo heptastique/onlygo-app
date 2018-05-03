@@ -3,6 +3,7 @@ import {AlertController, NavController, NavParams, ToastController, LoadingContr
 import {User} from "../../entities/user";
 import {UserService} from "../../services/user.service";
 import { GeolocationService } from '../../services/geolocation.service';
+import { PreferenceSport } from '../../entities/preference_sport';
 
 @Component({
   selector: 'page-registration',
@@ -18,7 +19,10 @@ export class RegistrationPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };
@@ -29,6 +33,11 @@ export class RegistrationPage {
 
   ionViewDidLoad() { }
 
+  /**
+   * Send the informations given by the user to the back-end
+   * With the user current location
+   * @returns {Promise<void>}
+   */
   async register(){
     let loading = this.loadingCtrl.create({
       content: 'Inscription en cours...'
@@ -49,7 +58,7 @@ export class RegistrationPage {
         this.user.location = location;
         resolve();
       })
-    })
+    });
     await this.userService.addUser(this.user).subscribe((user) => {
       this.user = user;
       let toast = this.toastCtrl.create({

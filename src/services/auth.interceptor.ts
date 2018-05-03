@@ -8,6 +8,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
     constructor(private authService: AuthService) { }
 
+  /**
+   * Intercept every request to the back end to add the token
+   * @param {HttpRequest<any>} req
+   * @param {HttpHandler} next
+   * @returns {Observable<HttpEvent<any>>}
+   */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const token: string = this.authService.getToken();

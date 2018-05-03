@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+          A propos des indices
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="dismiss()">
+            <span ion-text color="primary" showWhen="ios">Fermer</span>
+            <ion-icon name="md-close"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h2>Indice général</h2>
+
+  <p>L'indice général est calculé en fonction de données externes, telles que la météo et la pollution.</p>
+  <p>Plus l'indice est élevé, plus les conditions actuelles sont propices à une activité physique en extérieur.</p>
+
+  <h2>Indice de pollution</h2>
+
+  <p>Indice de pollution de l'air fourni par le service public de suivi de la qualité de l'air de Rhône-Alpes.</p>
+  <p>Plus l'indice est élevé, plus la qualité de l'air est mauvaise. Le seuil d'alerte est de 80/100.</p>
+
+</ion-content>

@@ -14,6 +14,11 @@ export class LoginService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
+  /**
+   * Post loginInfos to try to connect the user
+   * @param {LoginInfos} loginInfos
+   * @returns {Observable<any>}
+   */
   login (loginInfos: LoginInfos) {
     const url = API_SERVER.auth;
     return this.http.post<any>(url, loginInfos, httpOptions)
@@ -22,11 +27,13 @@ export class LoginService {
           this.authService.setToken(res.token);
           this.authService.setLogged(true);
         }
-        // Return res for the moment
         return res;
       });
   }
 
+  /**
+   * Logout user
+   */
   logout() {
     this.authService.clearToken();
     this.authService.setLogged(false);

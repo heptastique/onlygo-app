@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import {AlertController, NavController, ActionSheetController} from 'ionic-angular';
+import {AlertController, NavController, ActionSheetController, ModalController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
-import {EvaluationService} from '../../services/evaluation.service';
-import {Evaluation} from '../../entities/evaluation';
 import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
@@ -12,9 +10,11 @@ import {ActivityService} from '../../services/activity.service';
 import {Activity} from '../../entities/activity';
 import {DateService} from '../../services/date.service';
 import { PlageHoraireService } from '../../services/plagehoraire.service';
-import { PlageHoraire } from '../../entities/plagehoraire';
 import { ActivityCreationPage } from '../activity-creation/activity-creation';
 import { Sport } from '../../entities/sport';
+import { InfoIndicePage } from '../info-indice/info-indice';
+import { ProgrammeService } from '../../services/programme.service';
+import { Programme } from '../../entities/programme';
 
 @Component({
   selector: 'page-home',
@@ -23,10 +23,39 @@ import { Sport } from '../../entities/sport';
 
 export class HomePage {
 
-  color =  'black';
-  thumbup =  true;
-  evaluation: Evaluation ={
-    note: null
+  gaugeTypePollution = "semi";
+  gaugeValuePollution = 0;
+
+  gaugeTypeIndice = "arch";
+  gaugeValueIndice = 0;
+  gaugeLabelIndice = "Indice";
+  gaugeThickIndice = "10";
+  gaugeCapIndice = "round";
+
+  thresholdConfigPollution = {
+    '0': {color: '#32B8A3'},
+    '10': {color: '#5CCB60'},
+    '20': {color: '#99E600'},
+    '30': {color: '#C3F000'},
+    '40': {color: '#FFFF00'},
+    '50': {color: '#FFD100'},
+    '60': {color: '#FFAA00'},
+    '70': {color: '#FF5E00'},
+    '80': {color: '#FF0000'},
+    '90': {color: '#800000'},
+  };
+
+  thresholdConfigIndice = {
+    '90': {color: '#32B8A3'},
+    '80': {color: '#5CCB60'},
+    '70': {color: '#99E600'},
+    '60': {color: '#C3F000'},
+    '50': {color: '#FFFF00'},
+    '40': {color: '#FFD100'},
+    '30': {color: '#FFAA00'},
+    '20': {color: '#FF5E00'},
+    '10': {color: '#FF0000'},
+    '0': {color: '#800000'},
   };
 
   loadProgress = 0;
@@ -37,7 +66,10 @@ export class HomePage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };
@@ -50,6 +82,7 @@ export class HomePage {
   };
 
   activity: Activity = {
+    id: null,
     sport: this.sport,
     distancePrevue: 0,
     distanceRealisee: 0,
@@ -58,7 +91,8 @@ export class HomePage {
     programmeId: null,
     estRealisee: null,
     centreInteret: null,
-    timeFrame: null
+    timeFrame: null,
+    tauxCompletion: null
   };
 
   nextActivity = false;
@@ -69,95 +103,68 @@ export class HomePage {
   evaluationPourcentage = null;
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService, private activityService: ActivityService,
-              private dateService: DateService, private plageHoraireService: PlageHoraireService,
-              public createActivitySheet: ActionSheetController) {}
+              private activityService: ActivityService, private dateService: DateService,
+              private plageHoraireService: PlageHoraireService, public createActivitySheet: ActionSheetController,
+              public modalCtrl: ModalController, public programmeService: ProgrammeService) {}
 
 
   ionViewDidEnter() {
     this.nextActivity = false;
     this.getUser();
-    this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
   }
 
+  /**
+   * Refresh page
+   * @param refresher
+   */
   doRefresh(refresher) {
     this.nextActivity = false;
     this.getUser();
-    this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
     refresher.complete();
   }
 
+  /**
+   * Get the progression of user
+   */
   getProgression(){
-    this.userService.getProgression().subscribe(
-      (data) => {
-        if(data.progression > 100){
-          this.loadProgress  = 100;
-        }else{
-          this.loadProgress = Math.round(data.progression);
+    this.programmeService.getProgramme().subscribe(programme => {
+      let sommeDistance = 0;
+      programme.activites.forEach(activity => {
+        if(activity.estRealisee) {
+          sommeDistance += activity.distanceRealisee;
         }
-      },
-      (err) => {
-        console.error(err);
-        let alert = this.alertCtrl.create({
-          title: 'La requête a échoué.',
-          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
-          buttons: ['OK']
-        });
-        alert.present();
       });
+      this.loadProgress = Math.round(sommeDistance/this.sumSportGoals(programme)*100);
+    })
   }
 
-  getEvaluation(){
-    this.evaluationService.getEvaluationNow().subscribe(
-      evaluation => {
-        if(evaluation == null){
-          let alert = this.alertCtrl.create({
-            title: 'La requête a échoué.',
-            subTitle: 'Pas de note',
-            buttons: ['OK']
-          });
-          alert.present();
-          return;
-        }
-        this.evaluation = evaluation;
-        if(this.evaluation.note<0.5){
-          this.thumbup = false;
-          this.color='red';
-        }else{
-          this.thumbup = true;
-          this.color='green';
-        }},
-      (err) => {
-        console.error(err);
-        let alert = this.alertCtrl.create({
-          title: 'La requête a échoué.',
-          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
-          buttons: ['OK']
-        });
-        alert.present();
-      });
-  }
-
+  /**
+   * Get the informations about the current timeframe
+   */
   getPlageActuelle() {
     this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
       console.log(plageHoraire);
       this.plageHoraire = plageHoraire;
       this.plageHoraire.donneeAthmospherique.indice = this.plageHoraire.donneeAthmospherique.indice.toFixed(2);
-      this.evaluationPourcentage = Math.round(this.plageHoraire.evaluation * 100)
+      this.gaugeValuePollution = Math.round(this.plageHoraire.donneeAthmospherique.indice);
+      this.gaugeValueIndice = Math.round(this.plageHoraire.evaluation * 100)
     })
   }
 
+  /**
+   * Get the user
+   */
   getUser(): void {
     this.userService.getUser()
       .subscribe(user => {
         this.user = user;
-        if(user.objectifHebdo === -1.0 || user.objectifHebdo === 0.0 ){
+        if(user.objectifs.length === 0) {
           let alert = this.alertCtrl.create({
             title: 'Objectif non détecté',
             subTitle: 'Ajoutez un objectif',
@@ -184,6 +191,9 @@ export class HomePage {
         });
   }
 
+  /**
+   * Get the next activity
+   */
   getNextActivity(){
     this.activityService.getNextPlanned().subscribe(
       (activity) => {
@@ -199,26 +209,37 @@ export class HomePage {
       });
   }
 
-  createActivity(): void{
-    this.navCtrl.push(ActivityPage);
-  }
-
+  /**
+   * Go to ProgrammePage
+   */
   seeProgramme(){
     this.navCtrl.push(ProgrammePage);
   }
 
+  /**
+   * Go to ActivityDetailsPage
+   */
   seeDetails(){
     this.navCtrl.push(ActivityDetailsPage);
   }
 
+  /**
+   * Go to ActivityCreationPage
+   */
   addActivity() {
     this.navCtrl.push(ActivityCreationPage);
   }
 
+  /**
+   * Go to ActivityPage
+   */
   recordActivity() {
-    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distancePrevue});
+    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distancePrevue, 'id': this.activity.id});
   }
 
+  /**
+   * Action Sheet
+   */
   presentActionSheet() {
     let actionSheet = this.createActivitySheet.create({
       title: 'Effectuer une activité',
@@ -229,13 +250,15 @@ export class HomePage {
           handler: () => {
             this.recordActivity();
           }
-        },{
-          text: 'Ajouter une activité réalisée',
+        },
+        {
+          text: 'Réaliser la prochaine actvité',
           icon: 'add',
           handler: () => {
             this.addActivity();
           }
-        },{
+        },
+        {
           text: 'Annuler',
           role: 'cancel',
           icon: 'close',
@@ -244,6 +267,27 @@ export class HomePage {
       ]
     });
     actionSheet.present();
+  }
+
+  /**
+   * Display InfoIndicePage
+   */
+  infoIndice(){
+    let modal = this.modalCtrl.create(InfoIndicePage);
+    modal.present();
+  }
+
+  /**
+   * Calculate the sum of all sports goals
+   * @param {Programme} programme
+   * @returns {number}
+   */
+  sumSportGoals(programme: Programme): number {
+    let sum: number = 0;
+    programme.objectifs.forEach(objectif => {
+      sum += objectif.objectif;
+    });
+    return sum;
   }
 }
 

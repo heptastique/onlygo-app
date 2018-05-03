@@ -10,6 +10,10 @@ export class SportService{
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Get all sports
+   * @returns {Observable<Sport[]>}
+   */
   getAllSports(): Observable<Sport[]>{
     const url = `${API_SERVER.sport}/all`;
     return this.http.get<Sport[]>(url);

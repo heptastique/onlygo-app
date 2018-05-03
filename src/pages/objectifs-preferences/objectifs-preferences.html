@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+          Préférences objectifs
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="dismiss()">
+            <span ion-text color="primary" showWhen="ios">Annuler</span>
+            <ion-icon name="md-close"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <div class="registration-box">
+        <form (ngSubmit)="save()" #objectifs="ngForm">
+
+          <ion-list inset>
+
+            <ion-item>
+              <ion-label floating>Course</ion-label>
+              <ion-input type="number" min="0" name="course" [(ngModel)]="course.distance"
+                          required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Marche</ion-label>
+              <ion-input type="number" min="0" name="marche" [(ngModel)]="marche.distance"
+                          required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>Cyclisme</ion-label>
+              <ion-input type="number" min="0" name="cyclisme" [(ngModel)]="cyclisme.distance"
+                          required></ion-input>
+            </ion-item>
+
+          </ion-list>
+
+          <ion-row>
+            <ion-col class="save-col">
+              <button ion-button class="submit-btn" full type="submit" [disabled]="!objectifs.form.valid">Valider
+              </button>
+            </ion-col>
+          </ion-row>
+
+        </form>
+      </div>
+
+</ion-content>

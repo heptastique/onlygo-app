@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <div text-center="">
     <ion-list>
       <ion-item *ngFor="let activity of programme.activites">
@@ -17,7 +20,7 @@
                 {{activity.datePrevue}}
               </h2>
               <p><ion-icon name='walk' item-start></ion-icon>{{activity.sport.nom}}</p>
-              <p><ion-icon name='flag' item-start></ion-icon>{{activity.distancePrevue}} kms</p>
+              <p><ion-icon name='flag' item-start></ion-icon>{{activity.distancePrevue}} km</p>
               <p><ion-icon name='pin' item-start></ion-icon>{{activity.centreInteret.name}}</p>
             </ion-col>
           </ion-row>
@@ -29,7 +32,7 @@
                 {{activity.dateRealisee}}
               </h2>
               <p><ion-icon name='walk' item-start></ion-icon>{{activity.sport.nom}}</p>
-              <p><ion-icon name='flag' item-start></ion-icon>{{activity.distanceRealisee}} kms</p>
+              <p><ion-icon name='flag' item-start></ion-icon>{{activity.distanceRealisee}}/{{activity.distancePrevue}} km</p>
               <p><ion-icon name='pin' item-start></ion-icon>{{activity.centreInteret.name}}</p>
             </ion-col>
             <ion-col col-4>
