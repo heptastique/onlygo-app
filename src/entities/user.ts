@@ -1,4 +1,5 @@
 import {Gps_Coordinates} from './gps_coordinates';
+import { ObjectifSport } from './objectif_sport';
 
 export class User{
   username: string;
@@ -6,7 +7,10 @@ export class User{
   firstname: string;
   lastname: string;
   email: string;
-  objectifHebdo: number;
+  objectifs: ObjectifSport[];
+  objectifHebdoCourse: number;
+  objectifHebdoMarche: number;
+  objectifHebdoCyclisme: number;
   distanceMax: number;
   location: Gps_Coordinates;
 }
