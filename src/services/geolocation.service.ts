@@ -19,6 +19,10 @@ export class GeolocationService {
   constructor(private geolocation: Geolocation ) {
   }
 
+  /**
+   * Records the user location every time ms and save it in activityCoords
+   * @param {number} time
+   */
   startRecording(time: number){
     this.sub = Observable.interval(time).subscribe( () =>
       {
@@ -36,6 +40,10 @@ export class GeolocationService {
       });
   }
 
+  /**
+   * Get the current position
+   * @returns {Promise<Gps_Coordinates>}
+   */
   getPos():Promise<Gps_Coordinates>{
     this.coord.x = null;
     this.coord.y = null;
@@ -47,10 +55,17 @@ export class GeolocationService {
      });
   }
 
+  /**
+   * Stop the recording
+   */
   stopRecording(){
     this.sub.unsubscribe();
   }
 
+  /**
+   * Return activityCoords
+   * @returns {Gps_Coordinates[]}
+   */
   getListCoord(): Gps_Coordinates[]{
     return this.activityCoords;
   }

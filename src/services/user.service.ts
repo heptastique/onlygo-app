@@ -74,11 +74,19 @@ export class UserService {
     return this.http.put<any>(url, location, httpOptions);
   }
 
+  /**
+   * Get the progression of the user
+   * @returns {Observable<any>}
+   */
   getProgression():Observable<any>{
     const url = `${API_SERVER.user}/progression`;
     return this.http.get<any>(url);
   }
 
+  /**
+   * Get the goals of the user
+   * @returns {Observable<any>}
+   */
   getObjectifs():Observable<any>{
     const url = `${API_SERVER.user}/objectif`;
     return this.http.get<any>(url);

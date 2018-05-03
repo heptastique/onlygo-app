@@ -7,13 +7,13 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 })
 export class InfoIndicePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) { }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() { }
 
-  }
-
+  /**
+   * Dismiss the view
+   */
   dismiss() {
     this.viewCtrl.dismiss();
   }
