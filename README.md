@@ -4,12 +4,12 @@
 
 ### Pré-requis
 1. NodeJS avec npm
-2. Ionic installé avec la commande
+2. Ionic installé globalement avec la commande
 ```
 npm install -g ionic
 ```
 
-### Installation
+### Installation des dépendances
 ```
 npm install
 ```
@@ -18,3 +18,5 @@ npm install
 ```
 ionic serve --lab
 ```
+
+Nécessite l'éxécution locale du [serveur backend](https://github.com/heptastique/onlygo)
