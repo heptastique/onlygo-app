@@ -104,7 +104,7 @@ export class ActivityPage {
 
   /**
    * Load the map with its options.
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   async loadMap(){
     return new Promise(resolve => {
