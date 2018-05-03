@@ -7,7 +7,6 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../entities/user';
 import {ProgrammeService} from '../../services/programme.service';
 import {LocationModalPage} from '../location-modal/location-modal';
-
 import {IdentifiantsModalPage} from "../identifiants-modal/identifiants-modal";
 import { ObjectifsPreferencesPage } from '../objectifs-preferences/objectifs-preferences';
 
@@ -31,14 +30,17 @@ export class PreferencesPage {
     location: null
   };
 
+  nombreSeances: null;
+
   logged = false;
 
   constructor(public navCtrl: NavController, private loginService: LoginService, private userService: UserService,
               private authService: AuthService, public appCtrl: App, public alertCtrl : AlertController,
-              private programmeService: ProgrammeService, public modalCtrl: ModalController) { }
+              private programmeService: ProgrammeService, public modalCtrl: ModalController, public toastCtrl: ToastController) { }
 
   ionViewDidLoad () {
     this.getUser();
+    this.getNombreSeances();
   }
 
   /**
@@ -85,6 +87,53 @@ export class PreferencesPage {
    */
   generateProgramme(){
     this.programmeService.generateProgramme().subscribe(() => {});
+  }
+
+  updateNbSeances() {
+    let prompt = this.alertCtrl.create({
+      title: 'Nombre séances par semaine',
+      message: "Nombre de séances par semaine et par sport",
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre séances',
+          type: 'number',
+          min: 0,
+          value: this.nombreSeances
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Enregistrer',
+          handler: data => {
+            console.log(data.nombre);
+            var payload = new Object();
+            this.userService.setNombreSeances(data.nombre).subscribe(res => {
+              let toast = this.toastCtrl.create({
+                message: 'Nombre de séances par semaine mise à jour !',
+                duration: 3000,
+                showCloseButton: true,
+                closeButtonText: 'Ok'
+              });
+              toast.present();
+              this.getNombreSeances();
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  getNombreSeances() {
+    this.userService.getNombreSeances().subscribe(res => {
+      this.nombreSeances = res.nbSessions;
+    })
   }
 
 
