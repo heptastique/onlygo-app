@@ -21,21 +21,19 @@
         <ion-item>
           <ion-label floating>Email</ion-label>
           <ion-input type="email" name="email"
-                     [(ngModel)]="email">
+                     [(ngModel)]="user.email">
           </ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>Nouveau Mot de Passe</ion-label>
           <ion-input type="password" name="password"
-                     [(ngModel)]="password"
-                     required>
+                     [(ngModel)]="user.password">
           </ion-input>
         </ion-item>
         <ion-item>
           <ion-label floating>Confirmer Mot de Passe</ion-label>
           <ion-input type="password" name="passwordVerification"
-                     [(ngModel)]="passwordVerification"
-                     required>
+                     [(ngModel)]="passwordVerification">
           </ion-input>
         </ion-item>
       </ion-list>
