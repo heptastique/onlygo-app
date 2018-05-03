@@ -66,7 +66,10 @@ export class HomePage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };
@@ -161,7 +164,7 @@ export class HomePage {
     this.userService.getUser()
       .subscribe(user => {
         this.user = user;
-        if(user.objectifHebdo === -1.0 || user.objectifHebdo === 0.0 ){
+        if(user.objectifs.length === 0) {
           let alert = this.alertCtrl.create({
             title: 'Objectif non détecté',
             subTitle: 'Ajoutez un objectif',
