@@ -26,29 +26,53 @@ export class IdentifiantsModalPage{
 
   validate(){
     //hypothese : tous les champs sont remplis
-    this.user.email = this.email;
     this.user.password = this.password;
-    this.userService.updateEmail(this.user)
-      .subscribe(()=>{
-        this.userService.updatePassword(this.user)
-          .subscribe(()=>{
-            //show success
-            let toast = this.toastCtrl.create({
-              message: 'Modifications enregistrées !',
-              duration: 3000,
-              showCloseButton: true,
-              closeButtonText: 'Ok'
-            });
-            toast.present();
-            return this.viewCtrl.dismiss();
-          },(err)=>{
-            //erreur password
-            console.log(err.error);
+    //if we can get the former email value we can compare to avoid useless calls to the back
+    if(this.email===""){
+      return this.updatePassword();
+    }else{
+      this.user.email = this.email;
+      this.userService.updateEmail(this.user)
+        .subscribe(()=>{
+          return this.updatePassword()
+        },(err) =>{
+          let toast = this.toastCtrl.create({
+            message: 'Cette adresse mail est indisponible!',
+            duration: 3000,
+            showCloseButton: true,
+            closeButtonText: 'Ok'
           });
-    },(err) =>{
-        //erreur email
-        console.log(err.error);
+          toast.present();
+        });
+    }
+  }
+
+  updatePassword(){
+    if(this.password===this.passwordVerification){
+      this.userService.updatePassword(this.user)
+        .subscribe(()=>{
+          //show success
+          let toast = this.toastCtrl.create({
+            message: 'Modifications enregistrées !',
+            duration: 3000,
+            showCloseButton: true,
+            closeButtonText: 'Ok'
+          });
+          toast.present();
+          return this.viewCtrl.dismiss();
+        },(err)=>{
+          //erreur password
+          console.log(err.error);
+        });
+    }else{
+      let toast = this.toastCtrl.create({
+        message: 'Les mots de passe doivent être identiques !',
+        duration: 3000,
+        showCloseButton: true,
+        closeButtonText: 'Ok'
       });
+      toast.present();
+    }
   }
 
   dismiss(){
