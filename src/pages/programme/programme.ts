@@ -54,8 +54,8 @@ export class ProgrammePage {
    * @param refresher
    */
   doRefresh(refresher) {
-    this.getProgramme();
     this.programmeService.generateProgramme().subscribe(res =>{
+      this.getProgramme();
       refresher.complete();
     });
   }

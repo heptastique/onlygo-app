@@ -70,7 +70,7 @@ export class HomePage {
     objectifHebdoCourse: null,
     objectifHebdoMarche: null,
     objectifHebdoCyclisme: null,
-    distanceMax: null,
+    nbSessions: null,
     location: null
   };
 

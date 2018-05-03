@@ -71,6 +71,12 @@
                       required></ion-input>
         </ion-item>
 
+        <ion-item>
+          <ion-label floating>Nombre de séances par semaine </ion-label>
+          <ion-input type="number" min="0" name="nbSessions" [(ngModel)]="user.nbSessions"
+                     required></ion-input>
+        </ion-item>
+
       </ion-list>
 
       <ion-row>
