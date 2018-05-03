@@ -10,6 +10,10 @@ export class PlageHoraireService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * Get the current timeframe
+   * @returns {Observable<PlageHoraire>}
+   */
   getEvaluationNow(): Observable<PlageHoraire> {
     const url = `${API_SERVER.plagehoraire}/now`;
     return this.http.get<PlageHoraire>(url);

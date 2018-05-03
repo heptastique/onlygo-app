@@ -13,17 +13,17 @@ export class ObjectifsPreferencesPage {
   course: PreferenceSport = {
     sportId: 1,
     distance: null
-  }
+  };
 
   marche: PreferenceSport = {
     sportId: 2,
     distance: null
-  }
+  };
 
   cyclisme: PreferenceSport = {
     sportId: 3,
     distance: null
-  }
+  };
 
   objectifsActuels: ObjectifSport [] = [];
 
@@ -35,6 +35,9 @@ export class ObjectifsPreferencesPage {
     this.getObjectifsActuels();
   }
 
+  /**
+   * Get the goals of the user
+   */
   getObjectifsActuels() {
     this.userService.getObjectifs().subscribe(data => {
       this.objectifsActuels = data;
@@ -44,10 +47,16 @@ export class ObjectifsPreferencesPage {
     })
   }
 
+  /**
+   * Dismiss view
+   */
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
+  /**
+   * Send the new informations to the backend
+   */
   save() {
     let loading = this.loadingCtrl.create({
       content: 'Mise à jour en cours...'

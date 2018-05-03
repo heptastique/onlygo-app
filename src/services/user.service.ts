@@ -74,13 +74,12 @@ export class UserService {
     return this.http.put<any>(url, location, httpOptions);
   }
 
+  /**
+   * Get the progression of the user
+   * @returns {Observable<any>}
+   */
   getProgression():Observable<any>{
     const url = `${API_SERVER.user}/progression`;
-    return this.http.get<any>(url);
-  }
-
-  getObjectifs():Observable<any>{
-    const url = `${API_SERVER.user}/objectif`;
     return this.http.get<any>(url);
   }
 
@@ -102,5 +101,13 @@ export class UserService {
   updatePassword(user: User):Observable<any>{
     const url = `${API_SERVER.user}/password`;
     return this.http.put<any>(url, user, httpOptions);
+  }
+
+   * Get the goals of the user
+   * @returns {Observable<any>}
+   */
+  getObjectifs():Observable<any>{
+    const url = `${API_SERVER.user}/objectif`;
+    return this.http.get<any>(url);
   }
 }
