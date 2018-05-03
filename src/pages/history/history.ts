@@ -39,7 +39,7 @@ export class HistoryPage {
   constructor(public navCtrl: NavController, private dateService: DateService, private programmeService: ProgrammeService,
               public alertCtrl: AlertController) { }
 
-  ionViewDidLoad(){
+  ionViewDidEnter(){
     this.displayCurrentWeek();
   }
 
