@@ -116,6 +116,10 @@ export class HomePage {
     this.getPlageActuelle();
   }
 
+  /**
+   * Refresh page
+   * @param refresher
+   */
   doRefresh(refresher) {
     this.nextActivity = false;
     this.getUser();
@@ -125,18 +129,24 @@ export class HomePage {
     refresher.complete();
   }
 
+  /**
+   * Get the progression of user
+   */
   getProgression(){
     this.programmeService.getProgramme().subscribe(programme => {
-      var sommeDistance = 0;
+      let sommeDistance = 0;
       programme.activites.forEach(activity => {
         if(activity.estRealisee) {
           sommeDistance += activity.distanceRealisee;
         }
-      })
+      });
       this.loadProgress = Math.round(sommeDistance/this.sumSportGoals(programme)*100);
     })
   }
 
+  /**
+   * Get the informations about the current timeframe
+   */
   getPlageActuelle() {
     this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
       console.log(plageHoraire);
@@ -147,6 +157,9 @@ export class HomePage {
     })
   }
 
+  /**
+   * Get the user
+   */
   getUser(): void {
     this.userService.getUser()
       .subscribe(user => {
@@ -178,6 +191,9 @@ export class HomePage {
         });
   }
 
+  /**
+   * Get the next activity
+   */
   getNextActivity(){
     this.activityService.getNextPlanned().subscribe(
       (activity) => {
@@ -193,26 +209,37 @@ export class HomePage {
       });
   }
 
-  createActivity(): void{
-    this.navCtrl.push(ActivityPage);
-  }
-
+  /**
+   * Go to ProgrammePage
+   */
   seeProgramme(){
     this.navCtrl.push(ProgrammePage);
   }
 
+  /**
+   * Go to ActivityDetailsPage
+   */
   seeDetails(){
     this.navCtrl.push(ActivityDetailsPage);
   }
 
+  /**
+   * Go to ActivityCreationPage
+   */
   addActivity() {
     this.navCtrl.push(ActivityCreationPage);
   }
 
+  /**
+   * Go to ActivityPage
+   */
   recordActivity() {
     this.navCtrl.push(ActivityPage, {'objectif': this.activity.distancePrevue, 'id': this.activity.id});
   }
 
+  /**
+   * Action Sheet
+   */
   presentActionSheet() {
     let actionSheet = this.createActivitySheet.create({
       title: 'Effectuer une activité',
@@ -223,13 +250,15 @@ export class HomePage {
           handler: () => {
             this.recordActivity();
           }
-        },{
+        },
+        {
           text: 'Réaliser la prochaine actvité',
           icon: 'add',
           handler: () => {
             this.addActivity();
           }
-        },{
+        },
+        {
           text: 'Annuler',
           role: 'cancel',
           icon: 'close',
@@ -240,13 +269,21 @@ export class HomePage {
     actionSheet.present();
   }
 
+  /**
+   * Display InfoIndicePage
+   */
   infoIndice(){
     let modal = this.modalCtrl.create(InfoIndicePage);
     modal.present();
   }
 
+  /**
+   * Calculate the sum of all sports goals
+   * @param {Programme} programme
+   * @returns {number}
+   */
   sumSportGoals(programme: Programme): number {
-    var sum: number = 0;
+    let sum: number = 0;
     programme.objectifs.forEach(objectif => {
       sum += objectif.objectif;
     });

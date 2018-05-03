@@ -32,12 +32,16 @@ export class LocationModalPage {
     this.loadMap()
   }
 
-
+  /**
+   * Dimiss view
+   */
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-
+  /**
+   * Load map with its options and the user position
+   */
   loadMap(){
     this.geolocationService.getPos().then((coords) =>
     {
@@ -76,6 +80,10 @@ export class LocationModalPage {
     });
   }
 
+  /**
+   * Add a marker to the user position
+   * @param {Gps_Coordinates} gps_coords
+   */
   addCurrentPos(gps_coords: Gps_Coordinates ){
     let myLatlng = new google.maps.LatLng(gps_coords.x, gps_coords.y);
      let marker = new google.maps.Marker({
@@ -84,23 +92,27 @@ export class LocationModalPage {
       animation: google.maps.Animation.DROP,
       icon: this.icon
     });
-
     let content = "<h4>Ma localisation</h4>";
-
     this.addInfoWindow(marker, content);
   }
 
+  /**
+   * Add info to the marker
+   * @param marker
+   * @param content
+   */
   addInfoWindow(marker, content){
-
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
-
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
   }
 
+  /**
+   * Send the informations to the back-end
+   */
   validate(){
     let confirm = this.alertCtrl.create({
       title: 'Confirmation',
@@ -135,6 +147,9 @@ export class LocationModalPage {
     confirm.present();
   }
 
+  /**
+   * Reset the marker to the positon wanted
+   */
   setCurrentPos(){
     let myLatlng = new google.maps.LatLng(this.gps_current_pos.x, this.gps_current_pos.y);
     this.marker.setPosition(myLatlng);

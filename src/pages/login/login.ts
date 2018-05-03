@@ -27,6 +27,9 @@ export class LoginPage {
   ionViewDidLoad() {
   }
 
+  /**
+   * Try to log
+   */
   login() {
     let loading = this.loadingCtrl.create({
       content: 'Mise à jour des données...'
@@ -58,7 +61,9 @@ export class LoginPage {
       });
   }
 
-
+  /**
+   * Go to RegistrationPage
+   */
   createAccount() {
     this.navCtrl.push(RegistrationPage);
   }

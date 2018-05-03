@@ -39,6 +39,9 @@ export class PreferencesPage {
     this.getUser();
   }
 
+  /**
+   * Get the user
+   */
   getUser(): void {
     this.userService.getUser()
       .subscribe(user => { this.user = user; },
@@ -59,20 +62,32 @@ export class PreferencesPage {
         });
   }
 
+  /**
+   * Display ObjectifsPreferencesPage to update the goals
+   */
   updateObjectif(){
     let modal = this.modalCtrl.create(ObjectifsPreferencesPage);
     modal.present();
   }
-  
+
+  /**
+   * Display LocationModalPage to update the location
+   */
   updateLocalisation(){
     let modal = this.modalCtrl.create(LocationModalPage, {coords: this.user.location});
     modal.present();
   }
 
+  /**
+   * Call to generate a new programme
+   */
   generateProgramme(){
     this.programmeService.generateProgramme().subscribe(() => {});
   }
 
+  /**
+   * Logout the user, and go back to LoginPage
+   */
   logout() {
     this.loginService.logout();
     this.logged = this.authService.isLogged();

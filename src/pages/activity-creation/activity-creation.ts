@@ -58,12 +58,19 @@ export class ActivityCreationPage {
     this.getNextActivity();
   }
 
+  /**
+   * Get next activity
+   */
   getNextActivity(){
     this.activityService.getNextPlanned().subscribe((activity) => {
       this.activity = activity;
-      this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);})
+      this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);
+    })
   }
 
+  /**
+   * Send to form content to the back-end.
+   */
   validate(){
     this.realisationService.addRealisation(this.realisation).subscribe(
       () => {
@@ -94,6 +101,9 @@ export class ActivityCreationPage {
       });
   }
 
+  /**
+   * Go to activity details page
+   */
   seeDetails(){
     this.navCtrl.push(ActivityDetailsPage);
   }
