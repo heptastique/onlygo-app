@@ -249,7 +249,7 @@ export class HomePage {
             this.recordActivity();
           }
         },{
-          text: 'Ajouter une activité réalisée',
+          text: 'Réaliser la prochaine actvité',
           icon: 'add',
           handler: () => {
             this.addActivity();
