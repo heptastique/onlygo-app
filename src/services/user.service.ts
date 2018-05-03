@@ -78,4 +78,9 @@ export class UserService {
     const url = `${API_SERVER.user}/progression`;
     return this.http.get<any>(url);
   }
+
+  getObjectifs():Observable<any>{
+    const url = `${API_SERVER.user}/objectif`;
+    return this.http.get<any>(url);
+  }
 }

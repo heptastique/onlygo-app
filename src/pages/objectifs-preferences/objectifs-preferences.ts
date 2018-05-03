@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ToastController, List } from 'ionic-angular';
 import { ObjectifSport } from '../../entities/objectif_sport';
 import { PreferenceSport } from '../../entities/preference_sport';
 import { UserService } from '../../services/user.service';
@@ -25,12 +25,23 @@ export class ObjectifsPreferencesPage {
     distance: null
   }
 
+  objectifsActuels: ObjectifSport [] = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
               public userService: UserService, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ObjectifsPreferencesPage');
+  ionViewDidEnter() {
+    this.getObjectifsActuels();
+  }
+
+  getObjectifsActuels() {
+    this.userService.getObjectifs().subscribe(data => {
+      this.objectifsActuels = data;
+      this.course.distance = this.objectifsActuels[0].objectif;
+      this.marche.distance = this.objectifsActuels[1].objectif;
+      this.cyclisme.distance = this.objectifsActuels[2].objectif;
+    })
   }
 
   dismiss() {
