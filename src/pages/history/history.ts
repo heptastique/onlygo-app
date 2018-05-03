@@ -43,26 +43,43 @@ export class HistoryPage {
     this.displayCurrentWeek();
   }
 
+  /**
+   * Refresh the page
+   * @param refresher
+   */
   doRefresh(refresher) {
     this.getProgrammeByDate(this.week.date);
     refresher.complete();
   }
 
+  /**
+   * Display the current week
+   */
   displayCurrentWeek(){
     this.week = this.dateService.getCurrentWeek();
     this.getProgrammeByDate(this.week.date);
   }
 
+  /**
+   * Get the next week of this.week
+   */
   displayNextWeek(){
     this.week = this.dateService.getNextWeek(this.week.date);
     this.getProgrammeByDate(this.week.date);
   }
 
+  /**
+   * Get the last week of this.week
+   */
   displayLastWeek(){
     this.week = this.dateService.getLastWeek(this.week.date);
     this.getProgrammeByDate(this.week.date);
   }
 
+  /**
+   * Get the program starting at the date
+   * @param {Date} date
+   */
   getProgrammeByDate(date: Date){
     this.programmeService.getProgrammeByDate(date).subscribe(
       (programme) => {
@@ -99,13 +116,22 @@ export class HistoryPage {
         });
         alert.present();
       });
-
   }
 
+  /**
+   * Get the Kcal of activity
+   * @param {Activity} activity
+   * @returns {number}
+   */
   sumKcal(activity: Activity): number {
     return activity.distanceRealisee * activity.sport.kcalKm;
   }
 
+  /**
+   * Calculate the sum of all sports goals
+   * @param {Programme} programme
+   * @returns {number}
+   */
   sumSportGoals(programme: Programme): number {
     var sum: number = 0;
     programme.objectifs.forEach(objectif => {
