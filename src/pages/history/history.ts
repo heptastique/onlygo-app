@@ -99,7 +99,7 @@ export class HistoryPage {
           }
           this.bilanKcal = Math.round(this.bilanKcal*10)/10;
           this.bilanDistance = Math.round(this.bilanDistance*10)/10;
-          this.loadProgress = Math.round(this.bilanDistance/this.sumSportGoals(this.programme) * 100)
+          this.loadProgress = Math.round(this.bilanDistance/this.sumSportGoals(this.programme) * 100);
           if(this.loadProgress > 100) {
             this.loadProgress = 100;
           }
@@ -133,7 +133,7 @@ export class HistoryPage {
    * @returns {number}
    */
   sumSportGoals(programme: Programme): number {
-    var sum: number = 0;
+    let sum: number = 0;
     programme.objectifs.forEach(objectif => {
       sum += objectif.objectif;
     });
