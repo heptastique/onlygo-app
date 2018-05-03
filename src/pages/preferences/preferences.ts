@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../entities/user';
 import {ProgrammeService} from '../../services/programme.service';
 import {LocationModalPage} from '../location-modal/location-modal';
+import {IdentifiantsModalPage} from "../identifiants-modal/identifiants-modal";
 
 @Component({
   selector: 'page-preferences',
@@ -152,6 +153,11 @@ export class PreferencesPage {
 
   generateProgramme(){
     this.programmeService.generateProgramme().subscribe(() => {});
+  }
+
+  updateIdentifiants(){
+    let modal = this.modalCtrl.create(IdentifiantsModalPage,this.getUser());
+    modal.present();
   }
 
   logout() {
