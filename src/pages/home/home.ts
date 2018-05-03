@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {AlertController, NavController, ActionSheetController, ModalController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
-import {EvaluationService} from '../../services/evaluation.service';
 import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
@@ -101,16 +100,14 @@ export class HomePage {
   evaluationPourcentage = null;
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService, private activityService: ActivityService,
-              private dateService: DateService, private plageHoraireService: PlageHoraireService,
-              public createActivitySheet: ActionSheetController, public modalCtrl: ModalController,
-              public programmeService: ProgrammeService) {}
+              private activityService: ActivityService, private dateService: DateService,
+              private plageHoraireService: PlageHoraireService, public createActivitySheet: ActionSheetController,
+              public modalCtrl: ModalController, public programmeService: ProgrammeService) {}
 
 
   ionViewDidEnter() {
     this.nextActivity = false;
     this.getUser();
-    //this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
@@ -119,7 +116,6 @@ export class HomePage {
   doRefresh(refresher) {
     this.nextActivity = false;
     this.getUser();
-    //this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
@@ -137,30 +133,6 @@ export class HomePage {
       this.loadProgress = Math.round(sommeDistance/this.sumSportGoals(programme)*100);
     })
   }
-
-  /*getEvaluation(){
-    this.evaluationService.getEvaluationNow().subscribe(
-      evaluation => {
-        if(evaluation == null){
-          let alert = this.alertCtrl.create({
-            title: 'La requête a échoué.',
-            subTitle: 'Pas de note',
-            buttons: ['OK']
-          });
-          alert.present();
-          return;
-        }
-        this.evaluation = evaluation;},
-      (err) => {
-        console.error(err);
-        let alert = this.alertCtrl.create({
-          title: 'La requête a échoué.',
-          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
-          buttons: ['OK']
-        });
-        alert.present();
-      });
-  }*/
 
   getPlageActuelle() {
     this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
