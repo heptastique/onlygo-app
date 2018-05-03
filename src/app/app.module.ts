@@ -54,7 +54,7 @@ import { ObjectifsPreferencesPage } from '../pages/objectifs-preferences/objecti
     ActivityDetailsPage,
     LocationModalPage,
     InfoIndicePage,
-    ObjectifsPreferencesPage
+    ObjectifsPreferencesPage,
     LocationModalPage,
     IdentifiantsModalPage
   ],
@@ -78,7 +78,7 @@ import { ObjectifsPreferencesPage } from '../pages/objectifs-preferences/objecti
     ProgrammePage,
     ActivityDetailsPage,
     LocationModalPage,
-    IdentifiantsModalPage
+    IdentifiantsModalPage,
     LocationModalPage,
     InfoIndicePage,
     ObjectifsPreferencesPage
