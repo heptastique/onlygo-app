@@ -16,13 +16,12 @@
   <div class="identifiants-box">
     <form (ngSubmit)="validate()" #identifiantsForm="ngForm">
       <ion-list inset>
-        <h1>Modifier identifiants de {{user.name}}</h1>
+        <h1>Modifier identifiants</h1>
 
         <ion-item>
           <ion-label floating>Email</ion-label>
           <ion-input type="email" name="email"
-                     [(ngModel)]="email"
-                     required>
+                     [(ngModel)]="email">
           </ion-input>
         </ion-item>
         <ion-item>
