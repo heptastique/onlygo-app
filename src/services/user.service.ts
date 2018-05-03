@@ -84,6 +84,25 @@ export class UserService {
   }
 
   /**
+   * Updates user email
+   * @param {String} email
+   * @returns {Observable<any>}
+   */
+  updateEmail(user : User):Observable<any>{
+    const url = `${API_SERVER.user}/email`;
+    return this.http.put<any>(url, user, httpOptions);
+  }
+
+  /**
+   * Updates user password
+   * @param {User} user
+   * @returns {Observable<any>}
+   */
+  updatePassword(user: User):Observable<any>{
+    const url = `${API_SERVER.user}/password`;
+    return this.http.put<any>(url, user, httpOptions);
+  }
+  /**
    * Get the goals of the user
    * @returns {Observable<any>}
    */

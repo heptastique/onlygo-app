@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../entities/user';
 import {ProgrammeService} from '../../services/programme.service';
 import {LocationModalPage} from '../location-modal/location-modal';
+import {IdentifiantsModalPage} from "../identifiants-modal/identifiants-modal";
 import { ObjectifsPreferencesPage } from '../objectifs-preferences/objectifs-preferences';
 
 @Component({
@@ -124,6 +125,11 @@ export class PreferencesPage {
       ]
     });
     prompt.present();
+  }
+
+  updateIdentifiants(){
+    let modal = this.modalCtrl.create(IdentifiantsModalPage,this.getUser());
+    modal.present();
   }
 
   /**

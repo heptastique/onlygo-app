@@ -33,6 +33,7 @@ import {ActivityService} from '../services/activity.service';
 import {CronService} from '../services/cron.service';
 import { PlageHoraireService } from '../services/plagehoraire.service';
 import {LocationModalPage} from '../pages/location-modal/location-modal';
+import {IdentifiantsModalPage} from "../pages/identifiants-modal/identifiants-modal";
 import { InfoIndicePage } from '../pages/info-indice/info-indice';
 import { ObjectifsPreferencesPage } from '../pages/objectifs-preferences/objectifs-preferences';
 
@@ -51,6 +52,7 @@ import { ObjectifsPreferencesPage } from '../pages/objectifs-preferences/objecti
     ProgrammePage,
     ActivityDetailsPage,
     LocationModalPage,
+    IdentifiantsModalPage,
     InfoIndicePage,
     ObjectifsPreferencesPage
   ],
@@ -74,6 +76,7 @@ import { ObjectifsPreferencesPage } from '../pages/objectifs-preferences/objecti
     ProgrammePage,
     ActivityDetailsPage,
     LocationModalPage,
+    IdentifiantsModalPage,
     InfoIndicePage,
     ObjectifsPreferencesPage
   ],
