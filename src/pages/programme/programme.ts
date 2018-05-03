@@ -44,4 +44,9 @@ export class ProgrammePage {
         alert.present();
       });
   }
+
+  doRefresh(refresher) {
+    this.getProgramme();
+    refresher.complete();
+  }
 }
