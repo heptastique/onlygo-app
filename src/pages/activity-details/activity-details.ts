@@ -10,6 +10,7 @@ import {Centre_Interet} from '../../entities/centre_interet';
 import {PlageHoraire} from '../../entities/plagehoraire';
 import {JourSemaine} from '../../entities/joursemaine';
 import {Maps_Coordinates} from '../../entities/maps_coordinates';
+import {UserService} from '../../services/user.service';
 
 declare var google;
 
@@ -70,7 +71,8 @@ export class ActivityDetailsPage {
   icon = '../../assets/icon/pin-icon.png';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private activityService: ActivityService,
-              private dateService: DateService, private geolocationService: GeolocationService) { }
+              private dateService: DateService, private geolocationService: GeolocationService,
+              private userService: UserService) { }
 
   ionViewDidLoad() {
     this.activityService.getNextPlanned().subscribe(activity => {
@@ -85,27 +87,29 @@ export class ActivityDetailsPage {
 
   loadMap(){
     this.geolocationService.getPos().then((coords) => {
-      let myLatlng = new google.maps.LatLng(this.activity.centreInteret.point.x, this.activity.centreInteret.point.y);
-      let mapOptions = {
-        center: myLatlng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
+      this.userService.getUser().subscribe((user) => {
+        let myLatlng = new google.maps.LatLng(user.location.x, user.location.y);
+        let mapOptions = {
+          center: myLatlng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-      this.pathGenerated = new google.maps.Polyline({
-        path: this.mapsGeneratedCoords,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
+        this.pathGenerated = new google.maps.Polyline({
+          path: this.mapsGeneratedCoords,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        this.getItenary();
+
+        this.addCurrentPos(coords);
+        this.addUserPos(user);
       });
-
-      this.getItenary();
-
-      this.addCurrentPos(coords);
-      this.addActivityPos(this.activity.centreInteret.point);
     });
   }
 
@@ -123,18 +127,18 @@ export class ActivityDetailsPage {
     this.addInfoWindow(marker, content);
   }
 
-  addActivityPos(gps_coords: Gps_Coordinates){
-    let myLatlng = new google.maps.LatLng(gps_coords.x, gps_coords.y);
+  addUserPos(user){
+      let myLatlng = new google.maps.LatLng(user.location.x, user.location.y);
 
-    let marker = new google.maps.Marker({
-      map: this.map,
-      position: myLatlng,
-      animation: google.maps.Animation.DROP,
-    });
+      let marker = new google.maps.Marker({
+        map: this.map,
+        position: myLatlng,
+        animation: google.maps.Animation.DROP,
+      });
 
-    let content = "<h4>Lieu de l'activité</h4>";
+      let content = "<h4>Lieu de départ</h4>";
 
-    this.addInfoWindow(marker, content);
+      this.addInfoWindow(marker, content);
   }
 
 
