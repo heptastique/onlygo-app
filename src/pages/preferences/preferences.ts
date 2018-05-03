@@ -26,11 +26,9 @@ export class PreferencesPage {
     objectifHebdoCourse: null,
     objectifHebdoMarche: null,
     objectifHebdoCyclisme: null,
-    distanceMax: null,
+    nbSessions: 0,
     location: null
   };
-
-  nombreSeances: null;
 
   logged = false;
 
@@ -40,7 +38,6 @@ export class PreferencesPage {
 
   ionViewDidLoad () {
     this.getUser();
-    this.getNombreSeances();
   }
 
   /**
@@ -99,7 +96,7 @@ export class PreferencesPage {
           placeholder: 'Nombre séances',
           type: 'number',
           min: 0,
-          value: this.nombreSeances
+          value: this.user.nbSessions.toString()
         },
       ],
       buttons: [
@@ -112,7 +109,6 @@ export class PreferencesPage {
           text: 'Enregistrer',
           handler: data => {
             console.log(data.nombre);
-            var payload = new Object();
             this.userService.setNombreSeances(data.nombre).subscribe(res => {
               let toast = this.toastCtrl.create({
                 message: 'Nombre de séances par semaine mise à jour !',
@@ -121,7 +117,8 @@ export class PreferencesPage {
                 closeButtonText: 'Ok'
               });
               toast.present();
-              this.getNombreSeances();
+              this.generateProgramme();
+              this.user.nbSessions = data.nombre;
             });
           }
         }
@@ -129,13 +126,6 @@ export class PreferencesPage {
     });
     prompt.present();
   }
-
-  getNombreSeances() {
-    this.userService.getNombreSeances().subscribe(res => {
-      this.nombreSeances = res.nbSessions;
-    })
-  }
-
 
   updateIdentifiants(){
     let modal = this.modalCtrl.create(IdentifiantsModalPage,this.getUser());

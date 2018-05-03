@@ -3,6 +3,7 @@ import { NavController, NavParams, ViewController, LoadingController, ToastContr
 import { ObjectifSport } from '../../entities/objectif_sport';
 import { PreferenceSport } from '../../entities/preference_sport';
 import { UserService } from '../../services/user.service';
+import {ProgrammeService} from '../../services/programme.service';
 
 @Component({
   selector: 'page-objectifs-preferences',
@@ -28,7 +29,8 @@ export class ObjectifsPreferencesPage {
   objectifsActuels: ObjectifSport [] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
-              public userService: UserService, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+              public userService: UserService, public loadingCtrl: LoadingController, public toastCtrl: ToastController,
+              private programmeService: ProgrammeService) {
   }
 
   ionViewDidEnter() {
@@ -65,6 +67,7 @@ export class ObjectifsPreferencesPage {
     this.userService.updateObjectif(this.course).subscribe(res => {
       this.userService.updateObjectif(this.marche).subscribe(res => {
         this.userService.updateObjectif(this.cyclisme).subscribe(res => {
+          this.programmeService.generateProgramme().subscribe(() => {});
           loading.dismiss();
           let toast = this.toastCtrl.create({
             message: 'Objectifs enregistrés',

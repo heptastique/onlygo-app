@@ -11,6 +11,6 @@ export class User{
   objectifHebdoCourse: number;
   objectifHebdoMarche: number;
   objectifHebdoCyclisme: number;
-  distanceMax: number;
+  nbSessions: number;
   location: Gps_Coordinates;
 }
