@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, App, ModalController, NavController} from 'ionic-angular';
+import {AlertController, App, ModalController, NavController, ToastController} from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';

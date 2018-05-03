@@ -102,7 +102,7 @@ export class UserService {
     const url = `${API_SERVER.user}/password`;
     return this.http.put<any>(url, user, httpOptions);
   }
-
+  /**
    * Get the goals of the user
    * @returns {Observable<any>}
    */
