@@ -33,6 +33,11 @@ export class RegistrationPage {
 
   ionViewDidLoad() { }
 
+  /**
+   * Send the informations given by the user to the back-end
+   * With the user current location
+   * @returns {Promise<void>}
+   */
   async register(){
     let loading = this.loadingCtrl.create({
       content: 'Inscription en cours...'
@@ -53,7 +58,7 @@ export class RegistrationPage {
         this.user.location = location;
         resolve();
       })
-    })
+    });
     await this.userService.addUser(this.user).subscribe((user) => {
       this.user = user;
       let toast = this.toastCtrl.create({

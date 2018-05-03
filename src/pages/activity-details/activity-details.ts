@@ -62,7 +62,6 @@ export class ActivityDetailsPage {
     tauxCompletion: null
   };
 
-
   activityTime = 0;
   kcal = 0;
   dateStr;
@@ -74,6 +73,13 @@ export class ActivityDetailsPage {
               private userService: UserService) { }
 
   ionViewDidLoad() {
+    this.getNextPlanned();
+  }
+
+  /**
+   * Get next activity and initiate values
+   */
+  getNextPlanned(){
     this.activityService.getNextPlanned().subscribe(activity => {
       this.activity = activity;
       this.dateStr = this.dateService.getDateFromString(this.activity.datePrevue);
@@ -84,6 +90,9 @@ export class ActivityDetailsPage {
     });
   }
 
+  /**
+   * Load the map and its options
+   */
   loadMap(){
     this.geolocationService.getPos().then((coords) => {
       this.userService.getUser().subscribe((user) => {
@@ -129,6 +138,10 @@ export class ActivityDetailsPage {
     });
   }
 
+  /**
+   * Add the gps_coords location as a marker
+   * @param {Gps_Coordinates} gps_coords
+   */
   addCurrentPos(gps_coords: Gps_Coordinates ){
     let myLatlng = new google.maps.LatLng(gps_coords.x, gps_coords.y);
     let marker = new google.maps.Marker({
@@ -137,12 +150,14 @@ export class ActivityDetailsPage {
       animation: google.maps.Animation.DROP,
       icon: this.icon
     });
-
     let content = "<h4>Ma localisation</h4>";
-
     this.addInfoWindow(marker, content);
   }
 
+  /**
+   * Add the user location as a marker
+   * @param user
+   */
   addUserPos(user){
       let myLatlng = new google.maps.LatLng(user.location.x, user.location.y);
 
@@ -151,24 +166,30 @@ export class ActivityDetailsPage {
         position: myLatlng,
         animation: google.maps.Animation.DROP,
       });
-
       let content = "<h4>Lieu de départ</h4>";
-
       this.addInfoWindow(marker, content);
   }
 
-
+  /**
+   * Add info to the marker
+   * @param marker
+   * @param content
+   */
   addInfoWindow(marker, content){
-
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
-
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
   }
 
+  /**
+   * Get the path from the back end for the activity
+   * @param directionsService
+   * @param directionsDisplayStart
+   * @param directionsDisplayEnd
+   */
   getItenary(directionsService, directionsDisplayStart, directionsDisplayEnd){
       this.activityService.getItenary(this.activity.id).subscribe((coords) => {
         for(let points of coords){
@@ -189,13 +210,20 @@ export class ActivityDetailsPage {
     });
   }
 
+  /**
+   * Generate and display path to the activity thanks to google map api
+   * @param directionsService
+   * @param directionsDisplay
+   * @param start
+   * @param end
+   * @param startStr
+   * @param endStr
+   * @param icon
+   */
   calculateAndDisplayRoute(directionsService, directionsDisplay, start, end, startStr, endStr, icon) {
     directionsService.route({
       origin: start,
       destination: end,
-      // Note that Javascript allows us to access the constant
-      // using square brackets and a string value as its
-      // "property."
       travelMode: 'WALKING'
     }, function(response, status) {
       if (status == 'OK') {
@@ -212,15 +240,19 @@ export class ActivityDetailsPage {
 
   }
 
+  /**
+   * Create a marker
+   * @param latlng
+   * @param title
+   * @param icon
+   */
   createMarker(latlng, title, icon) {
-
     let marker = new google.maps.Marker({
       position: latlng,
       title: title,
       map: this.map,
       icon: icon
     });
-
     this.addInfoWindow(marker, title);
   }
 }

@@ -24,6 +24,9 @@ export class ProgrammePage {
     this.getProgramme();
   }
 
+  /**
+   * Get the current programme
+   */
   getProgramme() {
     this.programmeService.getProgramme().subscribe(
       (programme) => {
@@ -45,6 +48,11 @@ export class ProgrammePage {
       });
   }
 
+
+  /**
+   * Refresh page
+   * @param refresher
+   */
   doRefresh(refresher) {
     this.getProgramme();
     this.programmeService.generateProgramme().subscribe(res =>{
