@@ -34,6 +34,7 @@ import {ActivityService} from '../services/activity.service';
 import {CronService} from '../services/cron.service';
 import { PlageHoraireService } from '../services/plagehoraire.service';
 import {LocationModalPage} from '../pages/location-modal/location-modal';
+import {IdentifiantsModalPage} from "../pages/identifiants-modal/identifiants-modal";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {LocationModalPage} from '../pages/location-modal/location-modal';
     ActivityPage,
     ProgrammePage,
     ActivityDetailsPage,
-    LocationModalPage
+    LocationModalPage,
+    IdentifiantsModalPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import {LocationModalPage} from '../pages/location-modal/location-modal';
     ActivityPage,
     ProgrammePage,
     ActivityDetailsPage,
-    LocationModalPage
+    LocationModalPage,
+    IdentifiantsModalPage
   ],
   providers: [
     StatusBar,
