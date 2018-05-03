@@ -9,6 +9,7 @@ import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {Centre_Interet} from '../../entities/centre_interet';
 import {PlageHoraire} from '../../entities/plagehoraire';
 import {JourSemaine} from '../../entities/joursemaine';
+import {Maps_Coordinates} from '../../entities/maps_coordinates';
 
 declare var google;
 
@@ -20,6 +21,9 @@ export class ActivityDetailsPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+
+  mapsGeneratedCoords: Maps_Coordinates [] = [];
+  pathGenerated;
 
   sport : Sport = {
     nom: "",
@@ -80,8 +84,7 @@ export class ActivityDetailsPage {
   }
 
   loadMap(){
-    this.geolocationService.getPos().then((coords) =>
-    {
+    this.geolocationService.getPos().then((coords) => {
       let myLatlng = new google.maps.LatLng(this.activity.centreInteret.point.x, this.activity.centreInteret.point.y);
       let mapOptions = {
         center: myLatlng,
@@ -90,6 +93,17 @@ export class ActivityDetailsPage {
       };
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      this.pathGenerated = new google.maps.Polyline({
+        path: this.mapsGeneratedCoords,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      this.getItenary();
+
       this.addCurrentPos(coords);
       this.addActivityPos(this.activity.centreInteret.point);
     });
@@ -132,6 +146,16 @@ export class ActivityDetailsPage {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
+    });
+  }
+
+  getItenary(){
+      this.activityService.getItenary(this.activity.id).subscribe((coords) => {
+        for(let points of coords){
+          this.mapsGeneratedCoords.push({'lat': points.x, 'lng': points.y});
+          this.pathGenerated.setMap(this.map);
+          this.pathGenerated.setPath(this.mapsGeneratedCoords);
+        }
     });
   }
 
