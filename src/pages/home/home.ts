@@ -1,9 +1,7 @@
-import { Evaluation } from './../../entities/evaluation';
 import { Component } from '@angular/core';
 import {AlertController, NavController, ActionSheetController, ModalController} from 'ionic-angular';
 import { User } from "../../entities/user";
 import { UserService } from "../../services/user.service";
-import {EvaluationService} from '../../services/evaluation.service';
 import {ActivityPage} from '../activity/activity';
 import {ProgrammePage} from '../programme/programme';
 import {PreferencesPage} from '../preferences/preferences';
@@ -45,6 +43,19 @@ export class HomePage {
     '70': {color: '#FF5E00'},
     '80': {color: '#FF0000'},
     '90': {color: '#800000'},
+  };
+
+  thresholdConfigIndice = {
+    '90': {color: '#32B8A3'},
+    '80': {color: '#5CCB60'},
+    '70': {color: '#99E600'},
+    '60': {color: '#C3F000'},
+    '50': {color: '#FFFF00'},
+    '40': {color: '#FFD100'},
+    '30': {color: '#FFAA00'},
+    '20': {color: '#FF5E00'},
+    '10': {color: '#FF0000'},
+    '0': {color: '#800000'},
   };
 
   loadProgress = 0;
@@ -89,16 +100,14 @@ export class HomePage {
   evaluationPourcentage = null;
 
   constructor(public alertCtrl: AlertController, private userService: UserService, private navCtrl: NavController,
-              private evaluationService: EvaluationService, private activityService: ActivityService,
-              private dateService: DateService, private plageHoraireService: PlageHoraireService,
-              public createActivitySheet: ActionSheetController, public modalCtrl: ModalController,
-              public programmeService: ProgrammeService) {}
+              private activityService: ActivityService, private dateService: DateService,
+              private plageHoraireService: PlageHoraireService, public createActivitySheet: ActionSheetController,
+              public modalCtrl: ModalController, public programmeService: ProgrammeService) {}
 
 
   ionViewDidEnter() {
     this.nextActivity = false;
     this.getUser();
-    //this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
@@ -107,7 +116,6 @@ export class HomePage {
   doRefresh(refresher) {
     this.nextActivity = false;
     this.getUser();
-    //this.getEvaluation();
     this.getProgression();
     this.getNextActivity();
     this.getPlageActuelle();
@@ -125,30 +133,6 @@ export class HomePage {
       this.loadProgress = Math.round(sommeDistance/this.sumSportGoals(programme)*100);
     })
   }
-
-  /*getEvaluation(){
-    this.evaluationService.getEvaluationNow().subscribe(
-      evaluation => {
-        if(evaluation == null){
-          let alert = this.alertCtrl.create({
-            title: 'La requête a échoué.',
-            subTitle: 'Pas de note',
-            buttons: ['OK']
-          });
-          alert.present();
-          return;
-        }
-        this.evaluation = evaluation;},
-      (err) => {
-        console.error(err);
-        let alert = this.alertCtrl.create({
-          title: 'La requête a échoué.',
-          subTitle: 'Vous devez être authentifié pour accéder à cette ressource.',
-          buttons: ['OK']
-        });
-        alert.present();
-      });
-  }*/
 
   getPlageActuelle() {
     this.plageHoraireService.getEvaluationNow().subscribe(plageHoraire => {
@@ -237,7 +221,7 @@ export class HomePage {
             this.recordActivity();
           }
         },{
-          text: 'Ajouter une activité réalisée',
+          text: 'Réaliser la prochaine actvité',
           icon: 'add',
           handler: () => {
             this.addActivity();
