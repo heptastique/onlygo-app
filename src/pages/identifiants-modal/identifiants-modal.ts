@@ -39,7 +39,8 @@ export class IdentifiantsModalPage{
   validate(){
     //hypothese : tous les champs sont remplis
     //if we can get the former email value we can compare to avoid useless calls to the back
-    if(this.user.email===this.formerEmail){
+    if(this.user.email===this.formerEmail || this.user.email==""){
+      console.log("no email change");
       return this.updatePassword();
     }else{
       this.userService.updateEmail(this.user)
@@ -58,7 +59,9 @@ export class IdentifiantsModalPage{
   }
 
   updatePassword(){
-    if(this.user.password===this.passwordVerification){
+    if(this.user.password===""){
+      console.log("no password change");
+    }else if(this.user.password===this.passwordVerification){
       this.userService.updatePassword(this.user)
         .subscribe(()=>{
           //show success
