@@ -23,7 +23,6 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import {ActivityCreationPage} from '../pages/activity-creation/activity-creation';
 import {RealisationService} from '../services/realisation.service';
 import {SportService} from '../services/sport.service';
-import {EvaluationService} from '../services/evaluation.service';
 import {GeolocationService} from '../services/geolocation.service';
 import {ActivityPage} from '../pages/activity/activity';
 import {ProgrammeService} from '../services/programme.service';
