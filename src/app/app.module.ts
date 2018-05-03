@@ -91,7 +91,6 @@ import { ObjectifsPreferencesPage } from '../pages/objectifs-preferences/objecti
     UserService,
     RealisationService,
     SportService,
-    EvaluationService,
     Geolocation,
     GeolocationService,
     ProgrammeService,
