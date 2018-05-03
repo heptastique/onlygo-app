@@ -188,7 +188,7 @@ export class ActivityDetailsPage {
     }, function(response, status) {
       if (status == 'OK') {
         directionsDisplay.setDirections(response);
-        this.createMarker(startStr, endStr);
+        // this.createMarker(startStr, endStr);
       } else {
         window.alert('Directions request failed due to ' + status);
       }
