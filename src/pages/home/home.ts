@@ -68,6 +68,7 @@ export class HomePage {
   };
 
   activity: Activity = {
+    id: null,
     sport: this.sport,
     distancePrevue: 0,
     distanceRealisee: 0,
@@ -222,7 +223,7 @@ export class HomePage {
   }
 
   recordActivity() {
-    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distancePrevue});
+    this.navCtrl.push(ActivityPage, {'objectif': this.activity.distancePrevue, 'id': this.activity.id});
   }
 
   presentActionSheet() {

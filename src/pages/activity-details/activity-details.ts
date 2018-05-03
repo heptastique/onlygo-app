@@ -45,6 +45,7 @@ export class ActivityDetailsPage {
   };
 
   activity: Activity = {
+    id: null,
     sport: this.sport,
     distancePrevue: null,
     distanceRealisee: null,
