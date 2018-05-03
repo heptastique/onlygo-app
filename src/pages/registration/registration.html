@@ -54,8 +54,20 @@
         <h2>Vos préférences</h2>
 
         <ion-item>
-          <ion-label floating>Objectif distance hebomadaire</ion-label>
-          <ion-input type="number" min="0" name="objectifHebdo" [(ngModel)]="user.objectifHebdo"
+          <ion-label floating>Course</ion-label>
+          <ion-input type="number" min="0" name="course" [(ngModel)]="user.objectifHebdoCourse"
+                      required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Marche</ion-label>
+          <ion-input type="number" min="0" name="marche" [(ngModel)]="user.objectifHebdoMarche"
+                      required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Cyclisme</ion-label>
+          <ion-input type="number" min="0" name="cyclisme" [(ngModel)]="user.objectifHebdoCyclisme"
                       required></ion-input>
         </ion-item>
 

@@ -21,7 +21,10 @@ export class PreferencesPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };
