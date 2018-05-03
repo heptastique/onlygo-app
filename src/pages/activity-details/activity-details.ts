@@ -198,7 +198,7 @@ export class ActivityDetailsPage {
     this.createMarker(end, endStr);
   }
 
-  createMarker(latlng, title, color) {
+  createMarker(latlng, title) {
 
     let marker = new google.maps.Marker({
       position: latlng,
