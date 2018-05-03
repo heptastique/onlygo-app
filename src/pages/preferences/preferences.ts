@@ -121,6 +121,7 @@ export class PreferencesPage {
               });
               toast.present();
               this.getNombreSeances();
+              this.generateProgramme();
             });
           }
         }
