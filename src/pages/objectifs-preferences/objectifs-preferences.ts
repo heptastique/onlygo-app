@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController, ToastController, List } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { ObjectifSport } from '../../entities/objectif_sport';
 import { PreferenceSport } from '../../entities/preference_sport';
 import { UserService } from '../../services/user.service';

@@ -19,7 +19,7 @@
       <ion-card-content>
         <ion-row justify-content-center align-items-center>
           <ngx-gauge class="gaugeIndice" [type]="gaugeTypeIndice" [value]="gaugeValueIndice" [size]=80 [thick]="gaugeThickIndice"
-          [cap]="gaugeCapIndice">
+          [cap]="gaugeCapIndice" [thresholds]="thresholdConfigIndice">
           </ngx-gauge>
         </ion-row>
         <ion-row justify-content-center align-items-center>
@@ -102,7 +102,7 @@
   </ng-template>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="presentActionSheet()">
+    <button *ngIf="nextActivity" ion-fab (click)="presentActionSheet()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
