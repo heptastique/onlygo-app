@@ -1,4 +1,3 @@
-import { Evaluation } from './../../entities/evaluation';
 import { Component } from '@angular/core';
 import {AlertController, NavController, ActionSheetController, ModalController} from 'ionic-angular';
 import { User } from "../../entities/user";
@@ -45,6 +44,19 @@ export class HomePage {
     '70': {color: '#FF5E00'},
     '80': {color: '#FF0000'},
     '90': {color: '#800000'},
+  };
+
+  thresholdConfigIndice = {
+    '90': {color: '#32B8A3'},
+    '80': {color: '#5CCB60'},
+    '70': {color: '#99E600'},
+    '60': {color: '#C3F000'},
+    '50': {color: '#FFFF00'},
+    '40': {color: '#FFD100'},
+    '30': {color: '#FFAA00'},
+    '20': {color: '#FF5E00'},
+    '10': {color: '#FF0000'},
+    '0': {color: '#800000'},
   };
 
   loadProgress = 0;
