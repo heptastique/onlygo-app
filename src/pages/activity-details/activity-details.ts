@@ -102,6 +102,8 @@ export class ActivityDetailsPage {
 
         directionsDisplayStart.setMap(this.map);
         directionsDisplayEnd.setMap(this.map);
+        directionsDisplayStart.setOptions( { suppressMarkers: true } );
+        directionsDisplayEnd.setOptions( { suppressMarkers: true } );
 
         this.pathGenerated = new google.maps.Polyline({
           path: this.mapsGeneratedCoords,
@@ -173,7 +175,7 @@ export class ActivityDetailsPage {
         this.pathGenerated.setPath(this.mapsGeneratedCoords);
         this.pathGenerated.setMap(this.map);
         this.calculateAndDisplayRoute(directionsService, directionsDisplayStart, userPoint, firstPoint, 'Depart utilisateur', 'Arrivée activité');
-        this.calculateAndDisplayRoute(directionsService, directionsDisplayEnd, lastPoint, userPoint, 'Depart utilisateur', 'Arrivée activité');
+        this.calculateAndDisplayRoute(directionsService, directionsDisplayEnd, lastPoint, userPoint, 'Depart activitée', 'Arrivée utilisateur');
     });
   }
 
@@ -192,9 +194,11 @@ export class ActivityDetailsPage {
         window.alert('Directions request failed due to ' + status);
       }
     });
+    this.createMarker(start, startStr);
+    this.createMarker(end, endStr);
   }
 
-  createMarker(latlng, title) {
+  createMarker(latlng, title, color) {
 
     let marker = new google.maps.Marker({
       position: latlng,
