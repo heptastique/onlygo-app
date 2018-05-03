@@ -23,7 +23,7 @@ export class RegistrationPage {
     objectifHebdoCourse: null,
     objectifHebdoMarche: null,
     objectifHebdoCyclisme: null,
-    distanceMax: null,
+    nbSessions: 0,
     location: null
   };
 

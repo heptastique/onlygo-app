@@ -3,6 +3,7 @@ import {AlertController, NavController, NavParams, ViewController} from 'ionic-a
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {GeolocationService} from '../../services/geolocation.service';
 import {UserService} from '../../services/user.service';
+import {ProgrammeService} from '../../services/programme.service';
 
 declare var google;
 
@@ -24,7 +25,8 @@ export class LocationModalPage {
   marker;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
-              private geolocationService: GeolocationService, public alertCtrl: AlertController, private userService: UserService) {
+              private geolocationService: GeolocationService, public alertCtrl: AlertController, private userService: UserService,
+              private programmeService: ProgrammeService) {
   }
 
   ionViewDidLoad() {
@@ -125,7 +127,9 @@ export class LocationModalPage {
           text: 'oui',
           handler: () => {
             this.userService.updateLocation(this.gps_coordinates_settings).subscribe(
-              (res) => { this.dismiss(); },
+              (res) => {
+                this.programmeService.generateProgramme().subscribe(() => {});
+                this.dismiss(); },
               (err) => {
                 let message;
                 if(err.status == 0) {
