@@ -23,7 +23,7 @@ export class IdentifiantsModalPage{
     objectifHebdoCourse: null,
     objectifHebdoMarche: null,
     objectifHebdoCyclisme: null,
-    distanceMax: null,
+    nbSessions: null,
     location: null
   };
 
