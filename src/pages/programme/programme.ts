@@ -14,7 +14,7 @@ export class ProgrammePage {
   programme : Programme = {
     activites: null,
     user: null,
-    objectifDistance: null,
+    objectifs: null,
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private programmeService: ProgrammeService,
@@ -43,5 +43,10 @@ export class ProgrammePage {
         });
         alert.present();
       });
+  }
+
+  doRefresh(refresher) {
+    this.getProgramme();
+    refresher.complete();
   }
 }

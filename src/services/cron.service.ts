@@ -14,4 +14,9 @@ export class CronService {
     return this.http.get(url);
   }
 
+  strava(): Observable<any>{
+    const url = `${API_SERVER.strava}`;
+    return this.http.get(url);
+  }
+
 }

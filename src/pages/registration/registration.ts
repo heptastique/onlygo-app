@@ -3,6 +3,7 @@ import {AlertController, NavController, NavParams, ToastController, LoadingContr
 import {User} from "../../entities/user";
 import {UserService} from "../../services/user.service";
 import { GeolocationService } from '../../services/geolocation.service';
+import { PreferenceSport } from '../../entities/preference_sport';
 
 @Component({
   selector: 'page-registration',
@@ -18,7 +19,10 @@ export class RegistrationPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };

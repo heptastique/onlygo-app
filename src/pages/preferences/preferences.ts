@@ -8,6 +8,7 @@ import { User } from '../../entities/user';
 import {ProgrammeService} from '../../services/programme.service';
 import {LocationModalPage} from '../location-modal/location-modal';
 import {IdentifiantsModalPage} from "../identifiants-modal/identifiants-modal";
+import { ObjectifsPreferencesPage } from '../objectifs-preferences/objectifs-preferences';
 
 @Component({
   selector: 'page-preferences',
@@ -21,7 +22,10 @@ export class PreferencesPage {
     firstname: "",
     lastname: "",
     email: "",
-    objectifHebdo: null,
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
     distanceMax: null,
     location: null
   };
@@ -57,93 +61,8 @@ export class PreferencesPage {
   }
 
   updateObjectif(){
-    let alert = this.alertCtrl.create({
-      title: 'Objectif',
-      inputs: [
-        {
-          name: 'objectif',
-          type: 'number',
-          min: '0',
-          value: this.user.objectifHebdo.toString()
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-        {
-          text: 'Valider',
-          handler: data => {
-            this.userService.updateObjectif(data.objectif).subscribe(
-              (res) => {
-                this.user.objectifHebdo = res.distance;
-                this.generateProgramme();
-                },
-              (err) => {
-                let message;
-                if(err.status == 0) {
-                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-                }else{
-                  message = err.error;
-                }
-                let alert = this.alertCtrl.create({
-                  title: 'Erreur lors de la mise à jour.',
-                  subTitle: message,
-                  buttons: ['OK']
-                });
-                alert.present();
-              });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  updateDistanceMax(){
-    let alert = this.alertCtrl.create({
-      title: 'Distance max par séance',
-      inputs: [
-        {
-          name: 'distance',
-          type: 'number',
-          min: '0',
-          value: this.user.distanceMax.toString()
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-        {
-          text: 'Valider',
-          handler: data => {
-            this.userService.updateDistanceMax(data.distance).subscribe(
-              (res) => {
-                this.user.distanceMax = res.distance;
-                this.generateProgramme();
-                },
-              (err) => {
-                let message;
-                if(err.status == 0) {
-                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-                }else{
-                  message = err.error;
-                }
-                let alert = this.alertCtrl.create({
-                  title: 'Erreur lors de la mise à jour.',
-                  subTitle: message,
-                  buttons: ['OK']
-                });
-                alert.present();
-              });
-          }
-        }
-      ]
-    });
-    alert.present();
+    let modal = this.modalCtrl.create(ObjectifsPreferencesPage);
+    modal.present();
   }
 
   updateLocalisation(){

@@ -34,6 +34,7 @@ export class ActivityCreationPage {
   };
 
   activity: Activity = {
+    id: null,
     sport: this.sport,
     distancePrevue: null,
     distanceRealisee: null,
@@ -42,7 +43,8 @@ export class ActivityCreationPage {
     programmeId: null,
     estRealisee: null,
     centreInteret: this.centreInteret,
-    timeFrame: null
+    timeFrame: null,
+    tauxCompletion: null
   };
 
   dateStr = "";
