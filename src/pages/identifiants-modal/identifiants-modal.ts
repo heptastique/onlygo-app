@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController, NavParams, ToastController, ViewController} from "ionic-angular";
 import {UserService} from "../../services/user.service";
+import {User} from '../../entities/user';
 
 @Component({
   selector: 'page-identifiants-modal',
@@ -9,32 +10,41 @@ import {UserService} from "../../services/user.service";
 
 export class IdentifiantsModalPage{
 
-  email;
-  password;
+  formerEmail;
   passwordVerification;
-  user;
 
+  user: User = {
+    username: "",
+    password: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    objectifs: [],
+    objectifHebdoCourse: null,
+    objectifHebdoMarche: null,
+    objectifHebdoCyclisme: null,
+    distanceMax: null,
+    location: null
+  };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public alertCtrl: AlertController,
               private userService: UserService,
-              public toastCtrl: ToastController) {
-    this.user = this.navParams;
+              public toastCtrl: ToastController,) {
+
   }
 
   validate(){
     //hypothese : tous les champs sont remplis
-    this.user.password = this.password;
     //if we can get the former email value we can compare to avoid useless calls to the back
-    if(this.email===""){
+    if(this.user.email===this.formerEmail){
       return this.updatePassword();
     }else{
-      this.user.email = this.email;
       this.userService.updateEmail(this.user)
         .subscribe(()=>{
-          return this.updatePassword()
+          return this.updatePassword();
         },(err) =>{
           let toast = this.toastCtrl.create({
             message: 'Cette adresse mail est indisponible!',
@@ -48,7 +58,7 @@ export class IdentifiantsModalPage{
   }
 
   updatePassword(){
-    if(this.password===this.passwordVerification){
+    if(this.user.password===this.passwordVerification){
       this.userService.updatePassword(this.user)
         .subscribe(()=>{
           //show success
@@ -59,7 +69,7 @@ export class IdentifiantsModalPage{
             closeButtonText: 'Ok'
           });
           toast.present();
-          return this.viewCtrl.dismiss();
+          this.viewCtrl.dismiss();
         },(err)=>{
           //erreur password
           console.log(err.error);
@@ -77,5 +87,12 @@ export class IdentifiantsModalPage{
 
   dismiss(){
     this.viewCtrl.dismiss();
+  }
+
+  getUser(){
+    this.userService.getUser().subscribe((user)=> {
+      this.user = user;
+      this.formerEmail = user.email;
+    })
   }
 }
