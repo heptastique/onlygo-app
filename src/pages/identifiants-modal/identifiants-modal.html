@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Identifiants
+    </ion-title>
+    <ion-buttons>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Annuler</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="identifiants-box">
+    <form (ngSubmit)="validate()" #identifiantsForm="ngForm">
+      <ion-list inset>
+        <h1>Modifier identifiants de {{user.name}}</h1>
+
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="email" name="email"
+                     [(ngModel)]="email"
+                     required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Nouveau Mot de Passe</ion-label>
+          <ion-input type="password" name="password"
+                     [(ngModel)]="password"
+                     required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Confirmer Mot de Passe</ion-label>
+          <ion-input type="password" name="passwordVerification"
+                     [(ngModel)]="passwordVerification"
+                     required>
+          </ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col class="identifiants-col">
+          <button ion-button class="submit-btn" full type="submit"
+                  [disabled]="!identifiantsForm.form.valid">
+            Valider
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+</ion-content>
