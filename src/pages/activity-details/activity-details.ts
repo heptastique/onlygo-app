@@ -95,8 +95,16 @@ export class ActivityDetailsPage {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        let directionsDisplayStart = new google.maps.DirectionsRenderer;
-        let directionsDisplayEnd = new google.maps.DirectionsRenderer;
+        let directionsDisplayStart =  new google.maps.DirectionsRenderer({
+          polylineOptions: {
+            strokeColor: "green"
+          }
+        });
+        let directionsDisplayEnd = new google.maps.DirectionsRenderer({
+          polylineOptions: {
+            strokeColor: "orange"
+          }
+        });
         let directionsService = new google.maps.DirectionsService;
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
@@ -174,12 +182,15 @@ export class ActivityDetailsPage {
 
         this.pathGenerated.setPath(this.mapsGeneratedCoords);
         this.pathGenerated.setMap(this.map);
-        this.calculateAndDisplayRoute(directionsService, directionsDisplayStart, userPoint, firstPoint, 'Depart utilisateur', 'Arrivée activité');
-        this.calculateAndDisplayRoute(directionsService, directionsDisplayEnd, lastPoint, userPoint, 'Depart activitée', 'Arrivée utilisateur');
+        this.calculateAndDisplayRoute(directionsService, directionsDisplayStart, userPoint, firstPoint,
+          'Depart utilisateur', 'Début activité',
+          'http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+        this.calculateAndDisplayRoute(directionsService, directionsDisplayEnd, lastPoint, userPoint,
+          'Fin activitée', 'Arrivée utilisateur', 'http://maps.google.com/mapfiles/ms/icons/red-dot.png');
     });
   }
 
-  calculateAndDisplayRoute(directionsService, directionsDisplay, start, end, startStr, endStr) {
+  calculateAndDisplayRoute(directionsService, directionsDisplay, start, end, startStr, endStr, icon) {
     directionsService.route({
       origin: start,
       destination: end,
@@ -194,16 +205,21 @@ export class ActivityDetailsPage {
         window.alert('Directions request failed due to ' + status);
       }
     });
-    this.createMarker(start, startStr);
-    this.createMarker(end, endStr);
+    if(startStr ===  "Depart utilisateur") {
+      this.createMarker(end, endStr, icon);
+    }else{
+      this.createMarker(start, startStr, icon);
+    }
+
   }
 
-  createMarker(latlng, title) {
+  createMarker(latlng, title, icon) {
 
     let marker = new google.maps.Marker({
       position: latlng,
       title: title,
-      map: this.map
+      map: this.map,
+      icon: icon
     });
 
     this.addInfoWindow(marker, title);
