@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../entities/user';
 import {ProgrammeService} from '../../services/programme.service';
 import {LocationModalPage} from '../location-modal/location-modal';
+import { ObjectifsPreferencesPage } from '../objectifs-preferences/objectifs-preferences';
 
 @Component({
   selector: 'page-preferences',
@@ -56,48 +57,8 @@ export class PreferencesPage {
   }
 
   updateObjectif(){
-    let alert = this.alertCtrl.create({
-      title: 'Objectif',
-      inputs: [
-        {
-          name: 'objectif',
-          type: 'number',
-          min: '0',
-          value: this.user.objectifHebdo.toString()
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-        {
-          text: 'Valider',
-          handler: data => {
-            this.userService.updateObjectif(data.objectif).subscribe(
-              (res) => {
-                this.user.objectifHebdo = res.distance;
-                this.generateProgramme();
-                },
-              (err) => {
-                let message;
-                if(err.status == 0) {
-                  message = 'Impossible de contacter le serveur. Veuillez vérifier votre connexion.';
-                }else{
-                  message = err.error;
-                }
-                let alert = this.alertCtrl.create({
-                  title: 'Erreur lors de la mise à jour.',
-                  subTitle: message,
-                  buttons: ['OK']
-                });
-                alert.present();
-              });
-          }
-        }
-      ]
-    });
-    alert.present();
+    let modal = this.modalCtrl.create(ObjectifsPreferencesPage);
+    modal.present();
   }
 
   updateDistanceMax(){
