@@ -95,7 +95,13 @@ export class ActivityDetailsPage {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
+        let directionsDisplayStart = new google.maps.DirectionsRenderer;
+        let directionsDisplayEnd = new google.maps.DirectionsRenderer;
+        let directionsService = new google.maps.DirectionsService;
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+        directionsDisplayStart.setMap(this.map);
+        directionsDisplayEnd.setMap(this.map);
 
         this.pathGenerated = new google.maps.Polyline({
           path: this.mapsGeneratedCoords,
@@ -105,7 +111,8 @@ export class ActivityDetailsPage {
           strokeWeight: 2
         });
 
-        this.getItenary();
+
+        this.getItenary(directionsService, directionsDisplayStart, directionsDisplayEnd);
 
         this.addCurrentPos(coords);
         this.addUserPos(user);
@@ -153,14 +160,49 @@ export class ActivityDetailsPage {
     });
   }
 
-  getItenary(){
+  getItenary(directionsService, directionsDisplayStart, directionsDisplayEnd){
       this.activityService.getItenary(this.activity.id).subscribe((coords) => {
         for(let points of coords){
           this.mapsGeneratedCoords.push({'lat': points.x, 'lng': points.y});
-          this.pathGenerated.setMap(this.map);
-          this.pathGenerated.setPath(this.mapsGeneratedCoords);
         }
+        let userPoint = this.mapsGeneratedCoords.shift();
+        let firstPoint = this.mapsGeneratedCoords.shift();
+        this.mapsGeneratedCoords.pop(); // Don't need it as its the userPoint
+        let lastPoint = this.mapsGeneratedCoords.pop();
+
+        this.pathGenerated.setPath(this.mapsGeneratedCoords);
+        this.pathGenerated.setMap(this.map);
+        this.calculateAndDisplayRoute(directionsService, directionsDisplayStart, userPoint, firstPoint, 'Depart utilisateur', 'Arrivée activité');
+        this.calculateAndDisplayRoute(directionsService, directionsDisplayEnd, lastPoint, userPoint, 'Depart utilisateur', 'Arrivée activité');
     });
   }
 
+  calculateAndDisplayRoute(directionsService, directionsDisplay, start, end, startStr, endStr) {
+    directionsService.route({
+      origin: start,
+      destination: end,
+      // Note that Javascript allows us to access the constant
+      // using square brackets and a string value as its
+      // "property."
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status == 'OK') {
+        directionsDisplay.setDirections(response);
+        this.createMarker(startStr, endStr);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
+  createMarker(latlng, title) {
+
+    let marker = new google.maps.Marker({
+      position: latlng,
+      title: title,
+      map: this.map
+    });
+
+    addInfoWindow(marker, title);
+  }
 }
