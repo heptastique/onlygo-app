@@ -83,4 +83,14 @@ export class UserService {
     const url = `${API_SERVER.user}/objectif`;
     return this.http.get<any>(url);
   }
+
+  getNombreSeances(): Observable<any> {
+    const url = `${API_SERVER.user}/nbSessions`;
+    return this.http.get<any>(url);
+  }
+
+  setNombreSeances(nbSeance: number): Observable<any> {
+    const url = `${API_SERVER.user}/nbSessions`;
+    return this.http.put<any>(url, {"nbSessions": nbSeance}, httpOptions);
+  }
 }

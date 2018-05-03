@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, App, ModalController, NavController} from 'ionic-angular';
+import {AlertController, App, ModalController, NavController, ToastController} from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
@@ -29,14 +29,17 @@ export class PreferencesPage {
     location: null
   };
 
+  nombreSeances: null;
+
   logged = false;
 
   constructor(public navCtrl: NavController, private loginService: LoginService, private userService: UserService,
               private authService: AuthService, public appCtrl: App, public alertCtrl : AlertController,
-              private programmeService: ProgrammeService, public modalCtrl: ModalController) { }
+              private programmeService: ProgrammeService, public modalCtrl: ModalController, public toastCtrl: ToastController) { }
 
   ionViewDidLoad () {
     this.getUser();
+    this.getNombreSeances();
   }
 
   getUser(): void {
@@ -63,7 +66,7 @@ export class PreferencesPage {
     let modal = this.modalCtrl.create(ObjectifsPreferencesPage);
     modal.present();
   }
-  
+
   updateLocalisation(){
     let modal = this.modalCtrl.create(LocationModalPage, {coords: this.user.location});
     modal.present();
@@ -71,6 +74,53 @@ export class PreferencesPage {
 
   generateProgramme(){
     this.programmeService.generateProgramme().subscribe(() => {});
+  }
+
+  updateNbSeances() {
+    let prompt = this.alertCtrl.create({
+      title: 'Nombre séances par semaine',
+      message: "Nombre de séances par semaine et par sport",
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre séances',
+          type: 'number',
+          min: 0,
+          value: this.nombreSeances
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Enregistrer',
+          handler: data => {
+            console.log(data.nombre);
+            var payload = new Object();
+            this.userService.setNombreSeances(data.nombre).subscribe(res => {
+              let toast = this.toastCtrl.create({
+                message: 'Nombre de séances par semaine mise à jour !',
+                duration: 3000,
+                showCloseButton: true,
+                closeButtonText: 'Ok'
+              });
+              toast.present();
+              this.getNombreSeances();
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  getNombreSeances() {
+    this.userService.getNombreSeances().subscribe(res => {
+      this.nombreSeances = res.nbSessions;
+    })
   }
 
   logout() {
