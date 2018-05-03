@@ -1,7 +1,6 @@
 import { Maps_Coordinates } from './../../entities/maps_coordinates';
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {AlertController, NavController, ToastController, NavParams,} from 'ionic-angular';
-import {ActivityCreationPage} from '../activity-creation/activity-creation';
 import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {RealisationService} from '../../services/realisation.service';

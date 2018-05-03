@@ -8,7 +8,6 @@ import {GeolocationService} from '../../services/geolocation.service';
 import {Gps_Coordinates} from '../../entities/gps_coordinates';
 import {Centre_Interet} from '../../entities/centre_interet';
 import {PlageHoraire} from '../../entities/plagehoraire';
-import {JourSemaine} from '../../entities/joursemaine';
 import {Maps_Coordinates} from '../../entities/maps_coordinates';
 import {UserService} from '../../services/user.service';
 
