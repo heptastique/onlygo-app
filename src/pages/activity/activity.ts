@@ -28,6 +28,7 @@ export class ActivityPage {
 
   sub;
   coordsLog : Gps_Coordinates [] = [];
+  userLatLng;
   pathGenerated;
   pathUser;
 
@@ -35,6 +36,8 @@ export class ActivityPage {
   mapsCoords: Maps_Coordinates [] = [];
   generatedCoords: Gps_Coordinates [] = [];
   mapsGeneratedCoords: Maps_Coordinates [] = [];
+  directionsService;
+  directionsDisplayStart;
 
   realisatation: Realisation = {
     distance: 0,
@@ -62,7 +65,6 @@ export class ActivityPage {
     this.mapsCoords = [];
     await this.loadMap();
     await this.getItenary();
-
 
     // Uncomment comments to simulate a movement
     this.sub = Observable.interval(1000).subscribe( () =>{
@@ -104,14 +106,23 @@ export class ActivityPage {
     return new Promise(resolve => {
       this.geolocationService.getPos().then((coords) =>
       {
-        let latLng = new google.maps.LatLng(coords.x, coords.y);
+        this.userLatLng = new google.maps.LatLng(coords.x, coords.y);
         let mapOptions = {
-          center: latLng,
+          center: this.userLatLng,
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
+        this.directionsDisplayStart =  new google.maps.DirectionsRenderer({
+          polylineOptions: {
+            strokeColor: "green"
+          }
+        });
+        this.directionsService = new google.maps.DirectionsService;
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+        this.directionsDisplayStart.setMap(this.map);
+        this.directionsDisplayStart.setOptions( { suppressMarkers: true } );
 
         this.pathGenerated = new google.maps.Polyline({
           path: this.mapsGeneratedCoords,
@@ -169,9 +180,48 @@ export class ActivityPage {
           this.mapsGeneratedCoords.push({'lat': points.x, 'lng': points.y});
           this.pathGenerated.setPath(this.mapsGeneratedCoords);
         }
-        console.log(this.mapsGeneratedCoords);
+        this.mapsGeneratedCoords.shift();
+        let firstPoint = this.mapsGeneratedCoords.shift();
+        this.mapsGeneratedCoords.pop(); // Don't need it as its the userPoint
+        let lastPoint = this.mapsGeneratedCoords.pop();
+
+        this.pathGenerated.setPath(this.mapsGeneratedCoords);
+        this.pathGenerated.setMap(this.map);
+        this.calculateAndDisplayRoute(this.userLatLng, firstPoint, lastPoint, this.directionsDisplayStart);
         resolve();
       });
     });
+  }
+
+
+  calculateAndDisplayRoute(userPoint, firstPoint, lastPoint, directionsDisplay) {
+    this.directionsService.route({
+      origin: userPoint,
+      destination: firstPoint,
+      // Note that Javascript allows us to access the constant
+      // using square brackets and a string value as its
+      // "property."
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status == 'OK') {
+       directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+    this.createMarker(firstPoint, 'Début activité', 'http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    this.createMarker(lastPoint, 'Fin activité', 'http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+  }
+
+  createMarker(latlng, title, icon) {
+
+    let marker = new google.maps.Marker({
+      position: latlng,
+      title: title,
+      map: this.map,
+      icon: icon
+    });
+
+    this.addInfoWindow(marker, title);
   }
 }
