@@ -9,10 +9,6 @@
 <ion-content padding>
 
   <div #map id="map"></div>
-    <h6>Point vert</h6>: Départ de l'activité <br>
-    <h6>Point rouge</h6>: Fin de l'activité <br>
-    <h6>Trajet vert</h6>: Trajet vers le début de l'activité <br>
-    <h6>Trajet organge</h6>: Trajet vers ma localisation préférée <br>
 
   <ion-item>
     <ion-icon name='calendar' item-start></ion-icon>
@@ -22,8 +18,8 @@
   </ion-item>
 
   <ion-item>
-      <ion-icon name='flag' item-start></ion-icon>
-      {{activity.distancePrevue}} km
+    <ion-icon name='flag' item-start></ion-icon>
+    {{activity.distancePrevue}} km
   </ion-item>
 
   <ion-item>
@@ -32,18 +28,54 @@
   </ion-item>
 
   <ion-item>
-      <ion-icon name='compass' item-start></ion-icon>
-      {{activity.centreInteret.name}}
+    <ion-icon name='compass' item-start></ion-icon>
+    {{activity.centreInteret.name}}
   </ion-item>
 
   <ion-item>
-      <ion-icon name='walk' item-start></ion-icon>
-      {{activity.sport.nom}}
+    <ion-icon name='walk' item-start></ion-icon>
+    {{activity.sport.nom}}
   </ion-item>
 
   <ion-item>
-      <ion-icon name='flame' item-start></ion-icon>
-      {{kcal}} kcal
+    <ion-icon name='flame' item-start></ion-icon>
+    {{kcal}} kcal
   </ion-item>
+
+  <br>
+  <ion-row>
+    <ion-col>
+      <strong>Point vert</strong>
+    </ion-col>
+    <ion-col>
+      Départ de l'activité
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <strong>Point rouge</strong>
+    </ion-col>
+    <ion-col>
+      Fin de l'activité
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <strong>Trajet vert</strong>
+    </ion-col>
+    <ion-col>
+      Trajet vers le début de l'activité
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <strong>Trajet orange</strong>
+    </ion-col>
+    <ion-col>
+      Trajet vers ma localisation préférée
+    </ion-col>
+  </ion-row>
 
 </ion-content>
+
+
